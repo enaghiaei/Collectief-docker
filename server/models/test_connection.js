@@ -10,13 +10,13 @@ exports.test_connection = function (token,res0) {
     const sshClient = new Client();
     const dbServer = {
         host: 'localhost',
-        port: '3306',
+        port: '3307',
         user: 'reader',
         password: 'collectief2023',
         database: 'LSI_test_db'
     }
     var con = mysql.createConnection({
-        host: "mysql_db", port:"3306",
+        host: "mysql_db", port:"3307",
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -35,9 +35,9 @@ exports.test_connection = function (token,res0) {
     }
     const forwardConfig = {
         srcHost: '127.0.0.1',
-        srcPort: 3306,
+        srcPort: 3307,
         dstHost: '127.0.0.1',
-        dstPort: 3306
+        dstPort: 3307
     };
     const SSHConnection = new Promise((resolve, reject) => {
         sshClient.on('ready', () => {

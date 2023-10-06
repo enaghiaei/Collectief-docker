@@ -16,7 +16,7 @@ exports.create = function (req,ip,res0) {
     var token_list = [];
     
     var con = mysql.createConnection({
-        host: "mysql_db", port:"3306",
+        host: "mysql_db", port:"3307",
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name

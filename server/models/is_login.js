@@ -8,7 +8,7 @@ var mysql = require('mysql2/promise');
 //console.log(config);
 console.log(global.config);
 /*var con = mysql.createConnection({
-    host: "mysql_db", port:"3306",
+    host: "mysql_db", port:"3307",
     user: global.config.vals.database.user,
     password: global.config.vals.database.password,
     database: global.config.vals.database.name
@@ -23,7 +23,7 @@ var config = {
     instancename:  'SQLEXPRESS'  // SQL Server instance name
   },
   database: global.config.vals.database.name,
-  port: 3306
+  port: 3307
 };
 var result1 = [];
 var stat = false;
@@ -31,7 +31,7 @@ var login_time = Math.floor(new Date().getTime() / 1000);
 /*
 async function check_(post,res1) {
     var conn = await mysql.createConnection({
-        host: "mysql_db", port:"3306",
+        host: "mysql_db", port:"3307",
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -91,7 +91,7 @@ exports.check_ = function (token,res1) {
     var config = require('../config/config.js');
    //console.log("xxx")
     var con = mysql.createConnection({
-        host: "mysql_db", port:"3306",
+        host: "mysql_db", port:"3307",
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name

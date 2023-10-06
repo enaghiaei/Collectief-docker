@@ -4,7 +4,7 @@ function createPool() {
       const mysql = require('mysql2');
   
       const pool = mysql.createPool({
-        host: "mysql_db", port:"3306",
+        host: "mysql_db", port:"3307",
           user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name,

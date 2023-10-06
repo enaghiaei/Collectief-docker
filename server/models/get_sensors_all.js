@@ -15,7 +15,7 @@ async function get_sensors_all(token,res0) {
 
     let [rows, fields] = [[], []];
     var con = await mysql.createConnection({
-        host: "mysql_db", port:"3306",
+        host: "mysql_db", port:"3307",
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name

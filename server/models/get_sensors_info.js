@@ -16,7 +16,7 @@ async function get_sensors_info(token,res0) {
     let [rows2, fields2] = [[], []];
     //let [rows2_0, fields2_0] = [[], []];
     var con = await mysql.createConnection({
-        host: "mysql_db", port:"3306",
+        host: "mysql_db", port:"3307",
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name

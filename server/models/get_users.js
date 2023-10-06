@@ -7,7 +7,7 @@ exports.get_users = function (token,res0) {
     var result1=false;
     var mysql = require('mysql2'); var config = require('../config/config.js');
     var con = mysql.createConnection({
-        host: "mysql_db", port:"3306",
+        host: "mysql_db", port:"3307",
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
