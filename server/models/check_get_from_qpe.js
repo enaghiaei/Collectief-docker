@@ -12,6 +12,8 @@ async  function check_get_from_qpe (token, res0) {
         var y = Date.now();
        //console.log("x",x)
        //console.log("y", y)
+        if (x == "")
+            x = 0;
         if (y - x > 10000) {
             //var contents = fs.readFileSync('https://tracking.virtual.se:3002/get_data_from_qpe').toString();
             fetch('http://tracking.virtual.se:3002/get_data_from_qpe', {

@@ -309,7 +309,7 @@ class Scheduling_edit extends React.Component {
     get_schedules() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_schedules', {
             method: 'POST',
             headers: {
@@ -324,13 +324,13 @@ class Scheduling_edit extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
-                   //console.log(JSON.parse(result.result[0].sce))
+                    console.log(result.result)
+                    console.log(JSON.parse(result.result[0].sce))
                     var sc_tmp = [];
                     for (var key in result.result) {
                         if (sc_tmp[key].id == edit_id) {
-                           //console.log(key)
-                           //console.log(result.result[key].sce)
+                            console.log(key)
+                            console.log(result.result[key].sce)
                             sc_tmp[key] = JSON.parse(result.result[key].sce)
                             sc_tmp[key].id = result.result[key].id
                         }
@@ -340,7 +340,7 @@ class Scheduling_edit extends React.Component {
                     }
                     );
                     this.editSchedule(edit_id);
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -361,7 +361,7 @@ class Scheduling_edit extends React.Component {
     delete_schedule(id) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/delete_schedule', {
             method: 'POST',
             headers: {
@@ -376,7 +376,7 @@ class Scheduling_edit extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
+                    console.log(result)
                     if (result.message == "1") {
                         //console.log(result.result[0].sc_schedule)
                         var sc_tmp = [];
@@ -394,7 +394,7 @@ class Scheduling_edit extends React.Component {
                             schedules: sc_tmp
                         })
                     }
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -414,7 +414,7 @@ class Scheduling_edit extends React.Component {
     save_schedules(schedule,index) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/save_schedules', {
             method: 'POST',
             headers: {
@@ -429,14 +429,14 @@ class Scheduling_edit extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
-                   //console.log(result.token)
+                    console.log(result)
+                    console.log(result.token)
                     schedule[index].id = result.token
                     this.setState({
                         schedules: schedule
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -716,7 +716,7 @@ class Scheduling_edit extends React.Component {
             parts[index].mode = current_mode;
             parts[index].key = current_day;
             parts[index].title = current_title;
-          //console.log("inja========",parts);
+           console.log("inja========",parts);
             var start = parseInt(parts[index].start);
             var end = parseInt(parts[index].end);
             var x_new = []
@@ -1246,7 +1246,7 @@ class Scheduling_edit extends React.Component {
     }
     renderTemplateOptions() {
         var context1 = this;
-       //console.log("templates",template)
+        console.log("templates",template)
         return template.map(function (o, key) {
            ////console.log(context.state.temlate[key].position)
             return (
@@ -1260,8 +1260,8 @@ class Scheduling_edit extends React.Component {
     }
 
     editSchedule(id, key) {
-       //console.log("edit")
-       //console.log(this.state.schedules[key].parts)
+        console.log("edit")
+        console.log(this.state.schedules[key].parts)
         const parts_tmp = this.state.parts;
         if (current_value2 != current_value) {
             // parts_tmp = [{}]
@@ -1350,7 +1350,7 @@ class Scheduling_edit extends React.Component {
     listSchedule() {
 
         var context1 = this;
-       //console.log("schedules:::",this.state.schedules)
+        console.log("schedules:::",this.state.schedules)
         return this.state.schedules.map(function (o, key) {
             ////console.log(context.state.temlate[key].position)
             return (
@@ -1387,9 +1387,9 @@ class Scheduling_edit extends React.Component {
 
 
     setTemplateType(value) {
-      //console.log("value=========", value);
+       console.log("value=========", value);
        //console.log(template)
-      //console.log(template[value].parts)
+       console.log(template[value].parts)
         this.setState({
 
             parts: template[value].parts,
@@ -1404,9 +1404,9 @@ class Scheduling_edit extends React.Component {
     }
 
     setSensorType(value) {
-       //console.log("value=========", value);
+        console.log("value=========", value);
         //console.log(template)
-       //console.log("sensor_type",sensor_type[value])
+        console.log("sensor_type",sensor_type[value])
         this.setState({
 
 
@@ -1436,8 +1436,8 @@ class Scheduling_edit extends React.Component {
 
     saveNewTemplate() {
         const x = template;
-       //console.log(x)
-      //console.log(template)
+        console.log(x)
+       console.log(template)
         if (current_title === "" || this.state.current_sensor_type == "") {
             if (current_title === "")
             toast.error('Please enter Schedule name ', {
@@ -1464,7 +1464,7 @@ class Scheduling_edit extends React.Component {
             
             //alert(index)
             const x = this.state.parts
-           //console.log(x)
+            console.log(x)
             var schedule = this.state.schedules
             var index = schedule.length
             schedule[index] = {}

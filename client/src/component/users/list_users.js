@@ -44,7 +44,7 @@ class List_users extends React.Component {
 
       if(token != ""){
       var credentials = {token:token};
-     //console.log(credentials);
+      console.log(credentials);
       return fetch('http://'+global.config.vals.root.ip+':3002/is_login', {
         method: 'POST',
         headers: {
@@ -59,7 +59,7 @@ class List_users extends React.Component {
               isLoaded: true,
               items: result.items
             });*/
-           //console.log(result);
+            console.log(result);
             if(result.message === "1"){   
 
               return true;                 
@@ -100,7 +100,7 @@ class List_users extends React.Component {
     users() {
       const cookies = new Cookies();
       //cookies.set('token', result.token, { path: '/' });
-     //console.log("cookies="+cookies.get('token'));
+      console.log("cookies="+cookies.get('token'));
       return fetch('http://'+global.config.vals.root.ip+':3002/get_users', {
         method: 'POST',
         headers: {
@@ -120,7 +120,7 @@ class List_users extends React.Component {
               loading:"d-none"
             }
             );
-           //console.log(result);
+            console.log(result);
             //this.renderRows();
             //this.renderRows();
   
@@ -141,7 +141,7 @@ class List_users extends React.Component {
       var context = this; 
       return  this.state.items.map(function(o, i) {
           var x = context.state.items[i].created_at.split("T");
-         //console.log(context.state.items[i])
+          console.log(context.state.items[i])
           var user_type = "";
           for (var key in context.state.user_types) {
               if (context.state.user_types[key].id == context.state.items[i].user_type) {
@@ -224,7 +224,7 @@ class List_users extends React.Component {
     }
 
    /* renderRows(){
-     //console.log("renderRows");
+      console.log("renderRows");
       this.createRow();
     }*/
 

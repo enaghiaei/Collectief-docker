@@ -65,7 +65,7 @@ class Create_users extends React.Component {
 
         if (token != "") {
             var credentials = { token: token };
-           //console.log(credentials);
+            console.log(credentials);
             return fetch('http://' + global.config.vals.root.ip + ':3002/is_login', {
                 method: 'POST',
                 headers: {
@@ -80,8 +80,8 @@ class Create_users extends React.Component {
                           isLoaded: true,
                           items: result.items
                         });*/
-                       //console.log(result);
-                       //console.log("message=" + result.message);
+                        console.log(result);
+                        console.log("message=" + result.message);
                         //alert(result.message)
                         if (result.message === 1) {
                             //alert(result.name)
@@ -115,7 +115,7 @@ class Create_users extends React.Component {
 
 
                         }
-                       //console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+                        console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
 
                         //if(result.message == "1")
                         //  window.location.href = "/dashboard";
@@ -202,7 +202,7 @@ class Create_users extends React.Component {
     create_user(){
       const cookies = new Cookies();
       //cookies.set('token', result.token, { path: '/' });
-     //console.log("cookies="+cookies.get('token'));
+      console.log("cookies="+cookies.get('token'));
       if(this.checkForm()){
         this.setState({token: cookies.get('token')})
       return fetch('http://'+global.config.vals.root.ip+':3002/create_user', {
@@ -382,7 +382,7 @@ class Create_users extends React.Component {
     getClusters() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location_', {
             method: 'POST',
             headers: {
@@ -397,7 +397,7 @@ class Create_users extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -414,7 +414,7 @@ class Create_users extends React.Component {
                         locationClusters: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -435,7 +435,7 @@ class Create_users extends React.Component {
     getBuildings() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location_', {
             method: 'POST',
             headers: {
@@ -450,7 +450,7 @@ class Create_users extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -467,7 +467,7 @@ class Create_users extends React.Component {
                         locationBuildings: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -488,7 +488,7 @@ class Create_users extends React.Component {
     getUnits() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location_', {
             method: 'POST',
             headers: {
@@ -503,7 +503,7 @@ class Create_users extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -520,7 +520,7 @@ class Create_users extends React.Component {
                         locationUnits: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -541,7 +541,7 @@ class Create_users extends React.Component {
   
     render() {
       var ch = new CheckLogin1();
-     //console.log("user=="+ch.check_token());
+      console.log("user=="+ch.check_token());
       if(!ch.check_token()){
           window.location.href = "/";
           return false;

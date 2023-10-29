@@ -130,13 +130,13 @@ class Home extends React.Component {
     }
 
     /* renderRows(){
-      //console.log("renderRows");
+       console.log("renderRows");
        this.createRow();
      }*/
     sensors() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensors', {
             method: 'POST',
             headers: {
@@ -157,7 +157,7 @@ class Home extends React.Component {
                         loading0: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -177,7 +177,7 @@ class Home extends React.Component {
     sensors_type() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensors_type', {
             method: 'POST',
             headers: {
@@ -197,7 +197,7 @@ class Home extends React.Component {
                         loading2: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -218,7 +218,7 @@ class Home extends React.Component {
     temperature() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_temperature', {
             method: 'POST',
             headers: {
@@ -268,7 +268,7 @@ class Home extends React.Component {
                         top_boxes_all[l].measure_name = zzz[key]
                         top_boxes_all[l].av = "-"
                     }
-                   //console.log("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",zzz)
+                    console.log("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",zzz)
                     //alert(result.result[0].av)
                     this.setState({
                         temperature: result.result[0].av.toFixed(2),
@@ -276,7 +276,7 @@ class Home extends React.Component {
                         top_boxes_all: top_boxes_all
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -315,9 +315,9 @@ class Home extends React.Component {
     chooseOperation(e) {
         //alert($("#box_function").val())
         var box_function = $("#box_function").val()
-       //console.log("box_function", box_function)
+        console.log("box_function", box_function)
         if (box_function == 0) {
-           //console.log("h0")
+            console.log("h0")
             $("#level4").addClass("d-none")
             $("#level3").removeClass("d-none")
             $("#level2").removeClass("d-none")
@@ -325,7 +325,7 @@ class Home extends React.Component {
             $("#level11").removeClass("d-none")
         }
         else if (box_function == 1) {
-           //console.log("h1")
+            console.log("h1")
             $("#level4").removeClass("d-none")
             $("#level3").addClass("d-none")
             $("#level2").addClass("d-none")
@@ -418,7 +418,7 @@ class Home extends React.Component {
         $("#row").val(row)
         $("#col").val(col)
         $("#edit").val(edit)
-       //console.log("edittttttttttttt",edit)
+        console.log("edittttttttttttt",edit)
        
        
 
@@ -433,7 +433,7 @@ class Home extends React.Component {
             }
             var g = (index) + (col);
             var x = this.state.boxes_new[g].type
-           //console.log("editttttttttttttxxxxxxxxxxxxxx", x)
+            console.log("editttttttttttttxxxxxxxxxxxxxx", x)
             $("#box_function").val(x.function)
             $("#box_chart").val(x.chart)
             $("#box_parametr").val(x.parametr)
@@ -520,7 +520,7 @@ class Home extends React.Component {
     temperature_per_hour() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/temperature_per_hour', {
             method: 'POST',
             headers: {
@@ -536,15 +536,15 @@ class Home extends React.Component {
                       items: result.items
                     });*/
                     // Temperature (℃) per hour
-                   //console.log(result.result);
+                    console.log(result.result);
                     var data5 = [];
                     var i = 0;
                     
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_max"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -568,9 +568,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -591,9 +591,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_min"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -614,14 +614,14 @@ class Home extends React.Component {
 
                     
 
-                   //console.log("data5",data5)
+                    console.log("data5",data5)
                     this.setState({
                         
                         data5: data5,
                         loading4: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -643,7 +643,7 @@ class Home extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/humidity_per_hour', {
             method: 'POST',
             headers: {
@@ -659,15 +659,15 @@ class Home extends React.Component {
                       items: result.items
                     });*/
                     // Temperature (℃) per hour
-                   //console.log(result.result);
+                    console.log(result.result);
                     var data5 = [];
                     var i = 0;
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_max"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -691,9 +691,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -714,9 +714,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_min"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -737,14 +737,14 @@ class Home extends React.Component {
 
 
 
-                   //console.log("data5", data5)
+                    console.log("data5", data5)
                     this.setState({
 
                         data7: data5,
                         loading4: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -767,7 +767,7 @@ class Home extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/pm_per_hour', {
             method: 'POST',
             headers: {
@@ -783,15 +783,15 @@ class Home extends React.Component {
                       items: result.items
                     });*/
                     // Temperature (℃) per hour
-                   //console.log(result.result);
+                    console.log(result.result);
                     var data5 = [];
                     var i = 0;
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_max"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -816,9 +816,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -840,9 +840,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_min"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -863,14 +863,14 @@ class Home extends React.Component {
 
 
 
-                   //console.log("data88888888888888888888888888888888888", data5)
+                    console.log("data88888888888888888888888888888888888", data5)
                     this.setState({
 
                         data8: data5,
                         loading4: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -891,7 +891,7 @@ class Home extends React.Component {
     pressure_per_hour() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/pressure_per_hour', {
             method: 'POST',
             headers: {
@@ -906,13 +906,13 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result);
+                    console.log(result.result);
                     var data5 = [];
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[key] = {};
                                 data5[key].year = result.result[key][key2]["range_title"];
@@ -930,9 +930,9 @@ class Home extends React.Component {
                     var i = 0;
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -953,9 +953,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_max"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -976,9 +976,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                           //console.log(key)
-                           //console.log(result.result[key])
-                           //console.log(result.result[key][key2])
+                            console.log(key)
+                            console.log(result.result[key])
+                            console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_min"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -997,14 +997,14 @@ class Home extends React.Component {
                         
                     }
 
-                   //console.log(data5)
+                    console.log(data5)
                     this.setState({
 
                         data6: data5,
                         loading6: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -1024,7 +1024,7 @@ class Home extends React.Component {
     locations() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_locations', {
             method: 'POST',
             headers: {
@@ -1044,7 +1044,7 @@ class Home extends React.Component {
                         loading1: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -1084,7 +1084,7 @@ class Home extends React.Component {
     show_sensor_data(serial_id) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensor_data', {
             method: 'POST',
             headers: {
@@ -1103,7 +1103,7 @@ class Home extends React.Component {
                     $(".serials_detail2").removeClass("d-none");
                     $(".serials_detail3").removeClass("d-none");
                     var str = ``;
-                   //console.log(result);
+                    console.log(result);
                     for (var key in result.result) {
                         var x = "";
                         if (result.result[key].measure_kind === "Lux") {
@@ -1172,7 +1172,7 @@ class Home extends React.Component {
     get_boxes() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_boxes', {
             method: 'POST',
             headers: {
@@ -1187,7 +1187,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     var x = []
                     var y = []
@@ -1196,7 +1196,7 @@ class Home extends React.Component {
                         //console.log(key)
                         //console.log(result.result[key].sce)
                         //nt_tmp[key] = JSON.parse(result.result[key].sce)
-                       //console.log("cb_default=====", result.result[key].cb_default)
+                        console.log("cb_default=====", result.result[key].cb_default)
                         if (parseInt(result.result[key].cb_default) == 1) {
                             var l = nt_tmp.length
                             nt_tmp[l] = {};
@@ -1222,8 +1222,8 @@ class Home extends React.Component {
                     }
 
                     var rows_new = [];
-                   //console.log("nt_tmp", nt_tmp)
-                   //console.log("rows", rows)
+                    console.log("nt_tmp", nt_tmp)
+                    console.log("rows", rows)
                     for (var key in x) {
                         if (!rows_new[x[key].row]) {
                             rows_new[x[key].row] = {}
@@ -1242,7 +1242,7 @@ class Home extends React.Component {
                     );
                     $("#boxes").val(JSON.stringify(this.state.boxes_new))
                     $("#boxes_top").val(JSON.stringify(this.state.top_boxes))
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -1263,7 +1263,7 @@ class Home extends React.Component {
     listBoxes() {
 
         var context1 = this;
-       //console.log("notification:::", this.state.notification)
+        console.log("notification:::", this.state.notification)
         //{notification_operation[context1.state.boxes[key].operation]} {context1.state.boxes[key].value} {notification_unit[context1.state.boxes[key].type]}
             return this.state.rows.map(function (o, key) {
             ////console.log(context.state.temlate[key].position)
@@ -1301,12 +1301,12 @@ class Home extends React.Component {
         var col = parseInt($("#col").val())
         var row = parseInt($("#row").val())
         var boxes_new = this.state.boxes_new;
-       //console.log("row", row)
-       //console.log("col", col)
-       //console.log("boxes_new_old", boxes_new)
+        console.log("row", row)
+        console.log("col", col)
+        console.log("boxes_new_old", boxes_new)
         
         var rows_new = this.state.rows_new;
-       //console.log("rows_new_old", rows_new)
+        console.log("rows_new_old", rows_new)
         //var rows = this.state.rows;
         var index = 0;
         for (var key in rows_new) {
@@ -1330,10 +1330,10 @@ class Home extends React.Component {
                 }
             }
         }
-       //console.log("rows_new", rows_new)
+        console.log("rows_new", rows_new)
         var g = (index) + (col);
-       //console.log("g==", g)
-       //console.log("index", index)
+        console.log("g==", g)
+        console.log("index", index)
         if (index == 0) {
             g = (col);
         }
@@ -1346,10 +1346,10 @@ class Home extends React.Component {
     }
 
     addItemHorizontal(row) {
-       //console.log("ROW === " , row)
+        console.log("ROW === " , row)
         // newRows
         var rows_new = this.state.rows_new;
-       //console.log("rows_new.length", rows_new.length)
+        console.log("rows_new.length", rows_new.length)
         var x = "";
         var nboxes = $("#nboxes").val();
         var column = parseInt($("#nboxes").val());
@@ -1363,7 +1363,7 @@ class Home extends React.Component {
         var split_array = []
         var split_array2 = []
         var flag = 1;
-       //console.log("boxes_old", boxes_new)
+        console.log("boxes_old", boxes_new)
         for (var k = 0; k < boxes_new.length; k++) {
             if (flag == 1) {
                 split_array[k] = boxes_new[k]
@@ -1390,26 +1390,26 @@ class Home extends React.Component {
             } else {
                 split_array2[split_array2.length] = boxes_new[k]
             }
-           //console.log("flag", flag)
+            console.log("flag", flag)
         }
-       //console.log("split_array2", split_array2)
-       //console.log("split_array", split_array)
+        console.log("split_array2", split_array2)
+        console.log("split_array", split_array)
         var split_array3 = split_array.concat(split_array2);
-       //console.log("split_array3", split_array3)
+        console.log("split_array3", split_array3)
         $("#boxes").val(JSON.stringify(split_array3))
-       //console.log("boxes_new", boxes_new)
+        console.log("boxes_new", boxes_new)
         this.setState({
             boxes_new: split_array3,
             rows_new: rows_new
         })
-       //console.log("nboxes", nboxes)
+        console.log("nboxes", nboxes)
         var wAll = 90
         if (nboxes == 1) {
             wAll = 90
         }
         var width = wAll / parseInt(nboxes)
         var w = (width) + ""
-       //console.log("width", width)
+        console.log("width", width)
         var container = "";
         if (column === 1) {
             container = "container_c0"
@@ -1434,7 +1434,7 @@ class Home extends React.Component {
             //x += '<div className="' + container + '" style="width:' + w + '%">' + '</div>';
         }
 
-       //console.log(x)
+        console.log(x)
      }
         //$("#newRows").append('<div class="container_main mt-3">' + x + '</div>')
         //this.closeModal()
@@ -1448,7 +1448,7 @@ class Home extends React.Component {
         //alert(token)
         if (token != "" && token) {
             var credentials = { token: token };
-           //console.log(credentials);
+            console.log(credentials);
             return fetch('http://' + global.config.vals.root.ip + ':3002/is_login', {
                 method: 'POST',
                 headers: {
@@ -1463,8 +1463,8 @@ class Home extends React.Component {
                           isLoaded: true,
                           items: result.items
                         });*/
-                       //console.log(result);
-                       //console.log("message=" + result.message);
+                        console.log(result);
+                        console.log("message=" + result.message);
                         if (result.message === 1) {
                             this.setState({ fullname: result.name, is_login:true })
                             return true;
@@ -1472,7 +1472,7 @@ class Home extends React.Component {
                         }
                         else if (result.message === 0) {
 
-                           //console.log("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                            console.log("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                             const cookies = new Cookies();
                             cookies.remove('token');
                             window.location.href = "/";
@@ -1482,7 +1482,7 @@ class Home extends React.Component {
                         } else {
 
                         }
-                       //console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+                        console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
 
                         //if(result.message == "1")
                         //  window.location.href = "/dashboard";
@@ -1512,12 +1512,12 @@ class Home extends React.Component {
         //var col = parseInt($("#col").val())
         //var row = parseInt($("#row").val())
         var boxes_new = this.state.boxes_new;
-       //console.log("row", row)
+        console.log("row", row)
         //console.log("col", col)
-       //console.log("boxes_new_old", boxes_new)
+        console.log("boxes_new_old", boxes_new)
 
         var rows_new = this.state.rows_new;
-       //console.log("rows_new_old", rows_new)
+        console.log("rows_new_old", rows_new)
         //var rows = this.state.rows;
         var index = 0;
         for (var key in rows_new) {
@@ -1541,10 +1541,10 @@ class Home extends React.Component {
                 }
             }
         }*/
-       //console.log("rows_new", rows_new)
+        console.log("rows_new", rows_new)
         /*var g = (index) + (col);
-       //console.log("g==", g)
-       //console.log("index", index)
+        console.log("g==", g)
+        console.log("index", index)
         if (index == 0) {
             g = (col);
         }
@@ -1566,15 +1566,15 @@ class Home extends React.Component {
         $('#box_value_type :selected').each(function () {
             selected2[$(this).val()] = $(this).text();
         });
-       //console.log(selected);
-       //console.log(selected2);
+        console.log(selected);
+        console.log(selected2);
         var box_function = parseInt($("#box_function").val())
         var box_chart = parseInt($("#box_chart").val())
         var box_parametr = parseInt($("#box_parametr").val())
 
         var box_value_type = selected2
         var box_other = parseInt($("#box_other").val())
-       //console.log("box_parametr", box_parametr)
+        console.log("box_parametr", box_parametr)
         var box_title = $("#box_title").val()
         var location = $("#location_s").val()
         var col = parseInt($("#col").val())
@@ -1591,13 +1591,13 @@ class Home extends React.Component {
         for (var key in this.state.location_title) {
             if (parseInt(this.state.location_title[key].id) === parseInt(location)) {
                 location_title = this.state.location_title[key].title
-               //console.log("location_title", location_title)
+                console.log("location_title", location_title)
             }
         }
-       //console.log("xxxxxxxxxxxx",x)
-       //console.log("row",row)
-       //console.log("col",col)
-       //console.log("boxes_new_old", boxes_new)
+        console.log("xxxxxxxxxxxx",x)
+        console.log("row",row)
+        console.log("col",col)
+        console.log("boxes_new_old", boxes_new)
         var rows_new = this.state.rows_new;
         //var rows = this.state.rows;
         var index = 0;
@@ -1607,8 +1607,8 @@ class Home extends React.Component {
             }
         }
         var g = (index) + (col);
-       //console.log("g==", g)
-       //console.log("index", index)
+        console.log("g==", g)
+        console.log("index", index)
         if (index == 0)
         {
             g = (col);
@@ -1627,7 +1627,7 @@ class Home extends React.Component {
         }
         boxes_new[g].title = box_title;
         
-       //console.log("boxes_new",boxes_new)
+        console.log("boxes_new",boxes_new)
         this.setState({
             boxes_new: boxes_new
         })
@@ -1645,8 +1645,8 @@ class Home extends React.Component {
         var box_parametr = parseInt($("#box_parametr_2").val())
         var box_title = $("#box_title_2").val()
         
-       //console.log("box_parametr", box_parametr)
-       //console.log("Top", this.state.top_boxes_all)
+        console.log("box_parametr", box_parametr)
+        console.log("Top", this.state.top_boxes_all)
         var x = this.state.top_boxes;
          
         for (var key in this.state.top_boxes_all) {
@@ -1806,7 +1806,7 @@ class Home extends React.Component {
     addBoxes() {
         // newRows
         var rows_new = this.state.rows_new;
-       //console.log("rows_new.length", rows_new.length)
+        console.log("rows_new.length", rows_new.length)
         var x = "";
         var nboxes = 1;
         var column = parseInt(1);
@@ -1830,14 +1830,14 @@ class Home extends React.Component {
             boxes_new: boxes_new,
             rows_new: rows_new
         })
-       //console.log("nboxes", nboxes)
+        console.log("nboxes", nboxes)
         var wAll = 90
         if (nboxes == 1) {
             wAll = 90
         }
         var width = wAll / parseInt(nboxes)
         var w = (width) + ""
-       //console.log("width", width)
+        console.log("width", width)
         var container = "";
         if (column === 1) {
             container = "container_c0"
@@ -1861,7 +1861,7 @@ class Home extends React.Component {
             x += '<div class="' + container + '">' + '' + '</div>';
             //x += '<div className="' + container + '" style="width:' + w + '%">' + '</div>';
         }
-       //console.log(x)
+        console.log(x)
         //$("#newRows").append('<div class="container_main mt-3">' + x + '</div>')
         this.closeModal()
     }
@@ -1873,7 +1873,7 @@ class Home extends React.Component {
     listBoxesNew() {
 
         var context1 = this;
-       //console.log(this.state.rows_new)
+        console.log(this.state.rows_new)
         //console.log("notification:::", this.state.notification)
         //{notification_operation[context1.state.boxes[key].operation]} {context1.state.boxes[key].value} {notification_unit[context1.state.boxes[key].type]}
        
@@ -1925,7 +1925,7 @@ class Home extends React.Component {
     get_location() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location', {
             method: 'POST',
             headers: {
@@ -1940,7 +1940,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -1956,7 +1956,7 @@ class Home extends React.Component {
                         location_title: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -1989,9 +1989,9 @@ class Home extends React.Component {
     renderColumnsNew(key2) {
        
         var context1 = this;
-       //console.log(key2)
-       //console.log("boxes_new----------------------------------",context1.state.boxes_new)
-       //console.log("notification:::", this.state.notification)
+        console.log(key2)
+        console.log("boxes_new----------------------------------",context1.state.boxes_new)
+        console.log("notification:::", this.state.notification)
         var column = this.state.rows_new[key2].c;
         var container = "";
         if (column === 1) {
@@ -2025,8 +2025,8 @@ class Home extends React.Component {
                 var x6 = context1.state.data6
                 var x7 = context1.state.data7
                 var x8 = context1.state.data8
-               //console.log("x555555555",x5)
-               //console.log("x888888888", x8)
+                console.log("x555555555",x5)
+                console.log("x888888888", x8)
                 var x5_new = [];
                 var x6_new = [];
                 var x7_new = [];
@@ -2050,10 +2050,10 @@ class Home extends React.Component {
                 }
 
                 for (var key3 in x7) {
-                   //console.log("loc_1*", x7[key3].category3)
-                   //console.log("loc_1#", context1.state.boxes_new[key].type.location)
+                    console.log("loc_1*", x7[key3].category3)
+                    console.log("loc_1#", context1.state.boxes_new[key].type.location)
                     if (context1.state.boxes_new[key].type && context1.state.boxes_new[key].type.value_type && context1.state.boxes_new[key].type.value_type.includes(x7[key3].category2) && parseInt(context1.state.boxes_new[key].type.location) === parseInt(x7[key3].category3)) {
-                       //console.log("&&&&&&&&&&&&&&&&&&&&&");
+                        console.log("&&&&&&&&&&&&&&&&&&&&&");
                         x7_new[x7_new.length] = x7[key3]
                     }
                 }
@@ -2065,8 +2065,8 @@ class Home extends React.Component {
                         x8_new[x8_new.length] = x8[key3]
                     }
                 }
-               //console.log("x555555555_new", x5_new)
-               //console.log("x888888888_new", x8_new)
+                console.log("x555555555_new", x5_new)
+                console.log("x888888888_new", x8_new)
                 if (context1.state.boxes_new[key].type.function == 1) {
 
                     
@@ -2474,8 +2474,8 @@ class Home extends React.Component {
 
     renderColumns(key2){
         var context1 = this;
-       //console.log(key2)
-       //console.log("notification:::", this.state.notification)
+        console.log(key2)
+        console.log("notification:::", this.state.notification)
         var column = this.state.rows[key2].c;
         var container = "";
         if (column === 1) {
@@ -2500,7 +2500,7 @@ class Home extends React.Component {
         return this.state.boxes.map(function (o, key) {
             ////console.log(context.state.temlate[key].position)
             var type = "";
-           //console.log("key--in",key)
+            console.log("key--in",key)
             if (context1.state.boxes[key].row === key2) {
                 if (context1.state.boxes[key].type === 0) {
                     return (
@@ -2616,7 +2616,7 @@ class Home extends React.Component {
    
     renderChart(data_tmp) {
         //+" ℃"
-       //console.log(this.state.data5);
+        console.log(this.state.data5);
         var config44 = {
             "data": data_tmp,
             xField: 'year',
@@ -2643,7 +2643,7 @@ class Home extends React.Component {
 
     renderChartColumn(data_tmp) {
         //+" ℃"
-       //console.log(this.state.data5);
+        console.log(this.state.data5);
         var config44 = {
             "data": data_tmp,
             xField: 'year',
@@ -2675,7 +2675,7 @@ class Home extends React.Component {
 
     renderChartBar(data_tmp) {
         //+" ℃"
-       //console.log(this.state.data5);
+        console.log(this.state.data5);
         var config44 = {
             "data": data_tmp,
             xField: 'value',
@@ -2705,7 +2705,7 @@ class Home extends React.Component {
 
 
     renderChart1() {
-       //console.log(this.state.data5);
+        console.log(this.state.data5);
        
     }
 

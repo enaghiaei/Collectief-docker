@@ -117,7 +117,7 @@ class Sri extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sri', {
             method: 'POST',
             headers: {
@@ -132,14 +132,14 @@ class Sri extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     var yyy = JSON.parse(result.result);
                     var total_building = 0;
                     var total_sri = 0;
                     var class_sri = "";
                     var index = 0;
-                   //console.log("yyy", yyy)
+                    console.log("yyy", yyy)
                     for (var key2 in yyy) {
                         var zzz = JSON.parse(yyy[key2].calculation_data);
                         if (zzz.chart) {
@@ -147,7 +147,7 @@ class Sri extends React.Component {
                             var xxx = zzz.chart;
                             total_sri = zzz.total_sri
                             class_sri = zzz.class_sri
-                           //console.log("xxx", xxx)
+                            console.log("xxx", xxx)
                             var i = 0;
                             total_building++;
                             if (!nt_tmp[index]) {
@@ -161,20 +161,20 @@ class Sri extends React.Component {
 
                         }
                     }
-                   //console.log("nt_tmp", nt_tmp)
+                    console.log("nt_tmp", nt_tmp)
                     for (var key in nt_tmp) {
                         //nt_tmp[key].value = nt_tmp[key].value / total_building;
                     }
                     //sri_title: "SRI",
                     //    sri_val: 0
-                   //console.log("nt_tmp", nt_tmp)
+                    console.log("nt_tmp", nt_tmp)
                     this.setState({
                         get_sri: nt_tmp,
                         nt_tmp: nt_tmp,
                         total_building: total_building,                      
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -297,7 +297,7 @@ class Sri extends React.Component {
                 return (< div style={{ "text-align": "center", "font-weight": "bold", "font-size": "25px", "letter-spacing": "4px" }} className='mt-5' > No Data</div >);
             }
         } catch (err) {
-           //console.log(err)
+            console.log(err)
         }
     }
 
@@ -329,7 +329,7 @@ class Sri extends React.Component {
         for (var key in this.state.assignment) {
             if (current_id_for_edit == this.state.assignment[key].id) {
                 //alert("*")
-               //console.log("sensor", this.state.assignment[key].sensor)
+                console.log("sensor", this.state.assignment[key].sensor)
                 //$("#sensor_e_e").val(parseInt(this.state.assignment[key].sensor))
                 //$("#location_s_e").val(parseInt(this.state.assignment[key].location))
                 current_sensor_id = this.state.assignment[key].sensor;
@@ -410,7 +410,7 @@ class Sri extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensors_all', {
             method: 'POST',
             headers: {
@@ -431,13 +431,13 @@ class Sri extends React.Component {
                         loading: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     var d = new Date();
                     var utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds());
                     let date = utcDate;
                     let today = date.toLocaleDateString();
 
-                   //console.log("today", today);
+                    console.log("today", today);
                     var s = date.getSeconds();
                     var m = date.getMinutes();
                     var h = date.getHours();
@@ -459,9 +459,9 @@ class Sri extends React.Component {
                         var utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds());
                         let date = utcDate;
                         let today = date.toLocaleDateString();
-                       //console.log("today", today)
+                        console.log("today", today)
                         var today_tmp = today.split("/");
-                       //console.log("today_tmp", today_tmp)
+                        console.log("today_tmp", today_tmp)
                         let today1 = today_tmp[0];
                         let today2 = today_tmp[1];
                         let today3 = today_tmp[2];
@@ -480,7 +480,7 @@ class Sri extends React.Component {
                             h = "0" + h;
                         }
 
-                       //console.log("x", x)
+                        console.log("x", x)
                         //let today = date.toLocaleTimeString();
 
                         var current_time = h + ":" + m + ":" + s;
@@ -508,7 +508,7 @@ class Sri extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/disconnect_sensor', {
             method: 'POST',
             headers: {
@@ -636,14 +636,14 @@ class Sri extends React.Component {
     }
 
     /* renderRows(){
-      //console.log("renderRows");
+       console.log("renderRows");
        this.createRow();
      }*/
 
     save_assign(schedule, index) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         if ($("#sensor_s").val() != "" && $("#location_s").val()) {
             return fetch('http://' + global.config.vals.root.ip + ':3002/save_assignment', {
                 method: 'POST',
@@ -659,7 +659,7 @@ class Sri extends React.Component {
                           isLoaded: true,
                           items: result.items
                         });*/
-                       //console.log(result)
+                        console.log(result)
                         for (var x = 1; x <= 5; x++) {
                             $("#id" + x).css("color", "gray");
                         }
@@ -722,7 +722,7 @@ class Sri extends React.Component {
        
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/edit_assignment', {
             method: 'POST',
             headers: {
@@ -737,7 +737,7 @@ class Sri extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
+                    console.log(result)
                     for (var x = 1; x <= 5; x++) {
                         $("#id" + x).css("color", "gray");
                     }
@@ -788,7 +788,7 @@ class Sri extends React.Component {
     get_location() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location', {
             method: 'POST',
             headers: {
@@ -803,7 +803,7 @@ class Sri extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -819,7 +819,7 @@ class Sri extends React.Component {
                         location_title: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -839,7 +839,7 @@ class Sri extends React.Component {
     get_assignment() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_assignment', {
             method: 'POST',
             headers: {
@@ -854,7 +854,7 @@ class Sri extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -872,7 +872,7 @@ class Sri extends React.Component {
                         assignment: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 

@@ -135,7 +135,7 @@ class Home_l1 extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensors_info', {
             method: 'POST',
             headers: {
@@ -156,13 +156,13 @@ class Home_l1 extends React.Component {
                         loading: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     var d = new Date();
                     var utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds());
                     let date = utcDate;
                     let today = date.toLocaleDateString();
                     
-                   //console.log("today", today);
+                    console.log("today", today);
                     var s = date.getSeconds();
                     var m = date.getMinutes();
                     var h = date.getHours();
@@ -184,9 +184,9 @@ class Home_l1 extends React.Component {
                         var utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds());
                         let date = utcDate;
                         let today = date.toLocaleDateString();
-                       //console.log("today",today)
+                        console.log("today",today)
                         var today_tmp = today.split("/");
-                       //console.log("today_tmp", today_tmp)
+                        console.log("today_tmp", today_tmp)
                         let today1 = today_tmp[0];
                         let today2 = today_tmp[1];
                         let today3 = today_tmp[2];
@@ -205,7 +205,7 @@ class Home_l1 extends React.Component {
                             h = "0" + h;
                         }
                         
-                       //console.log("x",x)
+                        console.log("x",x)
                         //let today = date.toLocaleTimeString();
                        
                         var current_time = h + ":" + m + ":" + s;
@@ -303,7 +303,7 @@ class Home_l1 extends React.Component {
     }
 
    /* renderRows(){
-     //console.log("renderRows");
+      console.log("renderRows");
       this.createRow();
     }*/
   

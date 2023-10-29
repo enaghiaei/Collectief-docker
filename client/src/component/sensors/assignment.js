@@ -137,7 +137,7 @@ class Assignment extends React.Component {
         for (var key in this.state.assignment) {
             if (current_id_for_edit == this.state.assignment[key].id) {
                 //alert("*")
-               //console.log("sensor", this.state.assignment[key].sensor)
+                console.log("sensor", this.state.assignment[key].sensor)
                 //$("#sensor_e_e").val(parseInt(this.state.assignment[key].sensor))
                 //$("#location_s_e").val(parseInt(this.state.assignment[key].location))
                 current_sensor_id = this.state.assignment[key].sensor;
@@ -218,7 +218,7 @@ class Assignment extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensors_all', {
             method: 'POST',
             headers: {
@@ -239,13 +239,13 @@ class Assignment extends React.Component {
                         loading: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     var d = new Date();
                     var utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds());
                     let date = utcDate;
                     let today = date.toLocaleDateString();
 
-                   //console.log("today", today);
+                    console.log("today", today);
                     var s = date.getSeconds();
                     var m = date.getMinutes();
                     var h = date.getHours();
@@ -267,9 +267,9 @@ class Assignment extends React.Component {
                         var utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds());
                         let date = utcDate;
                         let today = date.toLocaleDateString();
-                       //console.log("today", today)
+                        console.log("today", today)
                         var today_tmp = today.split("/");
-                       //console.log("today_tmp", today_tmp)
+                        console.log("today_tmp", today_tmp)
                         let today1 = today_tmp[0];
                         let today2 = today_tmp[1];
                         let today3 = today_tmp[2];
@@ -288,7 +288,7 @@ class Assignment extends React.Component {
                             h = "0" + h;
                         }
 
-                       //console.log("x", x)
+                        console.log("x", x)
                         //let today = date.toLocaleTimeString();
 
                         var current_time = h + ":" + m + ":" + s;
@@ -316,7 +316,7 @@ class Assignment extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/disconnect_sensor', {
             method: 'POST',
             headers: {
@@ -427,14 +427,14 @@ class Assignment extends React.Component {
     }
 
     /* renderRows(){
-      //console.log("renderRows");
+       console.log("renderRows");
        this.createRow();
      }*/
 
     save_assign(schedule, index) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         if ($("#sensor_s").val() != "" && $("#location_s").val()) {
             return fetch('http://' + global.config.vals.root.ip + ':3002/save_assignment', {
                 method: 'POST',
@@ -450,7 +450,7 @@ class Assignment extends React.Component {
                           isLoaded: true,
                           items: result.items
                         });*/
-                       //console.log(result)
+                        console.log(result)
                         for (var x = 1; x <= 5; x++) {
                             $("#id" + x).css("color", "gray");
                         }
@@ -513,7 +513,7 @@ class Assignment extends React.Component {
        
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/edit_assignment', {
             method: 'POST',
             headers: {
@@ -528,7 +528,7 @@ class Assignment extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
+                    console.log(result)
                     for (var x = 1; x <= 5; x++) {
                         $("#id" + x).css("color", "gray");
                     }
@@ -579,7 +579,7 @@ class Assignment extends React.Component {
     get_location() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location', {
             method: 'POST',
             headers: {
@@ -594,7 +594,7 @@ class Assignment extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -610,7 +610,7 @@ class Assignment extends React.Component {
                         location_title: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -630,7 +630,7 @@ class Assignment extends React.Component {
     get_assignment() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_assignment', {
             method: 'POST',
             headers: {
@@ -645,7 +645,7 @@ class Assignment extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -663,7 +663,7 @@ class Assignment extends React.Component {
                         assignment: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -757,7 +757,7 @@ class Assignment extends React.Component {
             return (<div className="main_panel">
                 <div className="container_main">
                     <div className="main_info">
-                        <div className="container_main_l1 text-center" style={{ "vertical-align": "middle" }}>
+                        <div className="text-center" style={{ "vertical-align": "middle" }}>
                             <div className="text-left mb-3">
                                 <button value="" onClick={(event) => this.openModal2()} className="p-2 pl-3 pr-4 mr-3 d-none" style={{ "background-color": "rgb(67, 120, 243)", "border-radius": "6px", "color": "white", "border": "0px" }}><FontAwesomeIcon icon={faPlus} className="arrow3" style={{ "color": "#fff", "position": "relative", "top": "1px", "width": "17px", "height": "17px" }} /> Create location </button>
                                 <button value="" onClick={(event) => this.openModal3()}  className="main_header_button"><FontAwesomeIcon icon={faExchange} className="icon-white" style={{  "position": "relative", "top": "1px", "width": "20px", "height": "20px" , "padding-right":"10px" }} /> Assign sensor </button>

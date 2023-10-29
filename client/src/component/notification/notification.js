@@ -67,7 +67,7 @@ class Notification extends React.Component {
     get_notification() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_notification', {
             method: 'POST',
             headers: {
@@ -82,7 +82,7 @@ class Notification extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};   
@@ -106,7 +106,7 @@ class Notification extends React.Component {
                         notification: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -126,7 +126,7 @@ class Notification extends React.Component {
     get_notification_types() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_notification_types', {
             method: 'POST',
             headers: {
@@ -141,7 +141,7 @@ class Notification extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -156,7 +156,7 @@ class Notification extends React.Component {
                         notification_types: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -176,7 +176,7 @@ class Notification extends React.Component {
     get_notification_messages() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_notification_messages', {
             method: 'POST',
             headers: {
@@ -191,7 +191,7 @@ class Notification extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -208,7 +208,7 @@ class Notification extends React.Component {
                         notification_messages: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -227,7 +227,7 @@ class Notification extends React.Component {
     get_notification_base() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_notification_base', {
             method: 'POST',
             headers: {
@@ -242,7 +242,7 @@ class Notification extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -258,7 +258,7 @@ class Notification extends React.Component {
                         notification_base: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -279,7 +279,7 @@ class Notification extends React.Component {
     get_notification_def() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_notification_def', {
             method: 'POST',
             headers: {
@@ -294,11 +294,11 @@ class Notification extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
-                       //console.log(key)
+                        console.log(key)
                         //console.log(result.result[key].sce)
                         //nt_tmp[key] = JSON.parse(result.result[key].sce)
                         nt_tmp[key].id = result.result[key].id
@@ -313,7 +313,7 @@ class Notification extends React.Component {
                         notification_def: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -335,7 +335,7 @@ class Notification extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         current_val = $(".inp").val()
         var url = ""
         if (stat_of_edit == 0) {
@@ -358,7 +358,7 @@ class Notification extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
+                    console.log(result)
                     for (var x = 1; x <= 5; x++) {
                         $("#id" + x).css("color", "gray");
                     }
@@ -398,14 +398,14 @@ class Notification extends React.Component {
 
 
     /* renderRows(){
-      //console.log("renderRows");
+       console.log("renderRows");
        this.createRow();
      }*/
 
     listNotification() {
 
         var context1 = this;
-       //console.log("notification:::", this.state.notification)
+        console.log("notification:::", this.state.notification)
         return this.state.notification.map(function (o, key) {
             ////console.log(context.state.temlate[key].position)
             var type = "";
@@ -469,7 +469,7 @@ class Notification extends React.Component {
         return this.state.notification_types.map(function (o, key) {
             ////console.log(context.state.temlate[key].position)
             var type = "";
-           ////console.log(context1.state.notification_base[key].type)
+           // console.log(context1.state.notification_base[key].type)
             return (
 
                 <div style={{ "text-align": "left", "width": "100%", "border-bottom": "2px solid #EDEDED", "display": "inline-table", "cursor": "pointer" }} onClick={(event) => (context1.setPage2(context1.state.notification_types[key].id))}>
@@ -495,13 +495,13 @@ class Notification extends React.Component {
 
     inc() {
         var x = $(".inp").val();
-       //console.log(x++)
+        console.log(x++)
         $(".inp").val((x++));
     }
 
     dec() {
         var x = $(".inp").val();
-       //console.log(x--)
+        console.log(x--)
         $(".inp").val((x--));
     }
 
@@ -687,7 +687,7 @@ class Notification extends React.Component {
     UpdateNotification(id, type) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         current_val = $(".inp").val()
 
         return fetch('http://' + global.config.vals.root.ip + ':3002/update_notification', {
@@ -704,7 +704,7 @@ class Notification extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
+                    console.log(result)
                     for (var x = 1; x <= 5; x++) {
                         $("#id" + x).css("color", "gray");
                     }
@@ -738,7 +738,7 @@ class Notification extends React.Component {
     UpdateNotificationCustom(id, type) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         current_val = $(".inp").val()
 
         return fetch('http://' + global.config.vals.root.ip + ':3002/update_notification_custom_stat', {
@@ -755,7 +755,7 @@ class Notification extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
+                    console.log(result)
                     for (var x = 1; x <= 5; x++) {
                        // $("#id" + x).css("color", "gray");
                     }
@@ -824,7 +824,7 @@ class Notification extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         current_val = $(".inp").val()
 
         return fetch('http://' + global.config.vals.root.ip + ':3002/delete_notification', {
@@ -842,7 +842,7 @@ class Notification extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
+                    console.log(result)
                     for (var x = 1; x <= 5; x++) {
                         $("#id" + x).css("color", "gray");
                     }

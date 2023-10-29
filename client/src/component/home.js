@@ -258,7 +258,7 @@ class Home extends React.Component {
 
         return (
             // Important! Always set the container height explicitly
-            <div style={{ height: '35vh', width: '92%' , position : 'relative' , left : '5px' }}>
+            <div style={{ height: '35vh', width: '98%' , position : 'relative' , left : '5px' }}>
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: "AIzaSyB5Kh6v1aSxzZKkwqMQRuwgony1HDJ0s80" }}
                     defaultCenter={defaultProps.center}
@@ -313,9 +313,9 @@ class Home extends React.Component {
         var context = this;
 
         return this.state.buildings.map(function (o, i) {
-           //console.log(context.state.buildings[i])
+            console.log(context.state.buildings[i])
             if (context.state.buildings[i].location.localeCompare("{}") < 0) {
-               //console.log(context.state.buildings[i].location)
+                console.log(context.state.buildings[i].location)
                 var x = JSON.parse(context.state.buildings[i].location)
                 if(context.state.current_location_id == i)
                     return (
@@ -337,7 +337,7 @@ class Home extends React.Component {
     getBuildings() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location_', {
             method: 'POST',
             headers: {
@@ -352,7 +352,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -367,13 +367,13 @@ class Home extends React.Component {
 
                     }
                     var x = JSON.parse(nt_tmp[0].location)
-                   //console.log("xxxxxxxxxxxxxxxxxxxxxxxxx",x)
+                    console.log("xxxxxxxxxxxxxxxxxxxxxxxxx",x)
                     this.get_weather2(x.lat, x.lng, 0, nt_tmp[0].title)
                     this.setState({
                         buildings: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -394,7 +394,7 @@ class Home extends React.Component {
     get_sri() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sri', {
             method: 'POST',
             headers: {
@@ -410,7 +410,7 @@ class Home extends React.Component {
                       items: result.items
                     });*/
                     try {
-                       //console.log(result.result)
+                        console.log(result.result)
                         var nt_tmp = [];
                         var yyy = JSON.parse(result.result);
                         var total_building = 0;
@@ -423,7 +423,7 @@ class Home extends React.Component {
                                 var xxx = zzz.chart;
                                 total_sri += parseInt(zzz.total_sri);
                                 class_sri = zzz.class_sri
-                               //console.log("xxx", xxx)
+                                console.log("xxx", xxx)
                                 var i = 0;
                                 total_building++;
                                 for (var key in xxx) {
@@ -447,15 +447,15 @@ class Home extends React.Component {
 
                             }
                         }
-                       //console.log("nt_tmp", nt_tmp)
-                       //console.log("total_building", total_building)
+                        console.log("nt_tmp", nt_tmp)
+                        console.log("total_building", total_building)
                         for (var key in nt_tmp) {
                             nt_tmp[key].value = parseInt((nt_tmp[key].value / total_building).toFixed(0));
                         }
                         //sri_title: "SRI",
                         //    sri_val: 0
                         var total_sri_mid = total_sri / total_building
-                       //console.log("nt_tmp", nt_tmp)
+                        console.log("nt_tmp", nt_tmp)
                         this.setState({
                             get_sri: nt_tmp,
                             total_building: total_building,
@@ -463,7 +463,7 @@ class Home extends React.Component {
                             sri_title: "CLASS " + class_sri
                         }
                         );
-                       //console.log(result);
+                        console.log(result);
                     } catch (error) {
 
                     }
@@ -2123,13 +2123,13 @@ class Home extends React.Component {
     list_sensors() {
         var context = this;
         return this.state.sensor_info.map(function (o, key) {
-            var connected = "Disconnected"
+            var connected = "Not Allocated"
             var status = "Sleep"
             var x = "day_stat_title";
             var x2 = "day_stat_title";
             for (var key2 in context.state.sensor_info_all) {
                 if (context.state.sensor_info_all[key2].sensor_serial == context.state.sensor_info[key] && context.state.sensor_info_all[key2].ca_deleted == 0 && context.state.sensor_info_all[key2].cb_deleted == 0) {
-                    connected = "Connected"
+                    connected = "Allocated"
                     x = "";
                     //status = "Alive"
                 }
@@ -2837,7 +2837,7 @@ class Home extends React.Component {
                     }
                 }
         }
-       //console.log("x",x)
+        console.log("x",x)
         this.setState({
             top_boxes: x,
             top_boxes_stat:"remove-part p-0 pt-0 pr-1"
@@ -2890,9 +2890,7 @@ class Home extends React.Component {
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
                                     {x}
-                                    <div className={context.state.loading3}>
-                                        <Spinner2 customText="Loading" />
-                                    </div>
+                                   
                                     <span class="text-success text-sm font-weight-bolder"></span>
                                 </h5>
                             </div>
@@ -3150,7 +3148,7 @@ class Home extends React.Component {
             .then(data => data.json())
             .then(
                 (result) => {
-                   //console.log("result", result);
+                    console.log("result", result);
                     if (result.forecast) {
                         this.setState({
                             weather: result,
@@ -3216,7 +3214,7 @@ class Home extends React.Component {
             .then(data => data.json())
             .then(
                 (result) => {
-                   //console.log("result", result);
+                    console.log("result", result);
                     this.setState({
                         weather: result,
                         forecastday: result.forecast.forecastday,
@@ -3364,7 +3362,7 @@ class Home extends React.Component {
     renderWeather() {
         var context = this;
         return this.state.forecastday.map(function (o, i) {
-           //console.log("forcast", context.state.forecastday[i])
+            console.log("forcast", context.state.forecastday[i])
             var date = context.state.forecastday[i].date.split("-")
             var mstr = context.getStrMonth(date[1]);
             return (
@@ -4229,7 +4227,7 @@ class Home extends React.Component {
                 return (< div style={{ "text-align": "center", "font-weight": "bold", "font-size": "25px", "letter-spacing": "4px" }} className='mt-5' > No Data</div >);
             }
         } catch (err) {
-           //console.log(err)
+            console.log(err)
         }
     }
 
@@ -4240,8 +4238,8 @@ class Home extends React.Component {
         var config44 = {
             "data": data_tmp,
             xField: 'year',
-            height: 270,
-            width: 300,
+            height: 380,
+            width: 400,
             isGroup: true,
             yField: 'value',
             
@@ -4300,7 +4298,7 @@ class Home extends React.Component {
                 return (< div style={{ "text-align": "center", "font-weight": "bold", "font-size": "25px", "letter-spacing": "4px" }} className='mt-5' > No Data</div >);
             }
         } catch (err) {
-           //console.log(err)
+            console.log(err)
         }
     }
 
@@ -5133,7 +5131,7 @@ class Home extends React.Component {
             return (
                 <div className="main_panel">
                     <div className="container_main">
-                        <div style={{}}>
+                        <div className="text-center">
                             <div className="container_c0">
                                 <div class="row">
                                    
@@ -5173,7 +5171,7 @@ class Home extends React.Component {
             return (
                 <div className="main_panel">
                     <div className="container_main">
-                        <div style={{}}>
+                        <div className="text-center">
                             <div className="container_c0">
                                 <div className="row m-5 mb-5">
                                     <div className="home_l1_left2 text-bold ">
@@ -5230,9 +5228,9 @@ class Home extends React.Component {
             return (
                 <div className="main_panel">
                     <div className="container_main">
-                        <div style={{}}>
+                        <div className="text-center">
                             <div className="container_c0">
-                                <div className="row m-5 mb-5">
+                                <div className="">
                                     <div className="home_l1_left2 text-bold ">
                                         {this.renderChartColumn2(this.state.get_sri)}
                                     </div>
@@ -5409,7 +5407,7 @@ class Home extends React.Component {
                     <div className="container_c2"><Line {...config} /> </div>
                 </div>
 
-                <div>
+                <div className="text-center">
                     {this.listBoxes()}
                 </div>
 

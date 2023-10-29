@@ -1816,13 +1816,13 @@ class Home extends React.Component {
     list_sensors() {
         var context = this;
         return this.state.sensor_info.map(function (o, key) {
-            var connected = "Disconnected"
+            var connected = "Not Allocated"
             var status = "Sleep"
             var x = "day_stat_title";
             var x2 = "day_stat_title";
             for (var key2 in context.state.sensor_info_all) {
                 if (context.state.sensor_info_all[key2].sensor_serial == context.state.sensor_info[key] && context.state.sensor_info_all[key2].ca_deleted == 0 && context.state.sensor_info_all[key2].cb_deleted == 0) {
-                    connected = "Connected"
+                    connected = "Allocated"
                     x = "";
                     //status = "Alive"
                 }
@@ -2530,7 +2530,7 @@ class Home extends React.Component {
                     }
                 }
         }
-       //console.log("x",x)
+        console.log("x",x)
         this.setState({
             top_boxes: x,
             top_boxes_stat:"remove-part p-0 pt-0 pr-1"

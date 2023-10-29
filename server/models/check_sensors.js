@@ -49,7 +49,8 @@ async function check_sensors(token,res0) {
     });
     */
     var today = new Date();
-    var date = new Date(today.getTime() - (1000 * 60 * 60 * 2));
+    var date = new Date(today.getTime() - (1000 * 60 * 60 * 12)); // if there is no data from the last 12 hours
+    var date_v2 = new Date(today.getTime() - (1000 * 60 * 60 * 7 * 24)); // if there is no data from the last 7 days
     //let date = new Date();
     let today_ = date.toLocaleDateString();
    //console.log("today_", today_)
@@ -78,6 +79,35 @@ async function check_sensors(token,res0) {
     }
     var x = today3 + "-" + today1 + "-" + today2 + " " + h + ":" + m + ":" + "00";
 
+
+    let today_v2 = date_v2.toLocaleDateString();
+    //console.log("today_", today_)
+    var today_tmp_v2 = today_v2.split("/");
+    //console.log("today_tmp", today_tmp)
+    let today1_v2 = today_tmp_v2[0];
+    let today2_v2 = today_tmp_v2[1];
+    let today3_v2 = today_tmp_v2[2];
+    if (today1_v2 < 10) {
+        today1_v2 = "0" + today1_v2;
+    }
+    if (today2_v2 < 10) {
+        today2_v2 = "0" + today2_v2;
+    }
+    var s_v2 = date_v2.getSeconds();
+    var m_v2 = date_v2.getMinutes();
+    var h_v2 = date_v2.getHours();
+    if (s_v2 < 10) {
+        s_v2 = "0" + s;
+    }
+    if (m_v2 < 10) {
+        m_v2 = "0" + m;
+    }
+    if (h_v2 < 10) {
+        h_v2 = "0" + h;
+    }
+    var x_v2 = today3_v2 + "-" + today1_v2 + "-" + today2_v2 + " " + h_v2 + ":" + m_v2 + ":" + "00";
+
+
    //console.log("check_sensors");
 
     [rows0, fields0] = await con.execute("SELECT DISTINCT * FROM notification  WHERE nt_id = 7 and nt_active = 1");
@@ -93,10 +123,23 @@ async function check_sensors(token,res0) {
     }
     [rows5] = await con.execute("UPDATE sensors_list SET sl_status = 2 WHERE 1=1");
     [rows6, fields6] = await con.execute("SELECT DISTINCT sensor_serial FROM node_per_quarter  WHERE nph_from2 >= '" + x + "' and nph_max != 0");
+    [rows66, fields66] = await con.execute("SELECT DISTINCT sensor_serial FROM node_per_quarter  WHERE nph_from2 >= '" + x_v2 + "' and nph_max != 0");
    //console.log("rows6",rows6)
     for (var key in rows6) {
         [rows7] = await con.execute("UPDATE sensors_list SET sl_status = 1 WHERE sl_sensor = ?", [rows6[key].sensor_serial]);
     }
+    var deleted_sensor = '';
+    for (var key in rows66) {
+        if (deleted_sensor == "")
+            deleted_sensor = rows66[key]["sensor_serial"];
+        else {
+            deleted_sensor += "," + rows66[key]["sensor_serial"];
+        }
+    }
+    console.log("deleted_sensor", deleted_sensor);
+    if (deleted_sensor != "")
+        [rows777] = await con.execute("DELETE FROM sensors_list WHERE sl_sensor not in (" + deleted_sensor + ")");
+    [rows7] = await con.execute("UPDATE sensors_list SET sl_status = 1 WHERE sl_sensor = ?", [rows6[key].sensor_serial]);
     [rows7] = await con.execute("UPDATE sensors_list SET sl_status = 0 WHERE sl_status = 2");
     //sqlite.close();
     //var rows = db.prepare("SELECT DISTINCT sensor_serial FROM main.node_22040367").all();

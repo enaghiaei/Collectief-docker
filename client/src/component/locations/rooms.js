@@ -121,13 +121,13 @@ class Rooms extends React.Component {
     }
 
     setLocation(e) {
-       //console.log(e)
-       //console.log(e.lat)
-       //console.log(e.lng)
+        console.log(e)
+        console.log(e.lat)
+        console.log(e.lng)
 
         this.setState({ lat: e.lat, lng: e.lng })
-       //console.log(e.lat)
-       //console.log(e.lng)
+        console.log(e.lat)
+        console.log(e.lng)
     }
 
 
@@ -278,7 +278,7 @@ class Rooms extends React.Component {
 
     openModal5(id) {
         id_for_edit = id;
-       //console.log(this.state.location_title)
+        console.log(this.state.location_title)
         //alert(id_for_edit)
         for (var key in this.state.location_title) {
             if (this.state.location_title[key].id == id_for_edit) {
@@ -341,7 +341,7 @@ class Rooms extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensors_info', {
             method: 'POST',
             headers: {
@@ -362,13 +362,13 @@ class Rooms extends React.Component {
                         loading: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     var d = new Date();
                     var utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds());
                     let date = utcDate;
                     let today = date.toLocaleDateString();
 
-                   //console.log("today", today);
+                    console.log("today", today);
                     var s = date.getSeconds();
                     var m = date.getMinutes();
                     var h = date.getHours();
@@ -390,9 +390,9 @@ class Rooms extends React.Component {
                         var utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds());
                         let date = utcDate;
                         let today = date.toLocaleDateString();
-                       //console.log("today", today)
+                        console.log("today", today)
                         var today_tmp = today.split("/");
-                       //console.log("today_tmp", today_tmp)
+                        console.log("today_tmp", today_tmp)
                         let today1 = today_tmp[0];
                         let today2 = today_tmp[1];
                         let today3 = today_tmp[2];
@@ -411,7 +411,7 @@ class Rooms extends React.Component {
                             h = "0" + h;
                         }
 
-                       //console.log("x", x)
+                        console.log("x", x)
                         //let today = date.toLocaleTimeString();
 
                         var current_time = h + ":" + m + ":" + s;
@@ -506,7 +506,7 @@ class Rooms extends React.Component {
                 building = l.building
             if (l && l.unit)
                 unit = l.unit
-           //console.log("type_value", parseInt(context.state.location_title[i].type))
+            console.log("type_value", parseInt(context.state.location_title[i].type))
             return (<tr>
                 <td>
                     {(i + 1)}
@@ -577,14 +577,14 @@ class Rooms extends React.Component {
     }
 
     /* renderRows(){
-      //console.log("renderRows");
+       console.log("renderRows");
        this.createRow();
      }*/
 
     save_location(schedule, index) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         if ($("#location_type").val() != "-1" && $("#title").val() != "") {
             return fetch('http://' + global.config.vals.root.ip + ':3002/save_location', {
                 method: 'POST',
@@ -600,7 +600,7 @@ class Rooms extends React.Component {
                           isLoaded: true,
                           items: result.items
                         });*/
-                       //console.log(result)
+                        console.log(result)
                         for (var x = 1; x <= 5; x++) {
                             $("#id" + x).css("color", "gray");
                         }
@@ -658,7 +658,7 @@ class Rooms extends React.Component {
     save_access(schedule, index) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         if ($("#user_email").val() != "") {
             return fetch('http://' + global.config.vals.root.ip + ':3002/save_access', {
                 method: 'POST',
@@ -675,7 +675,7 @@ class Rooms extends React.Component {
                           items: result.items
                         });*/
                         this.get_users_access()
-                       //console.log(result)
+                        console.log(result)
                         for (var x = 1; x <= 5; x++) {
                             $("#id" + x).css("color", "gray");
                         }
@@ -724,7 +724,7 @@ class Rooms extends React.Component {
     edit_location(schedule, index) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/edit_location', {
             method: 'POST',
             headers: {
@@ -739,7 +739,7 @@ class Rooms extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
+                    console.log(result)
                     for (var x = 1; x <= 5; x++) {
                         $("#id" + x).css("color", "gray");
                     }
@@ -775,7 +775,7 @@ class Rooms extends React.Component {
     remove_location(schedule, index) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/remove_location', {
             method: 'POST',
             headers: {
@@ -790,7 +790,7 @@ class Rooms extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
+                    console.log(result)
                     for (var x = 1; x <= 5; x++) {
                         $("#id" + x).css("color", "gray");
                     }
@@ -826,7 +826,7 @@ class Rooms extends React.Component {
     get_location() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_rooms', {
             method: 'POST',
             headers: {
@@ -841,7 +841,7 @@ class Rooms extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -858,7 +858,7 @@ class Rooms extends React.Component {
                         location_title: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -879,7 +879,7 @@ class Rooms extends React.Component {
     getClusters() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location_', {
             method: 'POST',
             headers: {
@@ -894,7 +894,7 @@ class Rooms extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -911,7 +911,7 @@ class Rooms extends React.Component {
                         location_types_parent: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -932,7 +932,7 @@ class Rooms extends React.Component {
     getBuildings() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location_', {
             method: 'POST',
             headers: {
@@ -947,7 +947,7 @@ class Rooms extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -964,7 +964,7 @@ class Rooms extends React.Component {
                         location_types_parent: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -985,7 +985,7 @@ class Rooms extends React.Component {
     getRooms() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location_', {
             method: 'POST',
             headers: {
@@ -1000,7 +1000,7 @@ class Rooms extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -1017,7 +1017,7 @@ class Rooms extends React.Component {
                         location_types_parent: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -1039,7 +1039,7 @@ class Rooms extends React.Component {
     get_location_types() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location_types', {
             method: 'POST',
             headers: {
@@ -1054,7 +1054,7 @@ class Rooms extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -1070,7 +1070,7 @@ class Rooms extends React.Component {
                         location_types: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -1091,7 +1091,7 @@ class Rooms extends React.Component {
     get_users_access() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_users_access', {
             method: 'POST',
             headers: {
@@ -1106,7 +1106,7 @@ class Rooms extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -1122,7 +1122,7 @@ class Rooms extends React.Component {
                         users_access: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -1143,7 +1143,7 @@ class Rooms extends React.Component {
     delete_(id) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/delete_user_access', {
             method: 'POST',
             headers: {
@@ -1158,7 +1158,7 @@ class Rooms extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
+                    console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
@@ -1174,7 +1174,7 @@ class Rooms extends React.Component {
                         users_access: nt_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 

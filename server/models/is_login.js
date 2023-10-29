@@ -23,7 +23,7 @@ var config = {
     instancename:  'SQLEXPRESS'  // SQL Server instance name
   },
   database: global.config.vals.database.name,
-  port: 3307
+  port: 3306
 };
 var result1 = [];
 var stat = false;

@@ -23,7 +23,7 @@ class Login extends React.Component {
     
     
     
-   //console.log(global.config.vals.root.ip);
+    console.log(global.config.vals.root.ip);
     this.setUserName = this.setUserName.bind(this);
     this.setPassword = this.setPassword.bind(this);
     
@@ -41,7 +41,7 @@ class Login extends React.Component {
 
     if(token != ""){
     var credentials = {token:token};
-   //console.log(credentials);
+    console.log(credentials);
     return fetch('http://'+global.config.vals.root.ip+':3002/is_login', {
       method: 'POST',
       headers: {
@@ -56,8 +56,8 @@ class Login extends React.Component {
             isLoaded: true,
             items: result.items
           });*/
-         //console.log(result);
-         //console.log("message="+result.message);
+          console.log(result);
+          console.log("message="+result.message);
           if(result.message === 1){   
             var ch = new CheckLogin1();
             if(ch.check_token()){
@@ -68,7 +68,7 @@ class Login extends React.Component {
           }
           else if(result.message === 0){
 
-           //console.log("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            console.log("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
               const cookies = new Cookies();
               cookies.remove('token'); 
               //window.location.href = "/";      
@@ -76,7 +76,7 @@ class Login extends React.Component {
             
 
           }
-         //console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+          console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
   
           //if(result.message == "1")
           //  window.location.href = "/welcome";
@@ -102,13 +102,13 @@ loginUser() {
         
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token')); // Pacman
+        // console.log("cookies=" + cookies.get('token')); // Pacman
 
         setTimeout(() => {
            // window.location.href = "/home";
         }, 1000);
   var credentials = {username:this.state.user,password:this.state.pass};
- //console.log(credentials);
+  console.log(credentials);
   return fetch('http://'+global.config.vals.root.ip+':3002/check_user', {
     method: 'POST',
     headers: {
@@ -123,7 +123,7 @@ loginUser() {
           isLoaded: true,
           items: result.items
         });*/
-       //console.log(result);
+        console.log(result);
         if(result.message == "1"){   
             //if (1 == 1) { 
           toast.success('Login was successful', {
@@ -138,7 +138,7 @@ loginUser() {
           const cookies = new Cookies();
             cookies.set('token', result.token, { path: '/' }); 
             cookies.set('user_type', result.user_type, { path: '/' }); 
-         //console.log("cookies="+cookies.get('token')); // Pacman
+          console.log("cookies="+cookies.get('token')); // Pacman
           
           setTimeout(() => {
             window.location.href = "/home";
@@ -180,7 +180,7 @@ loginUser() {
           
           const cookies = new Cookies();
           //cookies.set('token', result.token, { path: '/' });
-         ////console.log("cookies=" + cookies.get('token')); // Pacman
+         // console.log("cookies=" + cookies.get('token')); // Pacman
 
           setTimeout(() => {
               window.location.href = "/home";
@@ -232,10 +232,10 @@ loginUser() {
 
  onSignIn(googleUser){
   var profile = googleUser.getBasicProfile();
- //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
- //console.log('Name: ' + profile.getName());
- //console.log('Image URL: ' + profile.getImageUrl());
- //console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
  }
  handleClick = (e) => {
   this.inputElement.click();

@@ -306,7 +306,7 @@ class Scheduling extends React.Component {
     get_schedules() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_schedules', {
             method: 'POST',
             headers: {
@@ -321,12 +321,12 @@ class Scheduling extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
-                   //console.log(JSON.parse(result.result[0].sce))
+                    console.log(result.result)
+                    console.log(JSON.parse(result.result[0].sce))
                     var sc_tmp = [];
                     for (var key in result.result) {
-                       //console.log(key)
-                       //console.log(result.result[key].sce)
+                        console.log(key)
+                        console.log(result.result[key].sce)
                         sc_tmp[key] = JSON.parse(result.result[key].sce)
                         sc_tmp[key].id = result.result[key].id
                     }
@@ -334,7 +334,7 @@ class Scheduling extends React.Component {
                         schedules: sc_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -355,7 +355,7 @@ class Scheduling extends React.Component {
     delete_schedule(id) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/delete_schedule', {
             method: 'POST',
             headers: {
@@ -370,7 +370,7 @@ class Scheduling extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
+                    console.log(result)
                     if (result.message == "1") {
                         //console.log(result.result[0].sc_schedule)
                         var sc_tmp = [];
@@ -388,7 +388,7 @@ class Scheduling extends React.Component {
                             schedules: sc_tmp
                         })
                     }
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -408,7 +408,7 @@ class Scheduling extends React.Component {
     save_schedules(schedule,index) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/save_schedules', {
             method: 'POST',
             headers: {
@@ -423,14 +423,14 @@ class Scheduling extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
-                   //console.log(result.token)
+                    console.log(result)
+                    console.log(result.token)
                     schedule[index].id = result.token
                     this.setState({
                         schedules: schedule
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -450,7 +450,7 @@ class Scheduling extends React.Component {
     edit_schedules(schedule, index) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/update_schedule', {
             method: 'POST',
             headers: {
@@ -466,14 +466,14 @@ class Scheduling extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
-                   //console.log(result.token)
+                    console.log(result)
+                    console.log(result.token)
                     schedule[index].id = result.token
                     this.setState({
                         schedules: schedule
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -493,7 +493,7 @@ class Scheduling extends React.Component {
 
 
     componentDidMount1(parts_tmp2) {
-       //console.log("parts_tmp2", parts_tmp2)
+        console.log("parts_tmp2", parts_tmp2)
         var parts_tmp3 = [];
         if (parts_tmp2 && parts_tmp2.length > 0) {
             parts_tmp3 = parts_tmp2;
@@ -512,14 +512,14 @@ class Scheduling extends React.Component {
             }
         }
         var yz = { position: "absolute", left: "100px", height: "80px", width: "130px", background: "#7CC4F6", cursor: "pointer", "border-right": "3px solid white", "border-left": "3px solid white", writable: true, };
-      //console.log(x);
+       console.log(x);
         $(".timeline").css("width", $(".right_schedule").width() * 0.8)
         $(".timeline1").css("width", $(".right_schedule").width() * 0.8)
        //console.log("rightffffffffffffffffffffff=", $(".right_schedule").width() * 0.8)
         var y = parseInt(parseInt($(".timeline").width()) / 24); 
         var y2 = parseInt(parseInt($(".day_stat").width()) / 24);
-      //console.log(parts_tmp3)
-      //console.log(mode_colors)
+       console.log(parts_tmp3)
+       console.log(mode_colors)
         var x_new = [];
         var x_new2 = [];
         const parts_tmp = parts_tmp3;
@@ -834,7 +834,7 @@ class Scheduling extends React.Component {
             parts[index].mode = current_mode;
             parts[index].key = current_day;
             parts[index].title = current_title;
-          //console.log("inja========",parts);
+           console.log("inja========",parts);
             var start = parseInt(parts[index].start);
             var end = parseInt(parts[index].end);
             var x_new = []
@@ -962,15 +962,15 @@ class Scheduling extends React.Component {
         $(".range_values").removeClass("d-none")
         var parts = this.state.parts;
         var parts2 = [];
-       //console.log("***1", parts)
-       //console.log(this.state.current_day)
+        console.log("***1", parts)
+        console.log(this.state.current_day)
         for (var key2 in parts) {
             if (parts[key2].key === this.state.current_day) {
                 parts2[parts2.length] = parts[key2];
             }
         }
-       //console.log("***2", parts2)
-       //console.log(current_remove_id)
+        console.log("***2", parts2)
+        console.log(current_remove_id)
         var x = parts[current_remove_id];
         //alert([x.start, x.end])
         $(".part_key_border").css("border", "0px")
@@ -1412,7 +1412,7 @@ class Scheduling extends React.Component {
     }
     renderTemplateOptions() {
         var context1 = this;
-       //console.log("templates",template)
+        console.log("templates",template)
         return template.map(function (o, key) {
            ////console.log(context.state.temlate[key].position)
             return (
@@ -1430,8 +1430,8 @@ class Scheduling extends React.Component {
     //}
 
     editScheduleUrl(id, key) {
-       //console.log("edit")
-       //console.log(this.state.schedules[key].parts)
+        console.log("edit")
+        console.log(this.state.schedules[key].parts)
         $("#schedule_name").val(this.state.schedules[key].name)
         var sensor_t = -1;
         for (var key2 in sensor_type) {
@@ -1453,7 +1453,7 @@ class Scheduling extends React.Component {
         var y = parseInt(parseInt($(".timeline").width()) / 24); 
         var y2 = parseInt(parseInt($(".day_stat").width()) / 24);
         for (var key in parts_tmp) {
-           //console.log(key)
+            console.log(key)
             if (1 == 1) {
                 //console.log("key:::", key)
                 //console.log(this.state.parts[key])
@@ -1517,7 +1517,7 @@ class Scheduling extends React.Component {
         });
         //this.inputElement.click();
         //this.inputElement.click();
-       //console.log("parts_tmp",parts_tmp)
+        console.log("parts_tmp",parts_tmp)
         this.componentDidMount1(parts_tmp);
        //$("#day_r_" + "0").click()
        // this.inputElement.click();
@@ -1538,7 +1538,7 @@ class Scheduling extends React.Component {
     listSchedule() {
 
         var context1 = this;
-       //console.log("schedules:::",this.state.schedules)
+        console.log("schedules:::",this.state.schedules)
         return this.state.schedules.map(function (o, key) {
             ////console.log(context.state.temlate[key].position)
             return (
@@ -1575,9 +1575,9 @@ class Scheduling extends React.Component {
 
 
     setTemplateType(value) {
-      //console.log("value=========", value);
+       console.log("value=========", value);
        //console.log(template)
-      //console.log(template[value].parts)
+       console.log(template[value].parts)
         this.setState({
 
             parts: template[value].parts,
@@ -1592,9 +1592,9 @@ class Scheduling extends React.Component {
     }
 
     setSensorType(value) {
-       //console.log("value=========", value);
+        console.log("value=========", value);
         //console.log(template)
-       //console.log("sensor_type",sensor_type[value])
+        console.log("sensor_type",sensor_type[value])
         this.setState({
 
 
@@ -1624,8 +1624,8 @@ class Scheduling extends React.Component {
 
     saveNewTemplate() {
         const x = template;
-       //console.log(x)
-      //console.log(template)
+        console.log(x)
+       console.log(template)
         if (current_title === "" || this.state.current_sensor_type == "") {
             if (current_title === "")
             toast.error('Please enter Schedule name ', {
@@ -1652,7 +1652,7 @@ class Scheduling extends React.Component {
             
             //alert(index)
             const x = this.state.parts
-           //console.log(x)
+            console.log(x)
             var schedule = this.state.schedules
             var index = schedule.length
             schedule[index] = {}
@@ -1699,8 +1699,8 @@ class Scheduling extends React.Component {
 
     editNewTemplate() {
         const x = template;
-       //console.log(x)
-       //console.log(template)
+        console.log(x)
+        console.log(template)
         if (current_title === "" || this.state.current_sensor_type == "") {
             if (current_title === "")
                 toast.error('Please enter Schedule name ', {
@@ -1727,7 +1727,7 @@ class Scheduling extends React.Component {
            
             //alert(index)
             const x = this.state.parts
-           //console.log(x)
+            console.log(x)
             var schedule = this.state.schedules
             var index = schedule.length
             //schedule[index] = {}

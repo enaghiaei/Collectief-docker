@@ -37,7 +37,7 @@ class Control extends React.Component {
     save_comment(schedule, index) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/save_comment', {
             method: 'POST',
             headers: {
@@ -52,7 +52,7 @@ class Control extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
+                    console.log(result)
                     for (var x = 1; x <= 5; x++) {
                         $("#id" + x).css("color", "gray");
                     }
@@ -84,7 +84,7 @@ class Control extends React.Component {
     }
 
     /* renderRows(){
-      //console.log("renderRows");
+       console.log("renderRows");
        this.createRow();
      }*/
 

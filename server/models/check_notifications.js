@@ -57,7 +57,7 @@ async function check_(token, res0) {
     var date1 = new Date(today_time);
     var m = date1.getMinutes();
     //var date = new Date(today_time - (1000 * 60 * m) - (1000 * 60 * 60 * (i + 1)));
-    var date = new Date(today_time - (1000 * 15 * 60 * (i)));
+    var date = new Date(today_time - (1000 * 60 * 12 * 60 * (i)));
     var m2 = date.getMinutes();
     //let date = new Date();
     let today_ = date.toLocaleDateString();
@@ -163,6 +163,8 @@ async function check_(token, res0) {
                 time = 1800
             else if (impo == 2)
                 time = 900
+
+
 
            //console.log("message", message)
             var [result4, fields4] = await con.execute("SELECT * FROM notification_messages  WHERE nm_message = '" + message + "'  AND (" + time_now + " - nt_date2) < '" + time + "'");

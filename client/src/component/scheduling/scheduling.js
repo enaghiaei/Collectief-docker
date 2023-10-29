@@ -34,7 +34,7 @@ var template = [];
 var parts_tmp = [];
 var days_g = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 var mode_colors = ["#fff", "#FF30C0", "#0CA1FF", "#39B401", "#57823B", "#3B5528"]
-var modes = ["Manual Mode", "Resilient Mode", "Comfort Mode", "Eco Mode"]
+var modes = ["Resilient Mode", "Comfort Mode", "Flexibility Mode"]
 var sensor_type = ["Temperature", "Pressure", "Humidity"];
 var current_remove_id = -1;
 var value2 = [3, 6];
@@ -53,7 +53,7 @@ class Scheduling extends React.Component {
 
         for (var key = 0; key < 7; key++) {
             parts[index] = {};
-            parts[index].temperature = "20";
+            parts[index].value = "20";
             parts[index].start = 1;
             parts[index].end = 4;
             //console.log("current_mode", current_mode)
@@ -62,7 +62,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
             parts[index] = {};
-            parts[index].temperature = "Re";
+            parts[index].value = "Re";
             parts[index].start = 4;
             parts[index].end = 11;
             //console.log("current_mode", current_mode)
@@ -71,7 +71,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
             parts[index] = {};
-            parts[index].temperature = "Co";
+            parts[index].value = "Co";
             parts[index].start = 11;
             parts[index].end = 17;
             //console.log("current_mode", current_mode)
@@ -80,7 +80,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
             parts[index] = {};
-            parts[index].temperature = "Ec";
+            parts[index].value = "Ec";
             parts[index].start = 17;
             parts[index].end = 24;
             //console.log("current_mode", current_mode)
@@ -89,7 +89,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
         }
-        template[0].parts = [{}];
+        template[0].parts = [];
         template[0].key = "0";
         template[0].name = "From Empty Template";
         template[1] = {};
@@ -101,7 +101,7 @@ class Scheduling extends React.Component {
         index = 0;
         for (var key = 0; key < 7; key++) {
             parts[index] = {};
-            parts[index].temperature = "10";
+            parts[index].value = "10";
             parts[index].start = 1;
             parts[index].end = 4;
             //console.log("current_mode", current_mode)
@@ -110,7 +110,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
             parts[index] = {};
-            parts[index].temperature = "Co";
+            parts[index].value = "Co";
             parts[index].start = 4;
             parts[index].end = 15;
             //console.log("current_mode", current_mode)
@@ -119,7 +119,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
             parts[index] = {};
-            parts[index].temperature = "Re";
+            parts[index].value = "Re";
             parts[index].start = 15;
             parts[index].end = 19;
             //console.log("current_mode", current_mode)
@@ -128,7 +128,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
             parts[index] = {};
-            parts[index].temperature = "Ec";
+            parts[index].value = "Ec";
             parts[index].start = 19;
             parts[index].end = 24;
             //console.log("current_mode", current_mode)
@@ -146,7 +146,7 @@ class Scheduling extends React.Component {
         index = 0;
         for (var key = 0; key < 7; key++) {
             parts[index] = {};
-            parts[index].temperature = "20";
+            parts[index].value = "20";
             parts[index].start = 1;
             parts[index].end = 4;
             //console.log("current_mode", current_mode)
@@ -155,7 +155,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
             parts[index] = {};
-            parts[index].temperature = "Ec";
+            parts[index].value = "Ec";
             parts[index].start = 4;
             parts[index].end = 10;
             //console.log("current_mode", current_mode)
@@ -164,7 +164,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
             parts[index] = {};
-            parts[index].temperature = "Co";
+            parts[index].value = "Co";
             parts[index].start = 10;
             parts[index].end = 17;
             //console.log("current_mode", current_mode)
@@ -173,7 +173,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
             parts[index] = {};
-            parts[index].temperature = "Re";
+            parts[index].value = "Re";
             parts[index].start = 17;
             parts[index].end = 24;
             //console.log("current_mode", current_mode)
@@ -198,16 +198,21 @@ class Scheduling extends React.Component {
         this.state = {
 
             style: [],
-            parts: [{}],
+            parts: [],
             schedules: schedule,
             template: template,
             times: times,
             value: 10,
             modes: modes,
             writable: true,
-            style2: [{}],
+            style2: [],
             current_sensor_type: "",
-            current_time_range: [8, 14]
+            current_time_range: [8, 14],
+            new_range: -1,
+            current_schedule_segment: -1,
+            location_title: [],
+            mode_of_schedule: -1
+
         };
         context = this;
 
@@ -220,7 +225,7 @@ class Scheduling extends React.Component {
         var index = 0;
         for (var key = 0; key < 7; key++) {
             parts[index] = {};
-            parts[index].temperature = "20";
+            parts[index].value = "20";
             parts[index].start = 1;
             parts[index].end = 4;
             //console.log("current_mode", current_mode)
@@ -229,7 +234,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
             parts[index] = {};
-            parts[index].temperature = "Ec";
+            parts[index].value = "Ec";
             parts[index].start = 4;
             parts[index].end = 10;
             //console.log("current_mode", current_mode)
@@ -238,7 +243,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
             parts[index] = {};
-            parts[index].temperature = "Co";
+            parts[index].value = "Co";
             parts[index].start = 10;
             parts[index].end = 17;
             //console.log("current_mode", current_mode)
@@ -247,7 +252,7 @@ class Scheduling extends React.Component {
             parts[index].title = "";
             index++;
             parts[index] = {};
-            parts[index].temperature = "Re";
+            parts[index].value = "Re";
             parts[index].start = 17;
             parts[index].end = 24;
             //console.log("current_mode", current_mode)
@@ -266,7 +271,7 @@ class Scheduling extends React.Component {
         var times = [{ time: "00:00", position: "0" }, { time: "03:00", position: "0" }, { time: "06:00", position: "0" }, { time: "09:00", position: "0" }, { time: "12:00", position: "0" }, { time: "15:00", position: "0" }, { time: "18:00", position: "0" }, { time: "21:00", position: "0" }, { time: "24:00", position: "0" }]
         var cu = { ...this.state.style };
         var objCopy = cu;
-        var x = [{}];
+        var x = [];
         for (var key1 in objCopy) {
             for (var key2 in objCopy[key1]) {
                 x[key1][key2] = objCopy[key1][key2];
@@ -302,19 +307,20 @@ class Scheduling extends React.Component {
             schedules: schedule
         });
         this.componentDidMount1();
+        this.get_location();
 
     }
 
     get_schedules() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_schedules', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ token: cookies.get('token') })
+            body: JSON.stringify({ token: cookies.get('token'), "location": $("#location_s").val() })
         })
             .then(data => data.json())
             .then(
@@ -323,20 +329,21 @@ class Scheduling extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result.result)
-                   //console.log(JSON.parse(result.result[0].sce))
+                    console.log(result.result)
+                    //console.log(JSON.parse(result.result[0].sce))
                     var sc_tmp = [];
                     for (var key in result.result) {
-                       //console.log(key)
-                       //console.log(result.result[key].sce)
+                        console.log(key)
+                        console.log(result.result[key].sce)
                         sc_tmp[key] = JSON.parse(result.result[key].sce)
                         sc_tmp[key].id = result.result[key].id
+                        sc_tmp[key].active = result.result[key].active
                     }
                     this.setState({
                         schedules: sc_tmp
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -354,16 +361,16 @@ class Scheduling extends React.Component {
     }
 
 
-    delete_schedule(id) {
+    delete_schedule(id,location) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/delete_schedule', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ token: cookies.get('token'), id: id })
+            body: JSON.stringify({ token: cookies.get('token'), id: id, location: $("#location_s").val() })
         })
             .then(data => data.json())
             .then(
@@ -372,7 +379,7 @@ class Scheduling extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
+                    console.log(result)
                     if (result.message == "1") {
                         //console.log(result.result[0].sc_schedule)
                         var sc_tmp = [];
@@ -390,7 +397,7 @@ class Scheduling extends React.Component {
                             schedules: sc_tmp
                         })
                     }
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -407,16 +414,18 @@ class Scheduling extends React.Component {
             )
     }
 
-    save_schedules(schedule, index) {
+
+
+    power_schedule(id,location) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
-        return fetch('http://' + global.config.vals.root.ip + ':3002/save_schedules', {
+        console.log("cookies=" + cookies.get('token'));
+        return fetch('http://' + global.config.vals.root.ip + ':3002/power_schedule', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(schedule[index])
+            body: JSON.stringify({ token: cookies.get('token'), id: id, location: $("#location_s").val() })
         })
             .then(data => data.json())
             .then(
@@ -425,14 +434,26 @@ class Scheduling extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
-                   //console.log(result.token)
-                    schedule[index].id = result.token
-                    this.setState({
-                        schedules: schedule
+                    console.log(result)
+                    if (result.message == "1") {
+                        //console.log(result.result[0].sc_schedule)
+                        var sc_tmp = [];
+                        for (var key in result.result) {
+                            sc_tmp[key] = JSON.parse(result.result[key].sce)
+                            sc_tmp[key].id = result.result[key].id
+                            sc_tmp[key].active = result.result[key].active
+                        }
+                        this.setState({
+                            schedules: sc_tmp
+                        }
+                        );
+                    } else {
+                        var sc_tmp = [];
+                        this.setState({
+                            schedules: sc_tmp
+                        })
                     }
-                    );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -449,17 +470,124 @@ class Scheduling extends React.Component {
             )
     }
 
+
+    save_schedules(schedule, index) {
+        const cookies = new Cookies();
+        //cookies.set('token', result.token, { path: '/' });
+        console.log("cookies=" + cookies.get('token'));
+        return fetch('http://' + global.config.vals.root.ip + ':3002/save_schedules', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "schedule": schedule[index], "token": cookies.get('token'), "location": $("#location_s").val(), "type": $("#select1").val(), "mode": this.state.mode_of_schedule })
+        })
+            .then(data => data.json())
+            .then(
+                (result) => {
+                    /*this.setState({
+                      isLoaded: true,
+                      items: result.items
+                    });*/
+                    console.log(result)
+                    console.log(result.token)
+                    schedule[index].id = result.token
+                    schedule[index].mode_of_schedule = this.state.mode_of_schedule
+                    this.setState(
+                    {
+                        schedules: schedule
+                    }
+                    );
+                    console.log(result);
+                    //this.renderRows();
+                    //this.renderRows();
+
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
+
+    get_location() {
+        const cookies = new Cookies();
+        //cookies.set('token', result.token, { path: '/' });
+        console.log("cookies=" + cookies.get('token'));
+        return fetch('http://' + global.config.vals.root.ip + ':3002/get_location', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: cookies.get('token') })
+        })
+            .then(data => data.json())
+            .then(
+                (result) => {
+                    /*this.setState({
+                      isLoaded: true,
+                      items: result.items
+                    });*/
+                    console.log(result.result)
+                    var nt_tmp = [];
+                    for (var key in result.result) {
+                        nt_tmp[key] = {};
+                        //console.log(key)
+                        //console.log(result.result[key].sce)
+                        //nt_tmp[key] = JSON.parse(result.result[key].sce)
+                        nt_tmp[key].id = result.result[key].id
+                        nt_tmp[key].title = result.result[key].title
+                        nt_tmp[key].date = result.result[key].date
+
+                    }
+                    this.setState({
+                        location_title: nt_tmp
+                    }
+                    );
+                    console.log(result);
+                    //this.renderRows();
+                    //this.renderRows();
+
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
+    renderLocationOptions() {
+        var context = this;
+        return this.state.location_title.map(function (o, i) {
+            return (
+                <option value={context.state.location_title[i].id}>{context.state.location_title[i].title}</option>
+            )
+        }
+        )
+    }
+
     edit_schedules(schedule, index) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/update_schedule', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
 
-            body: JSON.stringify({ sce: JSON.stringify(schedule[index]), id: schedule[index].id })
+            body: JSON.stringify({ sce: JSON.stringify(schedule[index]), id: schedule[index].id, token: cookies.get('token'), "location": $("#location_s").val(), "type": $("#select1").val() })
         })
             .then(data => data.json())
             .then(
@@ -468,14 +596,14 @@ class Scheduling extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   //console.log(result)
-                   //console.log(result.token)
-                    schedule[index].id = result.token
+                    console.log(result)
+                    console.log(result.token)
+                    //schedule[index].id = result.token
                     this.setState({
                         schedules: schedule
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     $("#schedule_list_b").click()
                     //this.renderRows();
                     //this.renderRows();
@@ -496,17 +624,17 @@ class Scheduling extends React.Component {
 
 
     componentDidMount1(parts_tmp2) {
-       //console.log("parts_tmp2", parts_tmp2)
+        console.log("parts_tmp2", parts_tmp2)
         var parts_tmp3 = [];
         if (parts_tmp2 && parts_tmp2.length > 0) {
-            parts_tmp3 = parts_tmp2;
+            parts_tmp3 = [...parts_tmp2];
         } else {
-            parts_tmp3 = this.state.parts;
+            parts_tmp3 = [...this.state.parts];
         }
         var times = [{ time: "00:00", position: "0" }, { time: "03:00", position: "0" }, { time: "06:00", position: "0" }, { time: "09:00", position: "0" }, { time: "12:00", position: "0" }, { time: "15:00", position: "0" }, { time: "18:00", position: "0" }, { time: "21:00", position: "0" }, { time: "24:00", position: "0" }]
         var cu = { ...this.state.style };
-        var objCopy = cu;
-        var x = [{}];
+        var objCopy = cu; 
+        var x = [];
         for (var key1 in objCopy) {
             for (var key2 in objCopy[key1]) {
                 if (!x[key1])
@@ -515,14 +643,14 @@ class Scheduling extends React.Component {
             }
         }
         var yz = { position: "absolute", left: "100px", height: "80px", width: "130px", background: "#7CC4F6", cursor: "pointer", "border-right": "3px solid white", "border-left": "3px solid white", writable: true, };
-       //console.log(x);
+        console.log(x);
         $(".timeline").css("width", $(".right_schedule").width() * 0.8)
         $(".timeline1").css("width", $(".right_schedule").width() * 0.8)
         //console.log("rightffffffffffffffffffffff=", $(".right_schedule").width() * 0.8)
         var y = parseInt(parseInt($(".timeline").width()) / 24);
         var y2 = parseInt(parseInt($(".day_stat").width()) / 24);
-       //console.log(parts_tmp3)
-       //console.log(mode_colors)
+        console.log(parts_tmp3)
+        console.log(mode_colors)
         var x_new = [];
         var x_new2 = [];
         const parts_tmp = parts_tmp3;
@@ -542,10 +670,11 @@ class Scheduling extends React.Component {
                 x_new[key].background = mode_colors[parts_tmp3[key].mode];
                 x_new[key].width = (end - start) * y + "px";
                 x_new[key].key = parts_tmp3[key].key;
-                x_new[key].temperature = parts_tmp3[key].temperature;
-                x_new[key].temperature_x = (((end - start) * y) / 2) - 20;
-                x_new[key].temperature_y = 30;
+                x_new[key].value = parts_tmp3[key].value;
+                x_new[key].value_x = (((end - start) * y) / 2) - 20;
+                x_new[key].value_y = 30;
                 x_new[key].position = "absolute";
+                x_new[key].opacity = "1";
                 x_new[key].height = "80px";
                 x_new[key].cursor = "pointer";
                 x_new[key]["border-right"] = "3px solid white";
@@ -557,10 +686,11 @@ class Scheduling extends React.Component {
                 x_new2[key].background = mode_colors[parts_tmp3[key].mode];
                 x_new2[key].width = (end - start) * y2 + "px";
                 x_new2[key].key = parts_tmp3[key].key;
-                x_new2[key].temperature = parts_tmp3[key].temperature;
-                x_new2[key].temperature_x = (((end - start) * y2) / 2) - 10;
-                x_new2[key].temperature_y = "-4px";
+                x_new2[key].value = parts_tmp3[key].value;
+                x_new2[key].value_x = (((end - start) * y2) / 2) - 10;
+                x_new2[key].value_y = "-4px";
                 x_new2[key].position = "absolute";
+                x_new2[key].opacity = "1";
                 x_new2[key].height = "2.4vh";
                 x_new2[key].cursor = "pointer";
                 x_new2[key]["border-right"] = "0px solid white";
@@ -605,6 +735,7 @@ class Scheduling extends React.Component {
     }
 
     setDay(key) {
+        current_remove_id = -1;
         this.cancelRight()
         //alert("0")
         this.setState({
@@ -628,6 +759,7 @@ class Scheduling extends React.Component {
         current_end = -1;
         current_temp = -1;
         current_mode = -1;
+        //this.set_range2(this)
         if (current_value2 != current_value) {
 
             /*this.setState({
@@ -695,7 +827,7 @@ class Scheduling extends React.Component {
             var parts = this.state.parts;
             var cu = { ...this.state.parts };
             var objCopy = cu;
-            var x = [{}];
+            var x = [];
             for (var key1 in objCopy) {
                 for (var key2 in objCopy[key1]) {
                     if (!x[key1]) {
@@ -724,7 +856,7 @@ class Scheduling extends React.Component {
 
     saveSchedule() {
         //alert("0");
-        if ((current_temp === -1 || current_mode === -1 || current_start === -1 || current_end === -1) && (current_mode == "0")) {
+        if ((current_temp === -1 || (current_mode === -1 && this.state.mode_of_schedule == "2") || current_start === -1 || current_end === -1) && (current_mode == "0" && this.state.mode_of_schedule == "2")) {
             /*if (current_title === "")
                 toast.error('Please enter Schedule name ', {
                     position: "top-right",
@@ -746,7 +878,7 @@ class Scheduling extends React.Component {
                     draggable: true,
                     progress: undefined,
                 });
-            if (current_mode === -1)
+            if (current_mode === -1 && this.state.mode_of_schedule == "2")
                 toast.error('Please set Mode', {
                     position: "top-right",
                     autoClose: 2500,
@@ -769,8 +901,8 @@ class Scheduling extends React.Component {
                 });
 
         }
-        else if ((current_mode === -1 || current_start === -1 || current_end === -1) && (current_mode != "0")) {
-            if (current_mode === -1)
+        else if (((current_mode === -1 && this.state.mode_of_schedule == "2") || current_start === -1 || current_end === -1) && (current_mode != "0" && this.state.mode_of_schedule == "2")) {
+            if (current_mode === -1 && this.state.mode_of_schedule == "2")
                 toast.error('Please set Mode', {
                     position: "top-right",
                     autoClose: 2500,
@@ -802,13 +934,14 @@ class Scheduling extends React.Component {
                 draggable: true,
                 progress: undefined,
             });
+            
             $(".range_values").addClass("d-none");
             var current_day = this.state.current_day;
 
-            var parts = this.state.parts;
+            var parts = [...this.state.parts];
             var cu = { ...this.state.parts };
             var objCopy = cu;
-            var x = [{}];
+            var x = [];
             for (var key1 in objCopy) {
                 for (var key2 in objCopy[key1]) {
                     if (!x[key1]) {
@@ -821,7 +954,8 @@ class Scheduling extends React.Component {
             if (this.state.currenValue_tmp2 != this.state.currenValue_tmp) {
                 //parts = [{}];
             }
-            //console.log(parts);
+            console.log("length ==" + parts.length);
+            console.log("current_remove_id ==" + current_remove_id);
             var index = parts.length;
             if (current_remove_id != "-1") {
                 //parts[current_remove_id] = {};
@@ -830,23 +964,35 @@ class Scheduling extends React.Component {
             else
                 parts[index] = {};
 
-            var mo = modes[current_mode].split("");
+            
             //console.log(mo)
-            if (current_mode !== 0)
-                parts[index].temperature = mo[0] + "" + mo[1]
-            else {
-                parts[index].temperature = current_temp
-
-                //parts[index].temperature = current_temp
+            if (current_mode !== 0 && current_mode != -1) {
+                var mo = modes[current_mode].split("");
+                parts[index].value = mo[0] + "" + mo[1]
             }
+            else {
+                if (!parts[index]) {
+                    parts[index] = {};
+                }
+                parts[index].value = current_temp
+
+                //parts[index].value = current_temp
+            }
+            if (this.state.mode_of_schedule == "1") {
+                current_mode = 0;
+            }
+            console.log("current_start", current_start)
             parts[index].start = current_start
             parts[index].end = current_end
             //console.log("current_mode", current_mode)
             parts[index].mode = current_mode;
             parts[index].key = current_day;
-            parts[index].title = current_title;
+            parts[index].title = current_title; 
+            if (!parts[index].powerStat)
+                parts[index].powerStat = "ON"; 
+            parts[index].location = $("#location_s").val()
             //context1.state.parts[key].powerStat
-           //console.log("inja========", parts);
+            console.log("inja========", parts);
             var start = parseInt(parts[index].start);
             var end = parseInt(parts[index].end);
             var x_new = []
@@ -859,10 +1005,12 @@ class Scheduling extends React.Component {
             x_new[key].background = mode_colors[parts[index].mode];
             x_new[key].width = (end - start) * y + "px";
             x_new[key].key = parts[index].key;
-            x_new[key].temperature = parts[index].temperature;
-            x_new[key].temperature_x = (((end - start) * y) / 2) - 20;
-            x_new[key].temperature_y = 30;
+            x_new[key].value = parts[index].value;
+            x_new[key].value_x = (((end - start) * y) / 2) - 20;
+            x_new[key].value_y = 30;
             x_new[key].position = "absolute";
+            x_new[key].opacity = "1"; 
+            x_new[key].mode_of_schedule = this.state.mode_of_schedule; 
             x_new[key].height = "80px";
             x_new[key].cursor = "pointer";
             x_new[key]["border-right"] = "3px solid white";
@@ -874,8 +1022,10 @@ class Scheduling extends React.Component {
 
 
             });
+
             $(".delete_group").addClass("d-none")
-            this.componentDidMount1();
+            this.componentDidMount1(parts);
+            //this.editNewTemplate();
         }
     }
 
@@ -894,8 +1044,8 @@ class Scheduling extends React.Component {
                     return (
                         <div style={{ position: "relative" }}>
                             <div onMouseDown={(event) => context1.movement(event, key)} onMouseUp={context1.movement2} style={context1.state.style2[key]}>
-                                <div style={{ position: "relative", left: context1.state.style2[key].temperature_x, color: "#000", top: context1.state.style2[key].temperature_y, "font-weight": "bold" }}>
-                                    {context1.state.style2[key].temperature}
+                                <div style={{ position: "relative", left: context1.state.style2[key].value_x, color: "#000", top: context1.state.style2[key].value_y, "font-weight": "bold" }}>
+                                    {context1.state.style2[key].value}
                                 </div>
                             </div>
                         </div>
@@ -904,19 +1054,19 @@ class Scheduling extends React.Component {
                     var x = { ...context1.state.style2[key] };
                     var y = { ...context1.state.style2[key] };
                     x.background = "rgba(0,0,0,0.6)";
-                    y.color = "gray";
-                   //console.log("x",x)
+                    y.color = "#eee";
+                    console.log("x",x)
                     return (
                         <div style={{ position: "relative" }}>
                             <div onMouseDown={(event) => context1.movement(event, key)} onMouseUp={context1.movement2} style={context1.state.style2[key]}>
-                                <div style={{ "z-index":"100",position: "relative", left: context1.state.style2[key].temperature_x, color: "#aaa", top: context1.state.style2[key].temperature_y, "font-weight": "bold" }}>
-                                    {context1.state.style2[key].temperature}
+                                <div style={{ "z-index":"100",position: "relative", left: context1.state.style2[key].value_x, color: "#ddd", top: context1.state.style2[key].value_y, "font-weight": "bold" }}>
+                                    {context1.state.style2[key].value}
                                 </div>
                              
                             </div>
                             <div onMouseDown={(event) => context1.movement(event, key)} onMouseUp={context1.movement2} style={x}>
                              
-                                <div style={{ position: "relative", left: context1.state.style2[key].temperature_x, color: "#000", top: context1.state.style2[key].temperature_y, "font-weight": "bold" }}>
+                                <div style={{ position: "relative", left: context1.state.style2[key].value_x, color: "#ddd", top: context1.state.style2[key].value_y, "font-weight": "bold" }}>
 
                                 </div>
                             </div>
@@ -975,12 +1125,13 @@ class Scheduling extends React.Component {
 
 
     valuetext1(event, value) {
-        //console.log(event)
+        console.log("current_start============>>>>>>>", current_start)
         //console.log("value0000", value);
+        $("#part_" + current_remove_id).click()
         current_start = value[0];
         current_end = value[1];
         value2 = value;
-        $("#part_" + current_remove_id).click()
+        
         //alert(value)
         // this.state.current_time_range
         /*this.setState({
@@ -1009,8 +1160,8 @@ class Scheduling extends React.Component {
         $(".range_values").removeClass("d-none")
         var parts = this.state.parts;
         var parts2 = [];
-       //console.log("***1", parts)
-       //console.log(this.state.current_day)
+        console.log("***1", parts)
+        console.log(this.state.current_day)
         for (var key2 in parts) {
             if (parts[key2].key === this.state.current_day) {
                 parts2[parts2.length] = parts[key2];
@@ -1020,11 +1171,11 @@ class Scheduling extends React.Component {
         current_mode = parts[current_remove_id].mode;
         current_start = parts[current_remove_id].start;
         current_end = parts[current_remove_id].end;
-        current_temp = parts[current_remove_id].temperature;
+        current_temp = parts[current_remove_id].value;
         $(".radio_group").prop('checked', false);
         $("#radio_group_" + current_mode).prop('checked', true);
-       //console.log("***2", parts2)
-       //console.log(current_remove_id)
+        console.log("***2", parts2)
+        console.log(current_remove_id)
         var x = parts[current_remove_id];
         //alert([x.start, x.end])
         $(".part_key_border").css("border", "0px")
@@ -1039,7 +1190,9 @@ class Scheduling extends React.Component {
         $("#part_" + current_remove_id).click()
         this.setState({
 
-            current_time_range: [x.start, x.end]
+            current_time_range: [x.start, x.end],
+            new_range: -1,
+            current_schedule_segment: key
 
 
 
@@ -1070,7 +1223,7 @@ class Scheduling extends React.Component {
         }
         newpos = newpos + "px";
         //console.log("newpos===",newpos)
-        var x = [{}];
+        var x = [];
         for (var key1 in objCopy) {
             for (var key2 in objCopy[key1]) {
                 if (!x[key1])
@@ -1119,8 +1272,8 @@ class Scheduling extends React.Component {
                 if (context1.state.parts[key] && context1.state.parts[key].mode && context1.state.parts[key].mode == 0) {
                     return (
                         <div onMouseDown={(event) => context1.movement(event, key)} onMouseUp={context1.movement2} style={context1.state.style[key]}>
-                            <div style={{ position: "relative", left: context1.state.style[key].temperature_x, top: context1.state.style[key].temperature_y, "font-weight": "bold" }}>
-                                {context1.state.style[key].temperature}℃
+                            <div style={{ position: "relative", left: context1.state.style[key].value_x, top: context1.state.style[key].value_y, "font-weight": "bold" }}>
+                                {context1.state.style[key].value}℃
                             </div>
                         </div>
                     )
@@ -1129,8 +1282,8 @@ class Scheduling extends React.Component {
                     if (onOrOff === "ON") {
                         return (
                             <div onMouseDown={(event) => context1.movement(event, key)} onMouseUp={context1.movement2} className="part_key_border" id={"part_" + key} onClick={(event) => context1.setScheduling(event, key)} style={context1.state.style[key]}>
-                                <div style={{ position: "relative", left: context1.state.style[key].temperature_x, top: context1.state.style[key].temperature_y - 10, "font-weight": "bold" }}>
-                                    {context1.state.style[key].temperature}
+                                <div style={{ position: "relative", left: context1.state.style[key].value_x, top: context1.state.style[key].value_y - 10, "font-weight": "bold" }}>
+                                    {context1.state.style[key].value}
                                     <div className="newline"></div>
                                     <div style={{ position: "relative", left: "-10px" }}>
                                         ( {onOrOff} )
@@ -1143,14 +1296,14 @@ class Scheduling extends React.Component {
                         var y = { ...context1.state.style[key] };
                         x.background = "rgba(0,0,0,0.4)";
                         y.color = "#fff";
-                       //console.log("x", x)
+                        console.log("x", x)
                         return (
 
                                 <div onMouseDown={(event) => context1.movement(event, key)} onMouseUp={context1.movement2} className="part_key_border" id={"part_" + key} onClick={(event) => context1.setScheduling(event, key)} style={context1.state.style[key]}>
-                                    <div style={{ color: "gray", position: "relative", left: context1.state.style[key].temperature_x, top: context1.state.style[key].temperature_y - 10, "font-weight": "bold" }}>
-                                        {context1.state.style[key].temperature}
+                                    <div style={{ color: "#eee", position: "relative", left: context1.state.style[key].value_x, top: context1.state.style[key].value_y - 10, "font-weight": "bold" }}>
+                                        {context1.state.style[key].value}
                                         <div className="newline"></div>
-                                    <div style={{ position: "relative", left: "-10px", color: "gray"}}>
+                                    <div style={{ position: "relative", left: "-10px", color: "#eee"}}>
                                             ( {onOrOff} )
                                         </div>
                                     </div>
@@ -1162,8 +1315,8 @@ class Scheduling extends React.Component {
                         /*return (
                             <div style={{ position: "relative" }}>
                                 <div onMouseDown={(event) => context1.movement(event, key)} onMouseUp={context1.movement2} className="part_key_border" id={"part_" + key} onClick={(event) => context1.setScheduling(event, key)} style={context1.state.style[key]}>
-                                    <div style={{ position: "relative", left: context1.state.style[key].temperature_x, top: context1.state.style[key].temperature_y - 10, "font-weight": "bold" }}>
-                                        {context1.state.style[key].temperature}
+                                    <div style={{ position: "relative", left: context1.state.style[key].value_x, top: context1.state.style[key].value_y - 10, "font-weight": "bold" }}>
+                                        {context1.state.style[key].value}
                                         <div className="newline"></div>
                                         <div style={{ position: "relative", left: "-10px" }}>
                                             ( {onOrOff} )
@@ -1257,7 +1410,7 @@ class Scheduling extends React.Component {
             var parts = this.state.parts;
             var cu = { ...this.state.parts };
             var objCopy = cu;
-            var x = [{}];
+            var x = [];
             for (var key1 in objCopy) {
                 for (var key2 in objCopy[key1]) {
                     if (!x[key1]) {
@@ -1296,7 +1449,7 @@ class Scheduling extends React.Component {
                     progress: undefined,
                 });
             }
-           //console.log("log on or off", parts)
+            console.log("log on or off", parts)
             this.setState({
 
                 parts: parts
@@ -1310,20 +1463,112 @@ class Scheduling extends React.Component {
 
     set_range(e) {
         new_range = 1;
-        $(".slider_group").addClass("d-none");
+        this.setState({
+
+            new_range: -1
+
+
+
+        });
+        this.setSlider();
+        //$(".slider_group").addClass("d-none");
         $("#slider_").removeClass("d-none");
         $(".range_values").removeClass("d-none")
+        this.setSlider();
+        $("#slider_").removeClass("d-none");
+        $(".range_values").removeClass("d-none")
+    }
+
+
+    set_range2(e) {
+        this.setState({
+
+            new_range: 1,
+            current_time_range: [],          
+            current_schedule_segment: -1
+
+
+        });
+        current_remove_id = -1;
+        current_mode = -1;
+        current_start = 10;
+        current_end = 16;
+        current_temp = 20;
+        this.setSlider2();
+        //$(".slider_group").addClass("d-none");
+        $("#slider_").removeClass("d-none");
+        $(".range_values").removeClass("d-none")
+        this.setSlider2();
+        $("#slider_").removeClass("d-none");
+        $(".range_values").removeClass("d-none")
+    }
+
+    setSlider2() {
+
+        const marks = [
+            {
+                value: 0,
+                label: '00:00',
+            },
+            {
+                value: 4,
+                label: '04:00',
+            },
+            {
+                value: 8,
+                label: '08:00',
+            },
+            {
+                value: 12,
+                label: '12:00',
+            },
+            {
+                value: 16,
+                label: '16:00',
+            },
+            {
+                value: 20,
+                label: '20:00',
+            },
+            {
+                value: 24,
+                label: '24:00',
+            }
+        ];
+        return (
+
+            <div className="slider-parent_l1 ml-4 mt-2" id={"slider_"}>
+
+                <Slider
+                    track={true}
+                    aria-labelledby="track-false-range-slider"
+
+                    getAriaValueText={(event) => this.valuetext(event)}
+                    onChange={this.valuetext1}
+                    defaultValue={[10, 16]}
+                    min={0}
+                    max={24}
+                    aria-label="Always visible"
+                    marks={marks}
+                    step={1}
+                    size="Small"
+                    valueLabelDisplay="on"
+                    disableSwap
+                />
+
+            </div>
+        );
     }
 
     setSlider() {
        
         var context1 = this;
-        if (context1.state.parts.length > 1) {
-            //alert(new_range);
-            if(new_range == -1){
+        if (1 == 1) {
+            console.log("new_range",new_range);
+            if(this.state.new_range == -1){
 
                 return this.state.parts.map(function (o, key) {
-                    //console.log(context.state.times[key].position)
+                    console.log(key)
                     const marks = [
                         {
                             value: 0,
@@ -1355,6 +1600,54 @@ class Scheduling extends React.Component {
                         }
                     ];
                     if (context1.state.parts[key].key === context1.state.current_day) {
+
+                        if (context1.state.current_schedule_segment == key) {
+                            //("#slider_" + key).removeClass("d-none");
+                            return (
+
+                                <div className="slider-parent_l1 slider_group ml-4 mt-2" id={"slider_" + key}>
+
+                                    <Slider
+                                        track={true}
+                                        aria-labelledby="track-false-range-slider"
+                                        getAriaValueText={(event) => context1.valuetext(event)}
+                                        onChange={context1.valuetext1}
+                                        defaultValue={[context1.state.parts[key].start, context1.state.parts[key].end]}
+                                        min={0}
+                                        max={24}
+                                        aria-label="Always visible"
+                                        marks={marks}
+                                        step={1}
+                                        size="Small"
+                                        valueLabelDisplay="on"
+                                        disableSwap
+                                    />
+
+                                </div>
+                            );
+                        } else {
+                            <div className="slider-parent_l1 slider_group ml-4 mt-2 d-none" id={"slider_" + key}>
+
+                                <Slider
+                                    track={true}
+                                    aria-labelledby="track-false-range-slider"
+                                    getAriaValueText={(event) => context1.valuetext(event)}
+                                    onChange={context1.valuetext1}
+                                    defaultValue={[context1.state.parts[key].start, context1.state.parts[key].end]}
+                                    min={0}
+                                    max={24}
+                                    aria-label="Always visible"
+                                    marks={marks}
+                                    step={1}
+                                    size="Small"
+                                    valueLabelDisplay="on"
+                                    disableSwap
+                                />
+
+                            </div>
+                        }
+
+                    } else{
                         return (
 
                             <div className="slider-parent_l1 slider_group ml-4 mt-2 d-none" id={"slider_" + key}>
@@ -1377,7 +1670,6 @@ class Scheduling extends React.Component {
 
                             </div>
                         );
-
                     }
 
                 }
@@ -1501,7 +1793,7 @@ class Scheduling extends React.Component {
         return this.state.times.map(function (o, key) {
             //console.log(context.state.times[key].position)
             return (
-                <div style={{ display: "inline-table", position: "absolute", "top": "9px", left: context1.state.times[key].position_time }}>
+                <div style={{ display: "inline-table", position: "absolute", "opacity": "0.9", "top": "9px", left: context1.state.times[key].position_time }}>
                     {context1.state.times[key].time}
                 </div>
             )
@@ -1619,7 +1911,7 @@ class Scheduling extends React.Component {
                 </div>
                 <div className="newline2"></div>
                 <div className="icon-row ml-3 mt-2">
-                    <div className="icon-row-l1 mr-4 pointer" onClick={(event) => this.set_range(event)}>
+                    <div className="icon-row-l1 mr-4 pointer" onClick={(event) => this.set_range2(event)}>
                         <FontAwesomeIcon icon={faAdd} className="circle mr-3" /><button className="button">Add</button>
                     </div>
                     <div className = "icon-row-l1 mr-4 pointer d-none delete_group" onClick = {(event) => this.remove_range(event)}>
@@ -1636,26 +1928,7 @@ class Scheduling extends React.Component {
                             Choose range
                         </div>
                         {this.setSlider()}
-                        <div className="slider-parent_l1 ml-4 mt-2 d-none" id={"slider_"}>
-
-                            <Slider
-                                track={true}
-                                aria-labelledby="track-false-range-slider"
-
-                                getAriaValueText={(event) => this.valuetext(event)}
-                                onChange={this.valuetext1}
-                                defaultValue={[10, 16]}
-                                min={0}
-                                max={24}
-                                aria-label="Always visible"
-                                marks={marks}
-                                step={1}
-                                size="Small"
-                                valueLabelDisplay="on"
-                                disableSwap
-                            />
-
-                        </div>
+                       
                     </div>
                     <div className="newline"></div>
                     <div className="title_s mt-3">
@@ -1663,10 +1936,10 @@ class Scheduling extends React.Component {
                     </div>
                     <div className="newline"></div>
                     <div className="icon-row ml-2 mt-3">
-                        <div className="icon-row-l1 mr-3 pointer" onClick={(event) => this.setMode(event)}>
+                        <div className="icon-row-l1 mr-3 pointer" onClick={(event) => this.setMode(event)} id="set_mode">
                             <FontAwesomeIcon icon={faGear} className="circle mr-4" /><button className="button">SET MODE</button>
                         </div>
-                        <div className="icon-row-l1 mr-3 pointer" onClick={(event) => this.setTemp(event)}>
+                        <div className="icon-row-l1 mr-3 pointer" onClick={(event) => this.setTemp(event)} id="set_value">
                             <FontAwesomeIcon icon={faTemperature0} className="circle mr-4" /><button className="button">SET TEMPERATURE</button>
                         </div>
                         
@@ -1721,8 +1994,8 @@ class Scheduling extends React.Component {
 
 
                     <div className="icon-row ml-0 mt-5">
-                        <button className="button2" onClick={(event) => this.cancelRight()}>CANCEL</button>
-                        <button className="button2" onClick={(event) => this.saveSchedule()}>SAVE</button>
+                        <button className="main_header_button2 m-1" onClick={(event) => this.cancelRight()}>CANCEL</button>
+                        <button className="main_header_button2 m-1" onClick={(event) => this.saveSchedule()}>SAVE</button>
 
                     </div>
                 </div>
@@ -1738,27 +2011,66 @@ class Scheduling extends React.Component {
         //this.createRight();
     }
 
-    setScheduleType() {
+    setScheduleType(mode_of_schedule) {
+        if ($("#aut_or_man").css("display") == "none") {
+            $("#aut_or_man").css("display","inline-table")
+        } else {
+            $("#aut_or_man").css("display", "none")
+        }
+        
+       
+    }
+
+    setScheduleType1(mode_of_schedule) {
+        $("#aut_or_man").css("display", "none")
+        if (mode_of_schedule == 1) {
+            $("#set_mode").css("display", "none")
+            $("#set_value").css("display", "block")
+        } else {
+            $("#set_mode").css("display", "block")
+            $("#set_value").css("display", "none")
+        }
+        console.log("mode_of_schedule", mode_of_schedule)
+        $("#mode_of_schedule").val(mode_of_schedule)
+        this.setScheduleType2(mode_of_schedule)
+        this.setState({
+            mode_of_schedule: mode_of_schedule
+        });
+    }
+
+    setScheduleType2(mode_of_schedule) {
         //"color": "#4A4949" "border": "3px solid gray" 
         this.setState({
+
+            parts: [],
+            style2: [],
+            style: [],
+            times: [],
+            current_sensor_type: -1,
+            current_schedule_id: -1
+        });
+        current_sensor_type = -1;
+        $("#schedule_list").addClass("d-none");
+        $("#schedule_new").removeClass("d-none");
+        $(".main_header_button").removeClass("border_bold");
+        $("#schedule_new_b").addClass("border_bold");
+        //parts_tmp =  [{}];
+       // $("#schedule_list_b").css("color", "gray");
+        //$("#schedule_new_b").css("color", "#4A4949");
+        //$("#schedule_new_b").css("border", "3px solid #5BB1EB");
+        $("#save_button").removeClass("d-none");
+        $("#template_div").removeClass("d-none");
+        $("#edit_button").addClass("d-none");
+        $("#day_0").click();
+        /*this.setState({
 
             parts: [{}],
             style2: [{}],
             style: [],
             times: [{}],
-            current_sensor_type: -1
-        });
-        current_sensor_type = -1;
-        $("#schedule_list").addClass("d-none");
-        $("#schedule_new").removeClass("d-none");
-        $("#schedule_list_b").css("border", "3px solid gray");
-        $("#schedule_list_b").css("color", "gray");
-        $("#schedule_new_b").css("color", "#4A4949");
-        $("#schedule_new_b").css("border", "3px solid #5BB1EB");
-        $("#save_button").removeClass("d-none");
-        $("#template_div").removeClass("d-none");
-        $("#edit_button").addClass("d-none");
-        $("#day_0").click();
+            current_sensor_type: -1,
+            current_schedule_id: -1
+        });*/
     }
 
 
@@ -1766,19 +2078,18 @@ class Scheduling extends React.Component {
         //"color": "#4A4949" "border": "3px solid gray" 
         this.setState({
 
-            parts: [{}],
-            style2: [{}],
+            parts: [],
+            style2: [],
             style: [],
-            times: [{}],
-            current_sensor_type: -1
+            times: [],
+            current_sensor_type: -1,
+            current_schedule_id: -1
         });
         current_sensor_type = -1;
         $("#schedule_new").addClass("d-none");
         $("#schedule_list").removeClass("d-none");
-        $("#schedule_new_b").css("border", "3px solid gray");
-        $("#schedule_list_b").css("border", "3px solid #5BB1EB");
-        $("#schedule_list_b").css("color", "#4A4949");
-        $("#schedule_new_b").css("color", "gray");
+        $(".main_header_button").removeClass("border_bold");
+        $("#schedule_list_b").addClass("border_bold");
     }
     renderSensorTypeOptions() {
         var context1 = this;
@@ -1796,7 +2107,7 @@ class Scheduling extends React.Component {
     }
     renderTemplateOptions() {
         var context1 = this;
-       //console.log("templates", template)
+        console.log("templates", template)
         return template.map(function (o, key) {
             ////console.log(context.state.temlate[key].position)
             return (
@@ -1814,8 +2125,8 @@ class Scheduling extends React.Component {
     //}
 
     editScheduleUrl(id, key) {
-       //console.log("edit")
-       //console.log(this.state.schedules[key].parts)
+        console.log("edit")
+        console.log(this.state.schedules[key].parts)
         $("#schedule_name").val(this.state.schedules[key].name)
         var sensor_t = -1;
         for (var key2 in sensor_type) {
@@ -1823,7 +2134,7 @@ class Scheduling extends React.Component {
                 sensor_t = key2
             }
         }
-       //console.log(this.state.schedules[key])
+        console.log(this.state.schedules[key])
         current_sensor_type = this.state.schedules[key].type
         current_title = this.state.schedules[key].name
         $("#select1").val(sensor_t)
@@ -1839,7 +2150,7 @@ class Scheduling extends React.Component {
         var y = parseInt(parseInt($(".timeline").width()) / 24);
         var y2 = parseInt(parseInt($(".day_stat").width()) / 24);
         for (var key in parts_tmp) {
-           //console.log(key)
+            console.log(key)
             if (1 == 1) {
                 //console.log("key:::", key)
                 //console.log(this.state.parts[key])
@@ -1852,10 +2163,11 @@ class Scheduling extends React.Component {
                 x_new[key].background = mode_colors[parts_tmp[key].mode];
                 x_new[key].width = (end - start) * y + "px";
                 x_new[key].key = parts_tmp[key].key;
-                x_new[key].temperature = parts_tmp[key].temperature;
-                x_new[key].temperature_x = (((end - start) * y) / 2) - 20;
-                x_new[key].temperature_y = 30;
+                x_new[key].value = parts_tmp[key].value;
+                x_new[key].value_x = (((end - start) * y) / 2) - 20;
+                x_new[key].value_y = 30;
                 x_new[key].position = "absolute";
+                x_new[key].opacity = "1";
                 x_new[key].height = "80px";
                 x_new[key].cursor = "pointer";
                 x_new[key]["border-right"] = "3px solid white";
@@ -1867,10 +2179,11 @@ class Scheduling extends React.Component {
                 x_new2[key].background = mode_colors[parts_tmp[key].mode];
                 x_new2[key].width = (end - start) * y2 + "px";
                 x_new2[key].key = parts_tmp[key].key;
-                x_new2[key].temperature = parts_tmp[key].temperature;
-                x_new2[key].temperature_x = (((end - start) * y2) / 2) - 10;
-                x_new2[key].temperature_y = "-4px";
+                x_new2[key].value = parts_tmp[key].value;
+                x_new2[key].value_x = (((end - start) * y2) / 2) - 10;
+                x_new2[key].value_y = "-4px";
                 x_new2[key].position = "absolute";
+                x_new2[key].opacity = "1";
                 x_new2[key].height = "2.4vh";
                 x_new2[key].cursor = "pointer";
                 x_new2[key]["border-right"] = "0px solid white";
@@ -1904,7 +2217,7 @@ class Scheduling extends React.Component {
         });
         //this.inputElement.click();
         //this.inputElement.click();
-       //console.log("parts_tmp", parts_tmp)
+        console.log("parts_tmp", parts_tmp)
         this.componentDidMount1(parts_tmp);
         //$("#day_r_" + "0").click()
         // this.inputElement.click();
@@ -1916,23 +2229,34 @@ class Scheduling extends React.Component {
         $("#template_div").addClass("d-none");
         $("#edit_button").removeClass("d-none");
         $("#schedule_new").removeClass("d-none");
-        $("#schedule_list_b").css("border", "3px solid gray");
-        $("#schedule_list_b").css("color", "gray");
-        $("#schedule_new_b").css("color", "#4A4949");
-        $("#schedule_new_b").css("border", "3px solid #5BB1EB");
+        $(".main_header_button").removeClass("border_bold");
+        $("#schedule_new_b").addClass("border_bold");
     }
 
     listSchedule() {
 
         var context1 = this;
-       //console.log("schedules:::", this.state.schedules)
+        console.log("schedules:::", this.state.schedules)
         return this.state.schedules.map(function (o, key) {
             ////console.log(context.state.temlate[key].position)
+            var status = "Active";
+            var mode = "Auto";
+            var color = "red"
+            if (context1.state.schedules[key].active === 0) {
+                status = "InActive";
+                color = "green";
+            }
+            if (context1.state.schedules[key].mode_of_schedule === 1) {
+                mode = "Manual";
+            }
             return (
-                <div value={key} className="m-2" style={{ border: "1px solid #eee", "border-radius": "10px", "padding": "10px", "display": "inline-table", "width": "220px", "height": "220px" }}>
-                    <div style={{ position: "relative" }} title="Delete" onClick={(event) => context1.delete_schedule(context1.state.schedules[key].id)}>
-                        <div style={{ position: "absolute", bottom: "0px", top: "-5px", "right": "-25px", "cursor": "pointer" }}>
-                            <FontAwesomeIcon icon={faClose} className="circle mr-4" style={{ "width": "16px", "color": "gray", "border": "2px solid gray" }} />
+                <div value={key} className="m-2" style={{ border: "1px solid #eee", "border-radius": "10px", "padding": "10px", "display": "inline-table", "width": "260px", "height": "310px" }}>
+                    <div style={{ position: "relative" }}>
+                        <div title="Delete" onClick={(event) => context1.delete_schedule(context1.state.schedules[key].id, context1.state.schedules[key].location)} style={{ position: "absolute", bottom: "0px", top: "-5px", "right": "-25px", "cursor": "pointer" }}>
+                            <FontAwesomeIcon icon={faClose} className="circle mr-4" style={{ "width": "16px", "color": "red" }} />
+                        </div>
+                        <div title="Power" onClick={(event) => context1.power_schedule(context1.state.schedules[key].id, context1.state.schedules[key].location)} style={{ position: "absolute", bottom: "0px", top: "-5px", "right": "6px", "cursor": "pointer" }}>
+                            <FontAwesomeIcon icon={faPowerOff} className="circle mr-4" style={{ "width": "16px", "color": color }} />
                         </div>
                     </div>
                     <div className="newline mt-2"></div>
@@ -1946,6 +2270,18 @@ class Scheduling extends React.Component {
                     <div className="newline"></div>
                     <span className="ml-2">
                         {context1.state.schedules[key].type}
+                    </span>
+                    <div className="newline"></div>
+                    <span style={{ "font-weight": "bold" }}> Status: </span>
+                    <div className="newline"></div>
+                    <span className="ml-2">
+                        {status}
+                    </span>
+                    <div className="newline"></div>
+                    <span style={{ "font-weight": "bold" }}> Mode: </span>
+                    <div className="newline"></div>
+                    <span className="ml-2">
+                        {mode}
                     </span>
                     <div style={{ position: "relative", "cursor": "pointer" }}>
                         <div style={{ position: "absolute", bottom: "0px", top: "50px", "right": "-20px" }}>
@@ -1962,9 +2298,9 @@ class Scheduling extends React.Component {
 
 
     setTemplateType(value) {
-       //console.log("value=========", value);
+        console.log("value=========", value);
         //console.log(template)
-       //console.log(template[value].parts)
+        console.log(template[value].parts)
         this.setState({
 
             parts: template[value].parts,
@@ -1979,9 +2315,9 @@ class Scheduling extends React.Component {
     }
 
     setSensorType(value) {
-       //console.log("value=========", value);
+        console.log("value=========", value);
         //console.log(template)
-       //console.log("sensor_type", sensor_type[value])
+        console.log("sensor_type", sensor_type[value])
         this.setState({
 
 
@@ -2012,9 +2348,9 @@ class Scheduling extends React.Component {
 
     saveNewTemplate() {
         const x = template;
-       //console.log(x)
-       //console.log(template)
-        if (current_title === "" || this.state.current_sensor_type == "") {
+        console.log(x)
+        console.log(template)
+        if (current_title === "" || this.state.current_sensor_type == "" || $("#location_s").val() == "" || $("#select1").val() == "") {
             if (current_title === "")
                 toast.error('Please enter Schedule name ', {
                     position: "top-right",
@@ -2025,8 +2361,18 @@ class Scheduling extends React.Component {
                     draggable: true,
                     progress: undefined,
                 });
-            if (this.state.current_sensor_type === "")
+            if (this.state.current_sensor_type === "" || $("#select1").val() === "")
                 toast.error('Please enter Sensor type ', {
+                    position: "top-right",
+                    autoClose: 2500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            if ($("#location_s").val() === "")
+                toast.error('Please choose location ', {
                     position: "top-right",
                     autoClose: 2500,
                     hideProgressBar: false,
@@ -2040,7 +2386,7 @@ class Scheduling extends React.Component {
 
             //alert(index)
             const x = this.state.parts
-           //console.log(x)
+            console.log(x)
             var schedule = this.state.schedules
             var index = schedule.length
             schedule[index] = {}
@@ -2062,8 +2408,8 @@ class Scheduling extends React.Component {
             $("#day_title_" + this.state.current_day).removeClass("day_stat_title_bold");
             this.setState({
                 schedules: schedule,
-                parts: [{}],
-                style2: [{}],
+                parts: [],
+                style2: [],
                 currenValue_tmp: "-1",
                 currenValue_tmp2: "-2",
                 current_sensor_type: "-1"
@@ -2087,8 +2433,8 @@ class Scheduling extends React.Component {
 
     editNewTemplate() {
         const x = template;
-       //console.log(x)
-       //console.log(template)
+        console.log(x)
+        console.log(template)
         if (current_title === "" || this.state.current_sensor_type == "") {
             if (current_title === "")
                 toast.error('Please enter Schedule name ', {
@@ -2115,7 +2461,7 @@ class Scheduling extends React.Component {
 
             //alert(index)
             const x = this.state.parts
-           //console.log(x)
+            console.log(x)
             var schedule = this.state.schedules
             var index = schedule.length
             
@@ -2149,8 +2495,8 @@ class Scheduling extends React.Component {
             $("#day_title_" + this.state.current_day).removeClass("day_stat_title_bold");
             this.setState({
                 schedules: schedule,
-                parts: [{}],
-                style2: [{}],
+                parts: [],
+                style2: [],
                 currenValue_tmp: "-1",
                 currenValue_tmp2: "-2",
                 current_sensor_type: "-1"
@@ -2179,29 +2525,45 @@ class Scheduling extends React.Component {
 
         return (
             <div className="main_panel">
-                xxxxx111
                 <div className="container_main mb-3">
 
                     <div className="container_main_l1 text-left mb-3" style={{ "min-height": "500px" }}>
+                        <div>
+                            <select className="ml-1" id="location_s" onClick={(event) => this.get_schedules()} style={{ width: "100%", "border-radius": "5px", "padding": "10px", "margin-bottom": "20px", "color": "#ffbf1f", "background": "#000", "font-weight": "bold", "border": "2px solid #ffbf1f" }}>
+                                <option value="">Choose location</option>
+                                {this.renderLocationOptions()}
+                            </select>
+                        </div>
                         <div className="mb-4">
-                            <button id="schedule_list_b" type="button" className="button2 pr-4 pl-4" style={{ "border-radius": "4px", "color": "#4A4949" }} onClick={(event) => this.setScheduleList()} value="New"><FontAwesomeIcon style={{ "font-weight": "bold", "color": "#4A4949" }} className="mr-2" icon={faList} /> List</button>
+                            <button id="schedule_list_b" type="button" className="main_header_button border_bold pr-4 pl-4 m-2" style={{ "border-radius": "4px" }} onClick={(event) => this.setScheduleList()} value="New"><FontAwesomeIcon style={{ "font-weight": "bold" }} className="mr-2" icon={faList} /> List</button>
 
-                            <button id="schedule_new_b" type="button" className="button2 pr-4 pl-4" style={{ color: "gray", "border": "3px solid gray", "border-radius": "4px" }} onClick={(event) => this.setScheduleType()} value="New"><FontAwesomeIcon style={{ "font-weight": "bold", "color": "#4A4949" }} className="mr-2" icon={faPlus} /> New</button>
-                            <button type="button" className="button2" style={{ color: "gray", "border": "3px solid gray", "border-radius": "4px" }} value="Duplicate"><FontAwesomeIcon style={{ "font-weight": "bold" }} icon={faClone} /> Duplicate</button>
-                            <button type="button" className="button2" style={{ color: "gray", "border": "3px solid gray", "border-radius": "4px" }} value="Import"><FontAwesomeIcon style={{ "font-weight": "bold" }} icon={faFileImport} /> import</button>
-                            <button type="button" className="button2" style={{ color: "gray", "border": "3px solid gray", "border-radius": "4px" }} value=""><FontAwesomeIcon style={{ "font-weight": "bold" }} icon={faGear} /> Wizard</button>
+                            <button id="schedule_new_b" type="button" className="main_header_button pr-4 pl-4 m-2" style={{ "border-radius": "4px" }} onClick={(event) => this.setScheduleType()} value="New"><FontAwesomeIcon style={{ "font-weight": "bold" }} className="mr-2" icon={faPlus} /> New</button>
+                            <div id = "aut_or_man" style={{ "position": "relative","background": "#fff", "display": "none","z-index":"10","left":"-20px"}}>
+                                <div style={{ "position": "absolute" }}>
+                                    <div onClick={(event) => this.setScheduleType1(1)} className="menu_button1">Manual</div>
+                                    <div onClick={(event) => this.setScheduleType1(2)} className="menu_button2">Automatic</div>
+                                </div>
+                                <input type="hidden" value="-1" name="mode_of_schedule" id="mode_of_schedule"/>
+                            </div>
+                            <button type="button" className="main_header_button m-2" style={{ "border-radius": "4px" }} value="Duplicate"><FontAwesomeIcon style={{ "font-weight": "bold" }} icon={faClone} /> Duplicate</button>
+                            <button type="button" className="main_header_button m-2" style={{  "border-radius": "4px" }} value="Import"><FontAwesomeIcon style={{ "font-weight": "bold" }} icon={faFileImport} /> import</button>
+                            <button type="button" className="main_header_button m-2" style={{  "border-radius": "4px" }} value=""><FontAwesomeIcon style={{ "font-weight": "bold" }} icon={faGear} /> Wizard</button>
                         </div>
                         <div >
                             <div id="schedule_new" className=" d-none" style={{ border: "1px solid #eee", "border-radius": "10px", "padding": "10px" }}>
                                 <div className="mb-5 text-center" id="template_div">
-                                    <div style={{ "display": "inline-table" }}>
+                                    <div style={{ "display": "block" , "text-align" : "left" }}>
                                         <span className="title" style={{ "padding-right": "10px", "font-size": "16px", "color": "#4A4949" }}>
                                             Choose template
                                         </span>
-                                        <select id="select0" onClick={(event) => this.setTemplateType(event.target.value)} style={{ "border": "1px solid gray", "border-radius": "7px", width: "210px", padding: "5px" }}>
+                                        <div className="newline"></div>
+                                        <select id="select0" className = "mt-1" onClick={(event) => this.setTemplateType(event.target.value)} style={{ "border": "1px solid gray", "border-radius": "7px", width: "90%", padding: "5px" }}>
                                             {this.renderTemplateOptions()}
                                         </select>
-                                        <button onClick={(event) => this.setTemplate()} className="button2 ml-1 p-1" style={{ background: "white", width: "36px", "border-radius": "7px" }}> <FontAwesomeIcon style={{ "color": "#000", "font-size": "18px", "font-weight": "bold" }} icon={faCheck} /></button>
+                                        <div className="newline"></div>
+                                        <div className="mt-3" style={{"text-align" : "center"} }>
+                                            <button onClick={(event) => this.setTemplate()} className="main_header_button ml-1">Choose</button>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -2214,29 +2576,29 @@ class Scheduling extends React.Component {
                                 </div>
                                 <div className="mb-4 mt-4 text-center">
 
-                                    <div className="ml-5" style={{ "display": "inline-table" }}>
+                                    <div className="text-center" style={{ "display": "block" }}>
                                         <span className="title" style={{ "padding-right": "10px", "font-size": "16px" }}>
 
                                         </span>
                                         <div className="newline"></div>
-                                        <select id="select1" onClick={(event) => this.setSensorType(event.target.value)} style={{ "border": "1px solid gray", "border-radius": "7px", width: "400px", padding: "5px" }}>
+                                        <select id="select1" onClick={(event) => this.setSensorType(event.target.value)} style={{ "border": "1px solid gray", "border-radius": "7px", width: "90%", padding: "5px" }}>
                                             <option value="">
                                                 Choose sensor type
                                             </option>
                                             {this.renderSensorTypeOptions()}
                                         </select>
                                         <div className="newline m-3"></div>
-                                        <input type="text" className="pl-2" onKeyUp={(event) => this.settitle_val(event)} id="schedule_name" placeholder="Schedule name" style={{ "border": "1px solid gray", "border-radius": "7px", width: "400px", padding: "5px" }} />
+                                        <input type="text" className="pl-2" onKeyUp={(event) => this.settitle_val(event)} id="schedule_name" placeholder="Schedule name" style={{ "border": "1px solid gray", "border-radius": "7px", width: "90%", padding: "5px" }} />
 
 
 
                                     </div>
                                     <div className="newline"></div>
-                                    <div id="save_button" className="title mt-4" style={{ "display": "inline-table", "padding": "15px", "padding-top": "5px", "padding-bottm": "5px" }}>
-                                        <button onClick={(event) => this.saveNewTemplate()} className="button2" style={{ "border-radius": "12px", "padding-right": "20px", "padding-left": "20px", "color": "#4A4949" }}><FontAwesomeIcon style={{ "font-weight": "bold", "color": "#4A4949" }} icon={faSave} />  Save</button>
+                                    <div id="save_button" className="title mt-4 text-center" style={{ "display": "block", "padding": "15px", "padding-top": "5px", "padding-bottm": "5px" }}>
+                                        <button onClick={(event) => this.saveNewTemplate()} className="main_header_button"><FontAwesomeIcon style={{ "font-weight": "bold" }} icon={faSave} />  Save</button>
                                     </div>
-                                    <div id="edit_button" className="title mt-4 d-none" style={{ "display": "inline-table", "padding": "15px", "padding-top": "5px", "padding-bottm": "5px" }}>
-                                        <button onClick={(event) => this.editNewTemplate()} className="button2" style={{ "border-radius": "12px", "padding-right": "20px", "padding-left": "20px", "color": "#4A4949" }}><FontAwesomeIcon style={{ "font-weight": "bold", "color": "#4A4949" }} icon={faSave} />  Edit</button>
+                                    <div id="edit_button" className="title mt-4 d-none text-center" style={{ "display": "block", "padding": "15px", "padding-top": "5px", "padding-bottm": "5px" }}>
+                                        <button onClick={(event) => this.editNewTemplate()} className="main_header_button" ><FontAwesomeIcon style={{ "font-weight": "bold" }} icon={faSave} />  Edit</button>
                                     </div>
                                 </div>
                             </div>

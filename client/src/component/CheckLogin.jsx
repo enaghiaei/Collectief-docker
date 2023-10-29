@@ -19,7 +19,7 @@ class CheckLogin {
   
       if(token != ""){
       var credentials = {token:token};
-     //console.log(credentials);
+      console.log(credentials);
       return fetch('http://'+global.config.vals.root.ip+':3001/is_login', {
         method: 'POST',
         headers: {
@@ -34,8 +34,8 @@ class CheckLogin {
               isLoaded: true,
               items: result.items
             });*/
-           //console.log(result);
-           //console.log("message="+result.message);
+            console.log(result);
+            console.log("message="+result.message);
             if(result.message === 1){   
   
               return true;                 
@@ -43,7 +43,7 @@ class CheckLogin {
             }
             else if(result.message === 0){
   
-             //console.log("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+              console.log("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                 const cookies = new Cookies();
                 cookies.remove('token'); 
                 window.location.href = "/";      
@@ -51,7 +51,7 @@ class CheckLogin {
               
   
             }
-           //console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+            console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
     
             //if(result.message == "1")
             //  window.location.href = "/dashboard";

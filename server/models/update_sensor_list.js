@@ -86,7 +86,7 @@ async function update_sensor_list(token, res0) {
         [rows2, fields2] = await con.execute("SELECT * FROM sensors_list WHERE sl_sensor = ?", [rows[key]["sensor_serial"]]);
        //console.log("unique sensors2", rows2)
         if (rows2.length == 0) {
-            await con.execute("INSERT INTO sensors_list (sl_sensor) VALUES (" + rows[key]["sensor_serial"] + ")");
+            await con.execute("INSERT INTO sensors_list (sl_sensor) VALUES ('" + rows[key]["sensor_serial"] + "')");
         }
     }
     // }

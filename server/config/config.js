@@ -1,5 +1,8 @@
 module.exports = global.config = {
     vals: {
+        local_ip: {
+            value: "192.168.43.91"
+        },
         root: {
             ip: "localhost:8081"
         },
