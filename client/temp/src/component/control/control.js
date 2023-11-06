@@ -30,7 +30,7 @@ class Control extends React.Component {
 
 
     /* renderRows(){
-      //console.log("renderRows");
+       console.log("renderRows");
        this.createRow();
      }*/
 

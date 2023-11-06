@@ -16547,6 +16547,7 @@ class Home extends React.Component {
                 <div id="newRows" >
                     {this.listBoxesNew()}
                 </div>
+                <div className="newline"></div>
                 <div className="container_main mt-3 pb-5 remove-part d-none" style={{"text-align":"left"}}>
                     <div style={{"text-align":"center"}}>
                     <div className="container_c0 text-center" style={{ "min-height" : "15vh"}}>

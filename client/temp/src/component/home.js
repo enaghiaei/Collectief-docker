@@ -41,13 +41,13 @@ class Home extends React.Component {
 
 
     /* renderRows(){
-      //console.log("renderRows");
+       console.log("renderRows");
        this.createRow();
      }*/
     sensors() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensors', {
             method: 'POST',
             headers: {
@@ -68,7 +68,7 @@ class Home extends React.Component {
                         loading: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -88,7 +88,7 @@ class Home extends React.Component {
     sensors_type() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensors_type', {
             method: 'POST',
             headers: {
@@ -108,7 +108,7 @@ class Home extends React.Component {
                         loading: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -129,7 +129,7 @@ class Home extends React.Component {
     temperature() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_temperature', {
             method: 'POST',
             headers: {
@@ -149,7 +149,7 @@ class Home extends React.Component {
                         loading: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -169,7 +169,7 @@ class Home extends React.Component {
     locations() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_locations', {
             method: 'POST',
             headers: {
@@ -189,7 +189,7 @@ class Home extends React.Component {
                         loading: "d-none"
                     }
                     );
-                   //console.log(result);
+                    console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -229,7 +229,7 @@ class Home extends React.Component {
     show_sensor_data(serial_id) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       //console.log("cookies=" + cookies.get('token'));
+        console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensor_data', {
             method: 'POST',
             headers: {
@@ -248,7 +248,7 @@ class Home extends React.Component {
                     $(".serials_detail2").removeClass("d-none");
                     $(".serials_detail3").removeClass("d-none");
                     var str = ``;
-                   //console.log(result);
+                    console.log(result);
                     for (var key in result.result) {
                         str += `<div style="border-bottom: 1px solid #eee;"><div style="display:inline-table;font-weight:bold;width:90px;text-align:left;">` + result.result[key].sensor_type + `</div>` + `<div style="display:inline-table;font-weight:normal;width:90px">` + result.result[key].measure_value.toFixed(2) + `</div><div style="clear:both;"></div></div>`;
                     }

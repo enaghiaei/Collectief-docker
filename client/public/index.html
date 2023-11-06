@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description"
-          content="Web site created using create-react-app" />
+          content="Collectief" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -42,17 +42,17 @@
 
             $(".menu-crtl").click(function () {
                 //alert($("#menu_stat").val());
-                if ($("#menu_stat").val() == "false")
-                    $(".main_panel").css("left", window.innerWidth * 0.07);
-                else
-                    $(".main_panel").css("left", window.innerWidth * 0.16);
+                //if ($("#menu_stat").val() == "false")
+                    //$(".main_panel").css("left", window.innerWidth * 0.07);
+                //else
+                   // $(".main_panel").css("left", window.innerWidth * 0.16);
                 if ($("#menu_stat").val() == "false") {
                     $(".main_panel").css("width", window.innerWidth * 0.91);
                     $(".main_content").css("width", window.innerWidth * 0.91);
                 }
                 else {
-                    $(".main_content").css("width", window.innerWidth * 0.81);
-                    $(".main_panel").css("width", window.innerWidth * 0.81);
+                    $(".main_content").css("width", window.innerWidth * 0.91);
+                    $(".main_panel").css("width", window.innerWidth * 0.91);
                 }
             });
 
@@ -82,25 +82,25 @@
                 $(".topleft").css("width", window.innerWidth * 0.35);
                 $(".rightbottom").css("width", window.innerWidth * 0.45);
                 //$(".rightbottom").css("right",window.innerWidth*0.1);
-                if ($("#menu_stat").val() == "true")
+                /*if ($("#menu_stat").val() == "true")
                     $(".main_panel").css("left", window.innerWidth * 0.07);
                 else
-                    $(".main_panel").css("left", window.innerWidth * 0.16);
+                    $(".main_panel").css("left", window.innerWidth * 0.16);*/
                 if ($("#menu_stat").val() == "true") {
                     $(".main_panel").css("width", window.innerWidth * 0.91);
                     $(".main_content").css("width", window.innerWidth * 0.91);
                 }
                 else {
-                    $(".main_content").css("width", window.innerWidth * 0.81);
-                    $(".main_panel").css("width", window.innerWidth * 0.81);
+                    $(".main_content").css("width", window.innerWidth * 0.91);
+                    $(".main_panel").css("width", window.innerWidth * 0.91);
                 }
                 var page_size = { width: $(window).width(), height: $(window).height() };
 
-               //console.log(page_size);
+                console.log(page_size);
                 var p_width = 0;
-                $(".col-left").css("display", "block");
+                $(".col-left").css("display", "none");
                 $(".menu").css("height", page_size.height);
-                $(".menu-open").css("width", page_size.width * 0.15);
+                $(".menu-open").css("width", page_size.width * 0.25);
                 $(".menu-close").css("width", page_size.width * 0.06);
                 $(".menu-h-open").css("width", page_size.width * 0.02);
                 $(".menu-h-close").css("width", page_size.width * 0.02);
@@ -112,6 +112,7 @@
                 $(".logo").css("width", (0.15 * page_size.width));
                 $(".logo").css("top", (0.0005 * page_size.height));
                 if (page_size.width > 1056) {
+                    $(".col-left").css("display", "block");
                     $(".left_img").css("width", (0.3 * page_size.width));
                     $(".col-right").css("width", (0.2 * page_size.width));
                     $(".col-right").css("max-height", (0.8 * page_size.height));
@@ -142,39 +143,45 @@
                     $(".login_container").css("box-shadow", "0px 36.0424px 56.909px rgb(0 0 0 / 15%)");
                 }
                 else if (page_size.width > 856) {
-                    $(".left_img").css("width", (0.3 * page_size.width));
-                    $(".col-right").css("width", (0.4 * page_size.width));
-                    $(".col-right").css("max-height", (0.8 * page_size.height));
-                    $(".input_text").css("width", (0.2 * page_size.width));
-                    $(".login_b").css("width", (0.2 * page_size.width));
-                    $(".login_b2").css("width", (0.2 * page_size.width));
-                    $(".left_img").css("height", (0.7 * page_size.height));
-                    $(".v_m").css("width", (0.1 * page_size.width));
-                    //$(".login_container").css("height",0.8*page_size.height);
-                    $(".login_container_l2").css("width", 0.9 * page_size.width);
-                    $(".login-top").css("margin-top", 0.1 * page_size.height);
-                    $(".login-top").css("margin-bottom", 0.1 * page_size.height);
-                    $(".login_container").css("box-shadow", "0px 36.0424px 56.909px rgb(0 0 0 / 15%)");
+                    $(".menu-h-open").css("width", page_size.width * 0.04);
+                    $(".menu-h-close").css("width", page_size.width * 0.04);
+                    //$(".menu-open").css("width", page_size.width * 0.25);
+                    $(".menu-close").css("width", page_size.width * 0.15);
+                    $(".col-right").css("width", page_size.width);
+                    $(".col-left").css("display", "none");
+                    $(".input_text").css("width", 0.8 * page_size.width);
+                    $(".login_b").css("width", 0.8 * page_size.width);
+                    $(".login_b2").css("width", 0.8 * page_size.width);
+                    $(".col-right").css("margin-left", 0.1 * page_size.width);
+                    $(".v_m").css("width", (0.2 * page_size.width));
+                    $(".login_container").css("height", page_size.height);
+                    $(".login-top").css("margin-bottom", 0 * page_size.height);
+                    $(".login_l2").css("font-size", "20px");
+                    $(".login_container").css("box-shadow", "0px 0px 0px");
+                    $(".login_container").css("border-radius", "0px");
                 }
                 else if (page_size.width > 756) {
-                    $(".left_img").css("width", (0.3 * page_size.width));
-                    $(".col-right").css("width", (0.4 * page_size.width));
-                    $(".col-right").css("max-height", (0.8 * page_size.height));
-                    $(".input_text").css("width", (0.2 * page_size.width));
-                    $(".login_b").css("width", (0.2 * page_size.width));
-                    $(".login_b2").css("width", (0.2 * page_size.width));
-                    $(".left_img").css("height", (0.7 * page_size.height));
-                    $(".v_m").css("width", (0.1 * page_size.height));
-                    //$(".login_container").css("height",0.8*page_size.height);
-                    $(".login_container_l2").css("width", 0.9 * page_size.width);
-                    $(".login-top").css("margin-top", 0.1 * page_size.height);
-                    $(".login-top").css("margin-bottom", 0.1 * page_size.height);
-                    $(".login_container").css("box-shadow", "0px 36.0424px 56.909px rgb(0 0 0 / 15%)");
+                    $(".menu-h-open").css("width", page_size.width * 0.04);
+                    $(".menu-h-close").css("width", page_size.width * 0.04);
+                    //$(".menu-open").css("width", page_size.width * 0.25);
+                    $(".menu-close").css("width", page_size.width * 0.15);
+                    $(".col-right").css("width", page_size.width);
+                    $(".col-left").css("display", "none");
+                    $(".input_text").css("width", 0.8 * page_size.width);
+                    $(".login_b").css("width", 0.8 * page_size.width);
+                    $(".login_b2").css("width", 0.8 * page_size.width);
+                    $(".col-right").css("margin-left", 0.1 * page_size.width);
+                    $(".v_m").css("width", (0.2 * page_size.width));
+                    $(".login_container").css("height", page_size.height);
+                    $(".login-top").css("margin-bottom", 0 * page_size.height);
+                    $(".login_l2").css("font-size", "20px");
+                    $(".login_container").css("box-shadow", "0px 0px 0px");
+                    $(".login_container").css("border-radius", "0px");
                 }
                 else if (page_size.width < 756) {
                     $(".menu-h-open").css("width", page_size.width * 0.04);
                     $(".menu-h-close").css("width", page_size.width * 0.04);
-                    $(".menu-open").css("width", page_size.width * 0.25);
+                    //$(".menu-open").css("width", page_size.width * 0.25);
                     $(".menu-close").css("width", page_size.width * 0.15);
                     $(".col-right").css("width", page_size.width);
                     $(".col-left").css("display", "none");

@@ -8,7 +8,7 @@ exports.delete_ = function (schedule, res0) {
     var insert_id = 0;
     var mysql = require('mysql2'); var config = require('../config/config.js');
     var con = mysql.createConnection({
-        host: "mysql_db", port:"3307",        
+        host: global.config.vals.database.host, port:global.config.vals.database.port,        
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -32,7 +32,7 @@ exports.delete_ = function (schedule, res0) {
         if (err) throw err;
         updated = result.affectedRows;
         if (updated > 0) {
-            var res2 = con.query("select sc_schedule AS sce,sc_id AS id,sc_active AS active FROM schedule where sc_deleted =0 and user_id=?", [result0[0]["s_user_id"]], function (err, result, fields) {
+            var res2 = con.query("select sc_schedule AS sce,sc_id AS id,sc_active AS active,sc_mode AS mode FROM schedule where sc_deleted =0 and user_id=?", [result0[0]["s_user_id"]], function (err, result, fields) {
                //console.log(result);
                 res0.json({ message: 1, result: result });
                 con.end();

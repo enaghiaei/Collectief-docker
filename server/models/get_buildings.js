@@ -7,7 +7,7 @@ async function get_(token, res0) {
     var mysql = require('mysql2');
     var config = require('../config/config.js');
     var con = mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -30,16 +30,18 @@ async function get_(token, res0) {
                         var res = con.query("select cl_title AS title,cl_id AS id,cl_date AS date,cl_type AS type,cl_detail AS location_detail FROM collectief_location where  cl_deleted =0 and cl_type = 2", [], function (err, result, fields) {
                            //console.log(result);
                            //console.log(res.sql)
-                            res0.json({ result: result });
                             con.end();
+                            res0.json({ result: result });
+                          
                         });
                     }
                     else if (result2[0].user_type == 2) {
                         var res = con.query("select cl_title AS title,cl_id AS id,cl_date AS date,cl_type AS type,cl_detail AS location_detail FROM collectief_location where  cl_deleted =0 and cl_type = 2 and cl_parent=?", [result2[0].location_id], function (err, result, fields) {
                            //console.log(result);
                            //console.log(res.sql)
-                            res0.json({ result: result });
                             con.end();
+                            res0.json({ result: result });
+                           
                         });
                     }
                     else if (result2[0].user_type == 3) {
@@ -48,8 +50,9 @@ async function get_(token, res0) {
                             var res2 = con.query("select collectief_location.cl_title AS title,collectief_location.cl_id AS id,collectief_location.cl_date AS date,collectief_location.cl_type AS type,collectief_location.cl_detail AS location_detail FROM collectief_location JOIN collectief_location AS clt ON collectief_location.cl_parent = clt.cl_id  where  collectief_location.cl_deleted =0 and  collectief_location.cl_id=?", [result2[0].location_id], function (err, result3, fields) {
                                //console.log(res2.sql)
                                //console.log("result3 === ", result3);
-                                res0.json({ result: result3 });
                                 con.end();
+                                res0.json({ result: result3 });
+                               
                             });
                             
                         });
@@ -60,8 +63,9 @@ async function get_(token, res0) {
                             var res2 = con.query("select collectief_location.cl_title AS title,collectief_location.cl_id AS id,collectief_location.cl_date AS date,collectief_location.cl_type AS type,collectief_location.cl_detail AS location_detail FROM collectief_location JOIN collectief_location AS clt ON collectief_location.cl_parent = clt.cl_id  where  collectief_location.cl_deleted =0 and  collectief_location.cl_type=? and collectief_location.cl_parent=?", [4, result2[0].location_id], function (err, result3, fields) {
                                //console.log(res2.sql)
                                //console.log("result3 === ", result3);
-                                res0.json({ result: result.concat(result3) });
                                 con.end();
+                                res0.json({ result: result.concat(result3) });
+                               
                             });
 
                         });

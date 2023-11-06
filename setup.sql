@@ -224,16 +224,17 @@ CREATE TABLE `node_220403690` (
 CREATE TABLE `node_per_quarter` (
   `nph_id` bigint NOT NULL,
   `nph_cl_id` int NOT NULL DEFAULT '0',
-  `nph_max` varchar(10) NOT NULL,
-  `nph_min` varchar(10) NOT NULL,
-  `nph_avg` varchar(10) NOT NULL,
-  `nph_kind` varchar(50) NOT NULL,
-  `nph_name` varchar(50) NOT NULL,
-  `nph_from` varchar(25) NOT NULL,
-  `nph_to` varchar(25) NOT NULL,
-  `nph_from2` varchar(25) NOT NULL,
-  `nph_to2` varchar(25) NOT NULL,
-  `sensor_serial` varchar(20) NOT NULL,
+  `nph_max` varchar(10) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `nph_min` varchar(10) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `nph_avg` varchar(10) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `nph_kind` varchar(50) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `nph_name` varchar(50) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `nph_from` varchar(25) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `nph_to` varchar(25) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `nph_from2` varchar(25) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `nph_to2` varchar(25) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `nph_unixtime` bigint NOT NULL DEFAULT '0',
+  `sensor_serial` varchar(20) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
   `nph_status` int NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf16;
 
@@ -282,15 +283,24 @@ CREATE TABLE `notification_base` (
 
 CREATE TABLE `notification_default` (
   `nt_id` int NOT NULL,
-  `nt_value` varchar(15) NOT NULL,
+  `nt_value` varchar(15) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
   `nt_type` int NOT NULL,
-  `nt_operation` varchar(20) NOT NULL,
+  `nt_operation` varchar(20) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
   `nt_user` int NOT NULL DEFAULT '0',
   `nt_deleted` int NOT NULL DEFAULT '0',
   `nt_active` int NOT NULL DEFAULT '1',
+  `nt_importance` int NOT NULL DEFAULT '0',
   `nte_id` int NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+
+INSERT INTO `notification_default` (`nt_id`, `nt_value`, `nt_type`, `nt_operation`, `nt_user`, `nt_deleted`, `nt_active`, `nt_importance`, `nte_id`) VALUES
+(1, '40', 0, '0', 0, 0, 0, 0, 1),
+(2, '2', 1, '0', 0, 0, 0, 0, 0),
+(3, '3', 2, '2', 0, 0, 0, 0, 1),
+(4, '1000', 3, '2', 0, 0, 0, 0, 2),
+(5, '2000', 4, '0', 0, 0, 0, 0, 2),
+(6, '80', 5, '0', 0, 0, 0, 0, 0);
 -- --------------------------------------------------------
 
 --
@@ -301,12 +311,16 @@ CREATE TABLE `notification_messages` (
   `nm_id` int NOT NULL,
   `nt_id` int NOT NULL,
   `nm_value` int NOT NULL,
-  `nm_message` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `nm_message` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `nm_seen` int NOT NULL DEFAULT '0',
   `nm_deleted` int NOT NULL DEFAULT '0',
   `nm_user` int NOT NULL DEFAULT '0',
   `nt_date` bigint NOT NULL DEFAULT '0',
-  `nm_sensor_id` varchar(20) NOT NULL
+  `nt_date2` bigint NOT NULL DEFAULT '0',
+  `nm_sensor_id` varchar(20) CHARACTER SET utf16 COLLATE utf16_general_ci NOT NULL,
+  `nm_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `nm_archived` int NOT NULL DEFAULT '0',
+  `nm_type` int NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -338,6 +352,16 @@ CREATE TABLE `notification_types` (
   `nte_deleted` int NOT NULL DEFAULT '0',
   `measure_id` int NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `notification_types` (`nte_id`, `nte_value`, `nte_deleted`, `measure_id`) VALUES
+(8, 'Indoor humidity', 0, 11),
+(1, 'Indoor temperature', 0, 10),
+(2, 'Pressure', 0, 9),
+(3, 'CO2', 0, 6),
+(4, 'Noise', 0, 0),
+(5, 'Outdoor humidity', 0, 11),
+(6, 'Outdoor temperature', 0, 10),
+(7, 'Sensors status', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -661,6 +685,19 @@ ALTER TABLE `notification_messages_old`
   ADD PRIMARY KEY (`nm_id`);
 
 --
+-- Indexes for table `notification_messages_old`
+--
+ALTER TABLE `notification_messages`
+  ADD PRIMARY KEY (`nm_id`);
+
+--
+-- Indexes for table `notification_messages_old`
+--
+ALTER TABLE `sensors_list`
+  ADD PRIMARY KEY (`sl_id`);
+
+
+--
 -- Indexes for table `notification_types`
 --
 ALTER TABLE `notification_types`
@@ -720,6 +757,11 @@ ALTER TABLE `area_building`
 ALTER TABLE `area_cluster`
   MODIFY `ac_id` int NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT for table `area_cluster`
+--
+ALTER TABLE `sensors_list`
+  MODIFY `sl_id` int NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `area_location_types`
 --
@@ -827,6 +869,13 @@ ALTER TABLE `session`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+
+--
+-- AUTO_INCREMENT for table `notification_messages`
+--
+
+ALTER TABLE `notification_messages`
+  MODIFY `nm_id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users_detail`

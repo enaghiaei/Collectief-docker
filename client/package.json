@@ -28,7 +28,7 @@
     "react-notification-badge": "^1.5.1",
     "react-open-weather": "^1.3.0",
     "react-router-dom": "^6.4.1",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",
     "reactjs-popup": "^2.0.5",
     "state-pool": "^0.7.1",

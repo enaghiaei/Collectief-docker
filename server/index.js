@@ -39,7 +39,6 @@ var get_nt_b = require('./models/get_notification_base');
 var del_sc = require('./models/delete_schedule');
 var del_sc_access = require('./models/delete_user_access');
 var upd_sc = require('./models/update_schedule');
-var pow_sc = require('./models/power_schedule');
 var upd_nt = require('./models/update_notification');
 var upd_nt_cu = require('./models/update_notification_custom');
 var upd_nt_cu_stat = require('./models/update_notification_custom_stat');
@@ -70,7 +69,6 @@ var usr_access = require('./models/get_users_access');
 var glt = require('./models/get_location_types'); 
 var dis_sens = require('./models/disconnect_sensor'); 
 var test_conn = require('./models/test_connection'); 
-var test_conn_new = require('./models/test_connection_new');
 var test_conn2 = require('./models/test_connection_2'); 
 var update_sensor_list = require('./models/update_sensor_list'); 
 var get_sri = require('./models/get_sri');
@@ -82,7 +80,7 @@ var export_csv = require('./models/export_csv');
 var get_info = require('./models/get_info');
 var check_get_from_qpe = require('./models/check_get_from_qpe');
 //del_re
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3002;
 
 
 
@@ -181,13 +179,6 @@ app.get("/test_connection", (req, res) => {
 
 });
 
-app.get("/test_connection_new", (req, res) => {
-    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
-    //console.log("test_connection");
-    //console.log(req.body);
-    test_conn_new.test_connection_new(req.body, res);
-
-});
 
 app.get('/export_csv', function (req, res) {
     export_csv.export_csv(req.body, res);
@@ -821,20 +812,6 @@ app.post("/update_schedule", (req, res) => {
     var result1 = upd_sc.update_(req.body, res);
    //console.log("$$$$$");
    //console.log(result1);
-    //console.log("$$$$$");
-    //check_l.check_(req.body,res);
-
-});
-
-
-app.post("/power_schedule", (req, res) => {
-    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
-    //console.log("delete_schedule");
-    //console.log(req.body);
-
-    var result1 = pow_sc.power_(req.body, res);
-    //console.log("$$$$$");
-    //console.log(result1);
     //console.log("$$$$$");
     //check_l.check_(req.body,res);
 

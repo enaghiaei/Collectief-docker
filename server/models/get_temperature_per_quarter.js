@@ -15,7 +15,7 @@ async function get_temperature_per_quarter(token, res0) {
     
     let [rows, fields] = [[], []];
     var con = await mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -61,7 +61,8 @@ async function get_temperature_per_quarter(token, res0) {
             var today = new Date();
             var today_time = today.getTime();
             //var date1 = new Date(today_time - (195 * 1000 * 60));
-            var date1 = new Date(today_time);
+    var date1 = new Date(today_time);
+    var date4 = new Date(today_time - (240 * 1000 * 60));
             var m = date1.getMinutes();
             /*if(m < 15)
                 var date = new Date(today_time - (1000 * 60 * (m + 1) + (195 * 1000 * 60)));  
@@ -76,6 +77,20 @@ async function get_temperature_per_quarter(token, res0) {
         var date = new Date(today_time - (1000 * 60 * (m - 1)));
         var date3 = new Date(today_time - (1000 * 60 * ((m - 1) + 45)));
 
+    }
+
+    let today4_ = date4.toLocaleDateString();
+    //console.log("today_", today_)
+    var today4_tmp = today4_.split("/");
+    //console.log("today_tmp", today_tmp)
+    let today41 = today4_tmp[0];
+    let today42 = today4_tmp[1];
+    let today43 = today4_tmp[2];
+    if (today41 < 10) {
+        today41 = "0" + today41;
+    }
+    if (today42 < 10) {
+        today42 = "0" + today42;
     }
 
             //let date = new Date();
@@ -122,7 +137,8 @@ async function get_temperature_per_quarter(token, res0) {
 
 
             var s = date.getSeconds();
-
+            var h4 = date4.getHours();
+            var m4 = date4.getMinutes();
             var h = date.getHours();
             var h_2 = date1.getHours();
             var h_3 = date3.getHours();
@@ -180,6 +196,7 @@ async function get_temperature_per_quarter(token, res0) {
             var x0 = today3 + "-" + today1 + "-" + today2 + " " + h + ":" + m_0 + ":" + "00";
             var x1 = today3_2 + "-" + today1_2 + "-" + today2_2 + " " + h_2 + ":" + m_1 + ":" + "00";
             var x3 = today3_3 + "-" + today1_3 + "-" + today2_3 + " " + h_3 + ":" + m_3 + ":" + "00";
+            var x4 = today43 + "-" + today41 + "-" + today42 + " " + h4 + ":" + m4 + ":" + "00";
            //console.log("x0:", x0);
            //console.log("x1:", x1);
    //console.log("x1:", x3);
@@ -197,7 +214,7 @@ async function get_temperature_per_quarter(token, res0) {
             for (var key5 in rows5) {
                //console.log("rows", rows5[key5])
                 for (var key6 in rows6) {
-                    [rows, fields] = await con.execute("SELECT sensor_serial,AVG(measure_value) AS av,MAX(measure_value) AS av_max,MIN(measure_value) AS av_min,'" + h + " to " + h_2 + "' AS range_title,measure_kind,measure_name FROM node_2204036" + num_t + "  WHERE " + " sensor_serial = '" + rows5[key5].sl_sensor + "' AND measure_kind = '" + rows6[key6].measure_kind + "' AND " + " measure_name = '" + rows6[key6].measure_name + "' AND " + " timestamp >= '" + x0 + "'" + " AND timestamp < '" + x1 + "' GROUP BY sensor_serial,measure_kind,measure_name");
+                    [rows, fields] = await con.execute("SELECT sensor_serial,AVG(measure_value) AS av,MAX(measure_value) AS av_max,MIN(measure_value) AS av_min,'" + h + " to " + h_2 + "' AS range_title,measure_kind,measure_name FROM node_2204036" + num_t + "  WHERE " + " sensor_serial = '" + rows5[key5].sl_sensor + "' AND measure_kind = '" + rows6[key6].measure_kind + "' AND " + " measure_name = '" + rows6[key6].measure_name + "' AND " + " timestamp >= '" + x4 + "'" + " GROUP BY sensor_serial,measure_kind,measure_name");
                    ////console.log(con.sql);
                    //console.log("rows", rows)
                    //console.log("rows", rows6[key6])
@@ -221,7 +238,11 @@ async function get_temperature_per_quarter(token, res0) {
                                 rows[key]["av_min"] = parseFloat(rows[key]["av_min"]);
                             }
                             var vals = rows[key]["sensor_serial"] + "," + rows[key]["av_max"].toFixed(2) + "," + rows[key]["av_min"].toFixed(2) + "," + rows[key]["av"].toFixed(2) + ",'" + rows[key]["measure_kind"] + "','" + rows[key]["measure_name"] + "'" + ",'" + h + ":" + m_0 + "'" + ",'" + h_2 + ":" + m_1 + "'" + ",'" + x0 + "','" + x1 + "'";
-                            [rows2] = await con.execute("INSERT INTO node_per_quarter (sensor_serial,nph_max,nph_min,nph_avg,nph_kind,nph_name,nph_from,nph_to,nph_from2,nph_to2) VALUES (" + vals + ")");
+                            try {
+                                [rows2] = await con.execute("INSERT INTO node_per_quarter (sensor_serial,nph_max,nph_min,nph_avg,nph_kind,nph_name,nph_from,nph_to,nph_from2,nph_to2) VALUES (" + vals + ")");
+                            } catch (error) {
+                                console.log(error)
+                            }
                         }
                     } else {
                         var nph_max = 0;
@@ -241,17 +262,22 @@ async function get_temperature_per_quarter(token, res0) {
                             }
                         }
                         var vals = rows5[key5]["sl_sensor"] + "," + nph_max + "," + nph_min + "," + nph_avg + ",'" + rows6[key6]["measure_kind"] + "','" + rows6[key6]["measure_name"] + "'" + ",'" + h + ":" + m_0 + "'" + ",'" + h_2 + ":" + m_1 + "'" + ",'" + x0 + "','" + x1 + "'," + nph_status;
-                        [rows2] = await con.execute("INSERT INTO node_per_quarter (sensor_serial,nph_max,nph_min,nph_avg,nph_kind,nph_name,nph_from,nph_to,nph_from2,nph_to2,nph_status) VALUES (" + vals + ")");
+                        try {
+                            [rows2] = await con.execute("INSERT INTO node_per_quarter (sensor_serial,nph_max,nph_min,nph_avg,nph_kind,nph_name,nph_from,nph_to,nph_from2,nph_to2,nph_status) VALUES (" + vals + ")");
+                        } catch (error) {
+                            console.log(error)
+                        }
                     }
                 }
             }
 
         }
-   
+    if (1 == 2) {
         [rows3] = await con.execute("DELETE FROM node_2204036" + num_t + " WHERE" + " timestamp <= '" + x0 + "'");
-       //console.log("DELETE FROM node_2204036" + num_t + " WHERE" + " timestamp < '" + x1 + "'")
+        //console.log("DELETE FROM node_2204036" + num_t + " WHERE" + " timestamp < '" + x1 + "'")
         //console.log(query.sql);  
         row_all[k++] = rows;
+    }
         /*var res1 = con.query("SELECT AVG(measure_value) AS av,'" + h + "to" + h_2 + "' AS range_title FROM node_2204036" + num_t + " WHERE measure_kind = 'Temperature'" + " AND timestamp >= '" + x0 + "'" + " AND timestamp <= '" + x1 + "'", [], function (err, result0, fields) {
                 //var rows = db.prepare("SELECT AVG(measure_value) AS av,'" + h + "to" + h_2 + "' AS range_title FROM main.node_2204036" + num_t + " WHERE measure_kind = 'Temperature'" + " AND timestamp >= '" + x0 + "'" + " AND timestamp <= '" + x1 + "'").all();
                //console.log("SELECT AVG(measure_value) AS av,'" + h + "to" + h_2 + "' AS range_title FROM main.node_2204036" + num_t + " WHERE measure_kind = 'Temperature'" + " AND timestamp >= '" + x0 + "'" + " AND timestamp <= '" + x1 + "'")

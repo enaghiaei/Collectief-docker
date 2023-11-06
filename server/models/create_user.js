@@ -16,7 +16,7 @@ exports.create = function (req,ip,res0) {
     var token_list = [];
     
     var con = mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -36,7 +36,7 @@ exports.create = function (req,ip,res0) {
        //console.log(result0);
         var val = [[req.username, md5(req.password), req.name, req.phone, result0[0].s_user_id,req.user_type]];
         var res = con.query("INSERT INTO users (email,password,fullname,phone_number,owner,user_type) VALUES ?", [val], function (err, result, fields) {
-           //console.log(res.sql);
+           console.log(res.sql);
             //console.log(result); 
             insert_id = result.insertId;
             if (insert_id > 0) {

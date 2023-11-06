@@ -55,12 +55,12 @@ app.use(express.json());
 
 app.get("/get_sensors", (req, res) => {
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
-   //console.log("get_sensors");
+    console.log("get_sensors");
     //console.log(req.body);
 
     var result1 = pro.get_sensors(req.body, res);
-   //console.log("$$$$$");
-   //console.log(result1);
+    console.log("$$$$$");
+    console.log(result1);
     //console.log("$$$$$");
     //check_l.check_(req.body,res);
 
@@ -68,12 +68,12 @@ app.get("/get_sensors", (req, res) => {
 
 app.post("/get_sensors", (req, res) => {
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
-   //console.log("get_sensors");
+    console.log("get_sensors");
     //console.log(req.body);
 
     var result1 = pro.get_sensors(req.body, res);
-   //console.log("$$$$$");
-   //console.log(result1);
+    console.log("$$$$$");
+    console.log(result1);
     //console.log("$$$$$");
     //check_l.check_(req.body,res);
 
@@ -82,12 +82,12 @@ app.post("/get_sensors", (req, res) => {
 
 app.post("/get_sensor_data", (req, res) => {
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
-   //console.log("get_sensor_data");
-   //console.log(req.body);
+    console.log("get_sensor_data");
+    console.log(req.body);
 
     var result1 = pro1.get_sensor_data(req.body, res);
-   //console.log("$$$$$");
-   //console.log(result1);
+    console.log("$$$$$");
+    console.log(result1);
     //console.log("$$$$$");
     //check_l.check_(req.body,res);
 
@@ -95,12 +95,12 @@ app.post("/get_sensor_data", (req, res) => {
 
 app.post("/get_sensors_type", (req, res) => {
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
-   //console.log("get_sensors");
+    console.log("get_sensors");
     //console.log(req.body);
 
     var result1 = gst.get_sensors_type(req.body, res);
-   //console.log("$$$$$");
-   //console.log(result1);
+    console.log("$$$$$");
+    console.log(result1);
     //console.log("$$$$$");
     //check_l.check_(req.body,res);
 
@@ -109,12 +109,12 @@ app.post("/get_sensors_type", (req, res) => {
 
 app.post("/get_temperature", (req, res) => {
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
-   //console.log("get_sensors");
+    console.log("get_sensors");
     //console.log(req.body);
 
     var result1 = gt.get_temperature(req.body, res);
-   //console.log("$$$$$");
-   //console.log(result1);
+    console.log("$$$$$");
+    console.log(result1);
     //console.log("$$$$$");
     //check_l.check_(req.body,res);
 
@@ -122,12 +122,12 @@ app.post("/get_temperature", (req, res) => {
 
 app.get("/get_temperature", (req, res) => {
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
-   //console.log("get_sensors");
+    console.log("get_sensors");
     //console.log(req.body);
 
     var result1 = gt.get_temperature(req.body, res);
-   //console.log("$$$$$");
-   //console.log(result1);
+    console.log("$$$$$");
+    console.log(result1);
     //console.log("$$$$$");
     //check_l.check_(req.body,res);
 
@@ -135,11 +135,11 @@ app.get("/get_temperature", (req, res) => {
 
 app.post("/get_locations", (req, res) => {
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
-   //console.log("get_sensors");
+    console.log("get_sensors");
     //console.log(req.body);
 
     //var result1 = pro.get_locations(req.body, res);
-   //console.log("$$$$$");
+    console.log("$$$$$");
     //console.log(result1);
     res.json({ result: 8 });  
     //console.log("$$$$$");
@@ -148,5 +148,5 @@ app.post("/get_locations", (req, res) => {
 });
 
 app.listen(PORT, () => {
-   //console.log(`Server listening on ${PORT}`);
+    console.log(`Server listening on ${PORT}`);
 });

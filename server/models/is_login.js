@@ -8,13 +8,13 @@ var mysql = require('mysql2/promise');
 //console.log(config);
 console.log(global.config);
 /*var con = mysql.createConnection({
-    host: "mysql_db", port:"3307",
+    host: global.config.vals.database.host, port:global.config.vals.database.port,
     user: global.config.vals.database.user,
     password: global.config.vals.database.password,
     database: global.config.vals.database.name
 });*/
 var config = {
-  server: "localhost",
+  server: global.config.vals.database.host,
   user: global.config.vals.database.user,
   password: global.config.vals.database.password,
   options: {
@@ -23,7 +23,7 @@ var config = {
     instancename:  'SQLEXPRESS'  // SQL Server instance name
   },
   database: global.config.vals.database.name,
-  port: 3306
+  port: 3307
 };
 var result1 = [];
 var stat = false;
@@ -31,7 +31,7 @@ var login_time = Math.floor(new Date().getTime() / 1000);
 /*
 async function check_(post,res1) {
     var conn = await mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -91,7 +91,7 @@ exports.check_ = function (token,res1) {
     var config = require('../config/config.js');
    //console.log("xxx")
     var con = mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -109,17 +109,19 @@ exports.check_ = function (token,res1) {
        //console.log("result",result); 
         if (result && result[0]) {
             var res = con.query("select fullname,user_type,location_id,cl_title AS location_title FROM users LEFT JOIN users_detail ON users.user_id = users_detail.user_id LEFT JOIN collectief_location ON collectief_location.cl_id = users_detail.location_id  where users.user_id=?", [result[0].s_user_id], function (err, result2, fields) {
+                con.end();
                 if (result[0]) {
                     res1.json({ message: 1, name: result2[0]["fullname"], user_type: result2[0]["user_type"], location_id: result2[0]["location_id"], location_title: result2[0]["location_title"] });
                 }
                 else {
                     res1.json({ message: 0 });
                 }
-                con.end();
+                
             });
         } else {
-            res1.json({ message: 0 });
             con.end();
+            res1.json({ message: 0 });
+            
         }
     });
 

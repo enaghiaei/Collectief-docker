@@ -7,7 +7,7 @@ async function get_(token, res0) {
     var mysql = require('mysql2');
     var config = require('../config/config.js');
     var con = mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -27,20 +27,23 @@ async function get_(token, res0) {
             var res = con.query("select * FROM collectief_boxes where  cb_deleted =0 and  cb_user=? ORDER BY cb_date DESC LIMIT 1", [result0[0].s_user_id], function (err, result, fields) {
                //console.log(result);
                 if (result && result.length != 0) {
-                    res0.json({ result: result });
                     con.end();
+                    res0.json({ result: result });
+                    
                 } else {
                     var res2 = con.query("select * FROM collectief_boxes JOIN users ON collectief_boxes.cb_user = users.user_id where  cb_deleted =0 and  is_admin=1", function (err, result2, fields) {
-                        res0.json({ result: result2 });
                         con.end();
+                        res0.json({ result: result2 });
+                        
                     });
                 }
                
             });
             //
         } else {
-            res0.json({ result: [] });
             con.end();
+            res0.json({ result: [] });
+         
         }
        
     });

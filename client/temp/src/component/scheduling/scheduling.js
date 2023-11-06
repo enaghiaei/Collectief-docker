@@ -61,12 +61,12 @@ class Schedule extends React.Component {
                 x[key1][key2] = objCopy[key1][key2];
             }
         }
-       //console.log(x);
-       //console.log("rightffffffffffffffffffffff=", $(".right_schedule").width()*0.8)
+        console.log(x);
+        console.log("rightffffffffffffffffffffff=", $(".right_schedule").width()*0.8)
         var y = parseInt(parseInt($(".timeline").width()) / 24);
         $(".timeline").css("width", $(".timeline").width())
         for (var key in this.state.parts) {
-           //console.log(this.state.parts[key])
+            console.log(this.state.parts[key])
             var start = parseInt(this.state.parts[key].start);
             var end = parseInt(this.state.parts[key].end);
             x[key].left = (start * y) + "px"
@@ -76,13 +76,13 @@ class Schedule extends React.Component {
         y = parseInt(parseInt($(".timeline1").width()) / 8);
         var r = 0;
         for (var key in times) {
-           //console.log("y", y);
-           //console.log((r) * y)
+            console.log("y", y);
+            console.log((r) * y)
             times[key].position = ((r) * y) + "px";
             times[key].position_time = ((r) * y) - 15 + "px";
             r++;
         }
-       //console.log("times",times)
+        console.log("times",times)
 
         this.setState({
 
@@ -107,24 +107,24 @@ class Schedule extends React.Component {
             }
         }
         var yz = { position: "absolute", left: "100px", height: "80px", width: "130px", background: "#7CC4F6", cursor: "pointer", "border-right": "3px solid white", "border-left": "3px solid white", writable: true, };
-       //console.log(x);
+        console.log(x);
         $(".timeline").css("width", $(".right_schedule").width() * 0.8)
         $(".timeline1").css("width", $(".right_schedule").width() * 0.8)
-       //console.log("rightffffffffffffffffffffff=", $(".right_schedule").width() * 0.8)
+        console.log("rightffffffffffffffffffffff=", $(".right_schedule").width() * 0.8)
         var y = parseInt(parseInt($(".timeline").width()) / 24);
-       //console.log(this.state.parts)
-       //console.log(mode_colors)
+        console.log(this.state.parts)
+        console.log(mode_colors)
         var x_new = [];
         for (var key in this.state.parts) {
             if (this.state.parts[key].key === this.state.current_day || 1 == 1) {
-               //console.log("key:::", key)
-               //console.log(this.state.parts[key])
+                console.log("key:::", key)
+                console.log(this.state.parts[key])
                 var start = parseInt(this.state.parts[key].start);
                 var end = parseInt(this.state.parts[key].end);
                 if (!x_new[key])
                     x_new[key] = {};
                 x_new[key].left = (start * y) + "px"
-               //console.log(mode_colors[this.state.parts[key].mode])
+                console.log(mode_colors[this.state.parts[key].mode])
                 x_new[key].background = mode_colors[this.state.parts[key].mode];
                 x_new[key].width = (end - start) * y + "px";
                 x_new[key].key = this.state.parts[key].key;
@@ -137,20 +137,20 @@ class Schedule extends React.Component {
                 x_new[key]["border-right"] = "3px solid white";
                 x_new[key]["border-left"] = "3px solid white";
             }
-           //console.log(x_new[key])
+            console.log(x_new[key])
         }
-       //console.log(x_new)
+        console.log(x_new)
         y = parseInt(parseInt($(".timeline1").width()) / 8);
         var r = 0;
         for (var key in times) {
-           //console.log("y", y);
-           //console.log((r) * y)
+            console.log("y", y);
+            console.log((r) * y)
             times[key].position = ((r) * y) + "px";
             times[key].position_time = ((r) * y) - 15 + "px";
             r++;
         }
-       //console.log("times", times)
-       //console.log("style", x_new)
+        console.log("times", times)
+        console.log("style", x_new)
 
         this.setState({
 
@@ -163,7 +163,7 @@ class Schedule extends React.Component {
 
     setmode_val(event,value) {
         //alert(value);
-       //console.log("mode_value11111111111111111", value)
+        console.log("mode_value11111111111111111", value)
         current_mode = value;
     }
 
@@ -208,15 +208,15 @@ class Schedule extends React.Component {
         $(".range_values").addClass("d-none");
         var current_day = this.state.current_day;
         var parts = this.state.parts;
-       //console.log(parts);
+        console.log(parts);
         parts[current_day] = {};
         parts[current_day].temperature = current_temp
         parts[current_day].start = current_start
         parts[current_day].end = current_end
-       //console.log("current_mode", current_mode)
+        console.log("current_mode", current_mode)
         parts[current_day].mode = current_mode;
         parts[current_day].key = current_day;
-       //console.log(parts);
+        console.log(parts);
         this.setState({
 
             parts: parts
@@ -254,7 +254,7 @@ class Schedule extends React.Component {
     }
 
     valuetext(event,value) {
-       //console.log(event)
+        console.log(event)
         //console.log("value",value);
         return `${value}°C`;
         //current_start = value
@@ -262,8 +262,8 @@ class Schedule extends React.Component {
 
 
     valuetext1(event, value) {
-       //console.log(event)
-       //console.log("value0000", value);
+        console.log(event)
+        console.log("value0000", value);
         current_start = value[0];
         current_end = value[1];
         return `${value}°C`;
@@ -271,35 +271,35 @@ class Schedule extends React.Component {
     }
 
     movement(e,id) {
-       //console.log(e);
-       //console.log(id);
+        console.log(e);
+        console.log(id);
         first_point = e.clientX;
-       //console.log("First: ", first_point);
+        console.log("First: ", first_point);
         current_range = id;
     }
 
     movement2(e) {
         const { dimensions } = context.state;
-       //console.log("dimensions", dimensions)
-       //console.log("555");
-       //console.log("right=", $(".timeline").innerWidth())
+        console.log("dimensions", dimensions)
+        console.log("555");
+        console.log("right=", $(".timeline").innerWidth())
         var cu = {...context.state.style};
         var objCopy = cu;
-       //console.log(cu)
-       //console.log("current_range",current_range)
+        console.log(cu)
+        console.log("current_range",current_range)
         var left = cu[current_range].left;
         left = parseInt(left.replace("px", ""));
         
-       //console.log(e);
-       //console.log(e);
+        console.log(e);
+        console.log(e);
         last_point = e.clientX;
-       //console.log("Last: ", last_point)
+        console.log("Last: ", last_point)
         var newpos = parseInt(left) + (last_point - first_point);
         if (newpos < 0) {
             newpos = 0;
         }
         newpos = newpos + "px";
-       //console.log("newpos===",newpos)
+        console.log("newpos===",newpos)
         var x = [{}];
         for (var key1 in objCopy) {
             for (var key2 in objCopy[key1]) {
@@ -308,7 +308,7 @@ class Schedule extends React.Component {
                 x[key1][key2] = objCopy[key1][key2];
             }
         }
-       //console.log(x);
+        console.log(x);
         x[current_range].left = newpos;
         context.setState({
 
@@ -320,7 +320,7 @@ class Schedule extends React.Component {
         var context1 = this;
         
         return this.state.times.map(function (o, key) {
-           //console.log(context.state.times[key].position)
+            console.log(context.state.times[key].position)
             return (
                 <div style={{ width: "3px", "background-color": "#000", height: "8px", display: "inline-table", position: "absolute", left: context1.state.times[key].position }}>
 
@@ -357,7 +357,7 @@ class Schedule extends React.Component {
         var context1 = this;
 
         return this.state.modes.map(function (o, key) {
-           ////console.log(context.state.times[key].position)
+           // console.log(context.state.times[key].position)
             return (
                 <div className = "inline">
                     <span className="mr-1 text-item">Mode{key}</span><input type="radio" name="mode" className="mr-5" onClick={(event) => context1.setmode_val(event,key)} />
@@ -388,7 +388,7 @@ class Schedule extends React.Component {
         var context1 = this;
 
         return this.state.times.map(function (o, key) {
-           //console.log(context.state.times[key].position)
+            console.log(context.state.times[key].position)
             return (
                 <div style={{ display: "inline-table", position: "absolute","top":"9px", left: context1.state.times[key].position_time }}>
                     {context1.state.times[key].time}
@@ -409,13 +409,13 @@ class Schedule extends React.Component {
 
 
         });
-       //console.log("temp", newValue)
+        console.log("temp", newValue)
         current_temp = newValue;
     };
 
     handleInputChange = (event) => {
         var x = (event.target.value === '' ? '' : Number(event.target.value));
-       //console.log("temp", x)
+        console.log("temp", x)
         current_temp = x;
         this.setState({
 
@@ -618,7 +618,7 @@ class Schedule extends React.Component {
 
 
      renderRows(){
-      //console.log("renderRows");
+       console.log("renderRows");
          return this.createLeft();
          //this.createRight();
      }

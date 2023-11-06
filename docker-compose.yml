@@ -14,7 +14,7 @@ services:
     volumes:
       - "./setup.sql:/docker-entrypoint-initdb.d/setup.sql"
     ports:
-      - "3307:3306"
+      - "3307:3307"
     expose:
       - 3307
     environment:
@@ -68,4 +68,5 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
-
+    ports:
+      - "3003:3000"

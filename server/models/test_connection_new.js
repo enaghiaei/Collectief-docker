@@ -16,13 +16,13 @@ exports.test_connection_new = function (token,res0) {
         database: 'LSI_test_db'
     }
     var con2 = mysql.createConnection({
-        host: "mysql_db", port: "3306",
+        host: global.config.vals.database.host, port: global.config.vals.database.port,
         user: "root",
         password: "marco",
         database: "collectief_db"
     });
     var con = mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:"3307",
         user: "root",
         password: "OuPfme45oAM#$6m6S8lqy4P!%QffaxlYFlCnmP45zyaloZ5Zw=",
         database: "collectief"
@@ -166,6 +166,14 @@ exports.test_connection_new = function (token,res0) {
                    //console.log("Europe/London",nDate);
                    //console.log("Europe/London", nDate_2);
                     //dt >= '+x0+' and dt <= '+x1+'
+    con2.connect((err) => {
+        if (err) {
+            console.error('Error connecting to database 1:', err);
+            return;
+        }
+        console.log('Connected to database 1!');
+        // Perform operations with database 1
+    });
                     con2.query(
                         "SELECT hc_entities.field_id AS sensor_serial,hc_measure_data.*,hc_measures.tag FROM hc_measures JOIN hc_measure_data ON hc_measure_data.measure_id=hc_measures.id JOIN hc_entity_data_groups ON hc_measures.edg_id = hc_entity_data_groups.id JOIN hc_entities ON hc_entities.id = hc_entity_data_groups.entity_id where dt >= '"+x1+"' and dt <= '"+x0+"' limit 10",
                         function (err, results, fields) {

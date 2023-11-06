@@ -8,7 +8,7 @@ exports.delete_ = function (token, res0) {
     const num_t = process.env.n;
     var today = new Date();
     var today_time = today.getTime();
-    var date = new Date(today_time - (1000 * 60 * 60 * (10)));
+    var date = new Date(today_time - (1000 * 60 * 60 * (24)));
     //let date = new Date();
     let today_ = date.toLocaleDateString();
    //console.log("today_", today_)

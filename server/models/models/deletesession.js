@@ -6,7 +6,7 @@ exports.delete_session = function (token,res1) {
     var mysql = require('mysql2');
     var config = require('../config/config.js');
     var con = mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name

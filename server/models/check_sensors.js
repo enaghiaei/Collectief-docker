@@ -15,7 +15,7 @@ async function check_sensors(token,res0) {
 
     let [rows, fields] = [[], []];
     var con = await mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -122,9 +122,15 @@ async function check_sensors(token,res0) {
         }
     }
     [rows5] = await con.execute("UPDATE sensors_list SET sl_status = 2 WHERE 1=1");
-    [rows6, fields6] = await con.execute("SELECT DISTINCT sensor_serial FROM node_per_quarter  WHERE nph_from2 >= '" + x + "' and nph_max != 0");
-    [rows66, fields66] = await con.execute("SELECT DISTINCT sensor_serial FROM node_per_quarter  WHERE nph_from2 >= '" + x_v2 + "' and nph_max != 0");
-   //console.log("rows6",rows6)
+    [rows6, fields6] = await con.execute("SELECT DISTINCT sensor_serial FROM node_220403690  WHERE timestamp >= '" + x + "'");
+    console.log("list sensor serial", rows6)
+    //[rows6, fields6] = await con.execute("SELECT DISTINCT sensor_serial FROM node_per_quarter  WHERE nph_from2 >= '" + x + "' and nph_max != 0");
+    //[rows66, fields66] = await con.execute("SELECT DISTINCT sensor_serial FROM node_per_quarter  WHERE nph_from2 >= '" + x_v2 + "' and nph_max != 0");
+    console.log("SELECT DISTINCT sensor_serial FROM node_220403690  WHERE timestamp >= '" + x_v2 + "' and measure_value != 0")
+    var [rows66, fields66] = await con.execute("SELECT DISTINCT sensor_serial FROM node_220403690  WHERE timestamp >= '" + x_v2 + "' and measure_value != 0");
+   
+    console.log("list sensor serial", rows66)
+    //console.log("rows6",rows6)
     for (var key in rows6) {
         [rows7] = await con.execute("UPDATE sensors_list SET sl_status = 1 WHERE sl_sensor = ?", [rows6[key].sensor_serial]);
     }
@@ -139,7 +145,7 @@ async function check_sensors(token,res0) {
     console.log("deleted_sensor", deleted_sensor);
     if (deleted_sensor != "")
         [rows777] = await con.execute("DELETE FROM sensors_list WHERE sl_sensor not in (" + deleted_sensor + ")");
-    [rows7] = await con.execute("UPDATE sensors_list SET sl_status = 1 WHERE sl_sensor = ?", [rows6[key].sensor_serial]);
+    //[rows7] = await con.execute("UPDATE sensors_list SET sl_status = 1 WHERE sl_sensor = ?", [rows6[key].sensor_serial]);
     [rows7] = await con.execute("UPDATE sensors_list SET sl_status = 0 WHERE sl_status = 2");
     //sqlite.close();
     //var rows = db.prepare("SELECT DISTINCT sensor_serial FROM main.node_22040367").all();

@@ -7,7 +7,7 @@ async function get_(token, res0) {
     var mysql = require('mysql2');
     var config = require('../config/config.js');
     var con = mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -25,8 +25,9 @@ async function get_(token, res0) {
            if (result0[0]) {*/
     var res = con.query("select DISTINCT cl_title AS title,collectief_assignment.cl_id AS id FROM collectief_assignment JOIN collectief_location ON collectief_location.cl_id=collectief_assignment.cl_id where  ca_deleted = 0 and cl_deleted = 0 and  ca_user=?", [0], function (err, result, fields) {
        //console.log(result);
-        res0.json({ result: result });
         con.end();
+        res0.json({ result: result });
+        
     });
     //
     /* } else {

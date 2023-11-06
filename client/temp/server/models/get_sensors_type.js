@@ -10,7 +10,7 @@ exports.get_sensors_type = function (token,res0) {
         if (err) {
             console.error("err00",err.message);
         }
-       //console.log('Connected to the chinook database.');
+        console.log('Connected to the chinook database.');
     });
 
     db.serialize(() => {
@@ -19,7 +19,7 @@ exports.get_sensors_type = function (token,res0) {
             if (err) {
                 console.error("errrrrroor",err.message);
             }
-           //console.log(row);
+            console.log(row);
             result[result.length] = row;
         });
         res0.json({ result: result });   
@@ -29,14 +29,14 @@ exports.get_sensors_type = function (token,res0) {
         if (err) {
             console.error(err.message);
         }
-       //console.log('Close the database connection.');
+        console.log('Close the database connection.');
     });
     */
     
     sqlite.connect("./db/XYZ_API_sphensor_data.db");
     var rows = sqlite.run("SELECT DISTINCT sensor_type FROM main.node_22040367");
     //var rows = db.prepare("SELECT DISTINCT sensor_serial FROM main.node_22040367").all();
-   //console.log(rows);
+    console.log(rows);
     res0.json({ result: rows });  
     return { result: rows }
   };

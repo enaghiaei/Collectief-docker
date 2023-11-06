@@ -13,13 +13,13 @@
     border-radius: 16px;
     background-color: #fff;
     padding: 1vh;
-    width: 98%;
-    min-height: 35vh;
-    display: inline-table;
-    margin-top: 1%;
-    margin-bottom: 1%;
+    width: 88%;
+    min-height: 485px;
+    display: inline-block;
+    margin: 1%;    
     border: 1px solid #ccc;
     border-radius: 10px;
+    float: right;
 }
 
 .home_l1_left {
@@ -486,17 +486,18 @@
         overflow-y: scroll;
     }
 
-    .container_c1 {
-        border-radius: 16px;
-        background-color: #fff;
-        padding: 1vh;
-        width: 43%;
-        min-height: 35vh;
-        display: inline-table;
-        margin: 1%;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-    }
+.container_c1 {
+    border-radius: 16px;
+    background-color: #fff;
+    padding: 1vh;
+    width: 43%;
+    min-height: 485px;
+    display: inline-block;
+    margin: 1%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    float: right;
+}
 
     @media only screen and (max-width: 756px) {
         .container_c1 {
@@ -509,17 +510,18 @@
         }
     }
 
-    .container_c2 {
-        border-radius: 16px;
-        background-color: #fff;
-        padding: 1vh;
-        width: 28%;
-        min-height: 35vh;
-        display: inline-table;
-        margin: 1%;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-    }
+.container_c2 {
+    border-radius: 16px;
+    background-color: #fff;
+    padding: 1vh;
+    width: 28%;
+    min-height: 485px;
+    display: inline-block;
+    margin: 1%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    float: right;
+}
 
     @media only screen and (max-width: 756px) {
         .container_c2 {
@@ -533,17 +535,18 @@
     }
 
 
-    .container_c3 {
-        border-radius: 16px;
-        background-color: #fff;
-        padding: 1vh;
-        width: 20%;
-        min-height: 35vh;
-        display: inline-table;
-        margin: 1%;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-    }
+.container_c3 {
+    border-radius: 16px;
+    background-color: #fff;
+    padding: 1vh;
+    width: 20%;
+    min-height: 485px;
+    display: inline-block;
+    margin: 1%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    float: right;
+}
 
     @media only screen and (max-width: 756px) {
         .container_c3 {
@@ -556,17 +559,18 @@
         }
     }
 
-    .container_c4 {
-        border-radius: 16px;
-        background-color: #fff;
-        padding: 10px;
-        width: 16%;
-        min-height: 35vh;
-        display: inline-table;
-        margin: 1%;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-    }
+.container_c4 {
+    border-radius: 16px;
+    background-color: #fff;
+    padding: 10px;
+    width: 16%;
+    min-height: 485px;
+    display: inline-block;
+    margin: 1%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    float: right;
+}
 
     @media only screen and (max-width: 756px) {
         .container_c4 {
@@ -580,17 +584,18 @@
     }
 
 
-    .container_c5 {
-        border-radius: 16px;
-        background-color: #fff;
-        padding: 10px;
-        width: 13%;
-        min-height: 35vh;
-        display: inline-table;
-        margin: 1%;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-    }
+.container_c5 {
+    border-radius: 16px;
+    background-color: #fff;
+    padding: 10px;
+    width: 13%;
+    min-height: 485px;
+    display: inline-block;
+    margin: 1%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    float: right;
+}
 
     @media only screen and (max-width: 756px) {
         .container_c5 {
@@ -605,17 +610,18 @@
 
 
 
-    .container_c6 {
-        border-radius: 16px;
-        background-color: #fff;
-        padding: 10px;
-        width: 16%;
-        min-height: 35vh;
-        display: inline-table;
-        margin: 1%;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-    }
+.container_c6 {
+    border-radius: 16px;
+    background-color: #fff;
+    padding: 10px;
+    width: 16%;
+    min-height: 485px;
+    display: inline-block;
+    margin: 1%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    float:right;
+}
 
     @media only screen and (max-width: 756px) {
         .container_c6 {

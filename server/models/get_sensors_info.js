@@ -16,7 +16,7 @@ async function get_sensors_info(token,res0) {
     let [rows2, fields2] = [[], []];
     //let [rows2_0, fields2_0] = [[], []];
     var con = await mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -85,6 +85,7 @@ async function get_sensors_info(token,res0) {
     }
     else
         [rows, fields] = await con.execute("SELECT DISTINCT sensor_serial FROM node_2204036" + num_t + " WHERE timestamp >= '" + x + "'");
+    console.log("SELECT DISTINCT sensor_serial FROM node_2204036" + num_t + " WHERE timestamp >= '" + x + "'")
    //console.log(rows);
     var g = 0;
     for (var key in rows) {
@@ -93,7 +94,7 @@ async function get_sensors_info(token,res0) {
         else
             [rows2, fields2] = await con.execute("SELECT * FROM node_2204036" + num_t + " where timestamp >= '" + x + "'" + " AND sensor_serial='" + rows[key].sensor_serial + "' order by timestamp desc LIMIT 1");
        //console.log(rows2)
-
+        console.log("SELECT * FROM node_2204036" + num_t + " where timestamp >= '" + x + "'" + " AND sensor_serial='" + rows[key].sensor_serial + "' order by timestamp desc LIMIT 1")
         //2023 - 03 - 05T15: 05: 04.000Z
         //rows2[0].timestamp;
         var xxx = rows2[0].timestamp;
@@ -109,7 +110,7 @@ async function get_sensors_info(token,res0) {
        //console.log("zzzzzzzzz" , z)
        //console.log("SELECT DISTINCT sensor_serial, measure_name, measure_value, measure_kind, sensor_type, channel, timestamp FROM node_2204036" + num_t + " where timestamp = '" + rows2[0].timestamp + "'" + " AND sensor_serial = '" + rows[key].sensor_serial + "'")
         var [rows2_0, fields2_0] =  await con.execute("SELECT DISTINCT sensor_serial,measure_name,measure_value,measure_kind,sensor_type,channel,timestamp FROM node_2204036" + num_t + " where timestamp = '" + z + "'" + " AND sensor_serial='" + rows[key].sensor_serial + "'");
-        
+        console.log("SELECT DISTINCT sensor_serial,measure_name,measure_value,measure_kind,sensor_type,channel,timestamp FROM node_2204036" + num_t + " where timestamp = '" + z + "'" + " AND sensor_serial='" + rows[key].sensor_serial + "'")
         for (var key2_0 in rows2_0) {
             rows3[g++] = rows2_0[key2_0];
         }

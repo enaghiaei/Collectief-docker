@@ -54,11 +54,11 @@ class Slider extends React.Component {
 
   togglemenu(){
     
-   //console.log("x");
-   //console.log(this.page_size);
+    console.log("x");
+    console.log(this.page_size);
     const currentState = this.state.isActive;
     const [width, height] = [window.innerWidth, window.innerHeight];
-   //console.log(width);
+    console.log(width);
     this.setState({ isActive: !currentState });
     if(this.state.menu_){
       var cookies = new Cookies();
@@ -88,7 +88,7 @@ class Slider extends React.Component {
 
     var cookies = new Cookies();
     //cookies.set('token', result.token, { path: '/' });
-   //console.log("cookies="+cookies.get('token'));
+    console.log("cookies="+cookies.get('token'));
     return fetch('http://'+global.config.vals.root.ip+':3001/logout', {
       method: 'POST',
       headers: {
@@ -103,7 +103,7 @@ class Slider extends React.Component {
             isLoaded: true,
             items: result.items
           });*/
-         //console.log(result);
+          console.log(result);
           if(result.message == "1"){
 
             toast.info('Logout was successful', {
@@ -199,9 +199,9 @@ class Slider extends React.Component {
 
   set_menu(id){
 
-   //console.log(window.location.pathname);
-   //console.log(menus[id].title);
-   //console.log("indexOf==="+window.location.pathname.indexOf(menus[id].title.toLocaleLowerCase()));
+    console.log(window.location.pathname);
+    console.log(menus[id].title);
+    console.log("indexOf==="+window.location.pathname.indexOf(menus[id].title.toLocaleLowerCase()));
 
     if(window.location.pathname.indexOf(menus[id].uri.toLocaleLowerCase()) !== -1 && menus[id].uri != ""){
 

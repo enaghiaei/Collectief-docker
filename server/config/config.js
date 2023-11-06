@@ -9,7 +9,9 @@ module.exports = global.config = {
         database: {
             password: "collectief_user",
             name: "collectief",
-            user: "collectief_user"
+            user: "collectief_user",
+            port: "3307",
+            host:"mysql_db"
 
         }
         // rest of your translation object

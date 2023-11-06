@@ -188,7 +188,7 @@ class Home extends React.Component {
         this.is_login()
         this.get_weather()
         this.get_sri()
-        setTimeout(() => {
+         setTimeout(() => {
             this.sensors();
             this.sensors_type();
             this.locations();
@@ -221,6 +221,7 @@ class Home extends React.Component {
             this.pressure_per_hour();
             this.pressure_per_hour_sensor();
         }, 30000);
+        
         //this.xxxx()
     }
 
@@ -2709,7 +2710,7 @@ class Home extends React.Component {
                         x[index] = {};
                         x[index].title = this.state.top_boxes_all[key].measure_name
                         x[index].measure_name = this.state.top_boxes_all[key].measure_name
-                        if (this.state.top_boxes_all[key].av)
+                        if(this.state.top_boxes_all[key] && this.state.top_boxes_all[key].av && this.state.top_boxes_all[key].av !="" && typeof this.state.top_boxes_all[key].av === 'number' )
                             x[index].value = this.state.top_boxes_all[key].av.toFixed(2);
                         else
                             x[index].value = "-";
@@ -2721,7 +2722,7 @@ class Home extends React.Component {
                         x[index] = {};
                         x[index].title = this.state.top_boxes_all[key].measure_name
                         x[index].measure_name = this.state.top_boxes_all[key].measure_name
-                        if (this.state.top_boxes_all[key].av)
+                        if(this.state.top_boxes_all[key] && this.state.top_boxes_all[key].av && this.state.top_boxes_all[key].av !="" && typeof this.state.top_boxes_all[key].av === 'number')
                             x[index].value = this.state.top_boxes_all[key].av.toFixed(2);
                         else
                             x[index].value = "-";
@@ -2733,7 +2734,7 @@ class Home extends React.Component {
                         x[index] = {};
                         x[index].title = this.state.top_boxes_all[key].measure_name
                         x[index].measure_name = this.state.top_boxes_all[key].measure_name
-                        if (this.state.top_boxes_all[key].av)
+                        if(this.state.top_boxes_all[key] && this.state.top_boxes_all[key].av && this.state.top_boxes_all[key].av !="" && typeof this.state.top_boxes_all[key].av === 'number')
                             x[index].value = this.state.top_boxes_all[key].av.toFixed(2);
                         else
                             x[index].value = "-";
@@ -2745,7 +2746,7 @@ class Home extends React.Component {
                         x[index] = {};
                         x[index].title = this.state.top_boxes_all[key].measure_name
                         x[index].measure_name = this.state.top_boxes_all[key].measure_name
-                        if (this.state.top_boxes_all[key].av)
+                        if(this.state.top_boxes_all[key] && this.state.top_boxes_all[key].av && this.state.top_boxes_all[key].av !="" && typeof this.state.top_boxes_all[key].av === 'number')
                             x[index].value = this.state.top_boxes_all[key].av.toFixed(2);
                         else
                             x[index].value = "-";
@@ -2757,7 +2758,7 @@ class Home extends React.Component {
                         x[index] = {};
                         x[index].title = this.state.top_boxes_all[key].measure_name
                         x[index].measure_name = this.state.top_boxes_all[key].measure_name
-                        if (this.state.top_boxes_all[key].av)
+                        if(this.state.top_boxes_all[key] && this.state.top_boxes_all[key].av && this.state.top_boxes_all[key].av !="" && typeof this.state.top_boxes_all[key].av === 'number')
                             x[index].value = this.state.top_boxes_all[key].av.toFixed(2);
                         else
                             x[index].value = "-";
@@ -2769,7 +2770,7 @@ class Home extends React.Component {
                         x[index] = {};
                         x[index].title = this.state.top_boxes_all[key].measure_name
                         x[index].measure_name = this.state.top_boxes_all[key].measure_name
-                        if (this.state.top_boxes_all[key].av)
+                        if(this.state.top_boxes_all[key] && this.state.top_boxes_all[key].av && this.state.top_boxes_all[key].av !="" && typeof this.state.top_boxes_all[key].av === 'number')
                             x[index].value = this.state.top_boxes_all[key].av.toFixed(2);
                         else
                             x[index].value = "-";
@@ -2781,7 +2782,7 @@ class Home extends React.Component {
                         x[index] = {};
                         x[index].title = this.state.top_boxes_all[key].measure_name
                         x[index].measure_name = this.state.top_boxes_all[key].measure_name
-                        if (this.state.top_boxes_all[key].av)
+                        if(this.state.top_boxes_all[key] && this.state.top_boxes_all[key].av && this.state.top_boxes_all[key].av !="" && typeof this.state.top_boxes_all[key].av === 'number')
                             x[index].value = this.state.top_boxes_all[key].av.toFixed(2);
                         else
                             x[index].value = "-";
@@ -2793,7 +2794,7 @@ class Home extends React.Component {
                         x[index] = {};
                         x[index].title = this.state.top_boxes_all[key].measure_name
                         x[index].measure_name = this.state.top_boxes_all[key].measure_name
-                        if (this.state.top_boxes_all[key].av)
+                        if(this.state.top_boxes_all[key] && this.state.top_boxes_all[key].av && this.state.top_boxes_all[key].av !="" && typeof this.state.top_boxes_all[key].av === 'number')
                             x[index].value = this.state.top_boxes_all[key].av.toFixed(2);
                         else
                             x[index].value = "-";
@@ -2805,7 +2806,7 @@ class Home extends React.Component {
                         x[index] = {};
                         x[index].title = this.state.top_boxes_all[key].measure_name
                         x[index].measure_name = this.state.top_boxes_all[key].measure_name
-                        if (this.state.top_boxes_all[key].av)
+                        if(this.state.top_boxes_all[key] && this.state.top_boxes_all[key].av && this.state.top_boxes_all[key].av !="" && typeof this.state.top_boxes_all[key].av === 'number')
                             x[index].value = this.state.top_boxes_all[key].av.toFixed(2);
                         else
                             x[index].value = "-";
@@ -2817,7 +2818,7 @@ class Home extends React.Component {
                         x[index] = {};
                         x[index].title = this.state.top_boxes_all[key].measure_name
                         x[index].measure_name = this.state.top_boxes_all[key].measure_name
-                        if (this.state.top_boxes_all[key].av)
+                        if(this.state.top_boxes_all[key] && this.state.top_boxes_all[key].av && this.state.top_boxes_all[key].av !="" && typeof this.state.top_boxes_all[key].av === 'number')
                             x[index].value = this.state.top_boxes_all[key].av.toFixed(2);
                         else
                             x[index].value = "-";
@@ -2830,7 +2831,7 @@ class Home extends React.Component {
                         x[index] = {};
                         x[index].title = this.state.top_boxes_all[key].measure_name
                         x[index].measure_name = this.state.top_boxes_all[key].measure_name
-                        if (this.state.top_boxes_all[key].av)
+                        if(this.state.top_boxes_all[key] && this.state.top_boxes_all[key].av && this.state.top_boxes_all[key].av !="" && typeof this.state.top_boxes_all[key].av === 'number')
                             x[index].value = this.state.top_boxes_all[key].av.toFixed(2);
                         else
                             x[index].value = "-";
@@ -2863,7 +2864,7 @@ class Home extends React.Component {
 
         var context = this;
         var context1 = this;
-        //                            <FontAwesomeIcon onClick={(event) => context.openModal3(key)} style={{ "color":"gray","cursor": "pointer", "width": "20px", "height": "20px" }} icon={faEdit} className="arrow pl-2" />
+        //                            <FontAwesomeIcon onClick={(event) => context.openModal3(key)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "20px", "height": "20px" }} icon={faEdit} className="arrow pl-2" />
 
         return this.state.top_boxes.map(function (o, key) {
             var title = context.state.top_boxes[key].title
@@ -2881,7 +2882,7 @@ class Home extends React.Component {
                 <div className="container_c6">
                     <div class="row">
                         <div style={{ "text-align": "right", "position": "relative", "top": "-10px" }} className={context.state.top_boxes_stat}>
-                            <FontAwesomeIcon onClick={(event) => context.removeM(key)} style={{ "color":"gray","cursor": "pointer", "width": "20px", "height": "20px" }} icon={faWindowClose} className="arrow pl-2" />
+                            <FontAwesomeIcon onClick={(event) => context.removeM(key)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "20px", "height": "20px" }} icon={faWindowClose} className="arrow pl-2" />
                         </div>
                         <div class="col-8">
                             <div class="numbers">
@@ -2987,51 +2988,57 @@ class Home extends React.Component {
         //console.log("notification:::", this.state.notification)
         //{notification_operation[context1.state.boxes[key].operation]} {context1.state.boxes[key].value} {notification_unit[context1.state.boxes[key].type]}
         if (group_type == 0) {
-        return this.state.rows_new.map(function (o, key) {
-            ////console.log(context.state.temlate[key].position)
-            var type = "";
+            if (this.state.rows_new.length > 0) {
+                return this.state.rows_new.map(function (o, key) {
+                    ////console.log(context.state.temlate[key].position)
+                    var type = "";
 
-            if ($(".edit-box").hasClass("d-none")) {
-               //console.log("in0000000000000000000000")
-                return (
-
-                    <div className="container_main mt-3" style={{"text-align":"left"}} id={"row_" + key}>
-                        <div style={{ "text-align": "center" }}>
-                        {context1.renderColumnsNew(key, "")}
-                        <div className="container_main right-remove-part" style={{ float: "right", "vertical-align": "middle", "margin": "1%", "margin-right": "0%", "margin-left": "0%" }} id={"row_add_" + key}>
-                            <div className="container_c2" style={{ "vertical-align": "middle" }}>
-                                <FontAwesomeIcon onClick={(event) => context1.addItemHorizontal(key)} style={{ "position": "relative", "color": "#000", "vertical-align": "middle", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faPlusCircle} className="arrow pl-2" />
+                    if ($(".edit-box").hasClass("d-none")) {
+                        //console.log("in0000000000000000000000")
+                        return (
+                            <div>
+                                <div className="container_main mt-3" style={{ "text-align": "left" }} id={"row_" + key}>
+                                    <div style={{ "text-align": "center" }}>
+                                        {context1.renderColumnsNew(key, "")}
+                                        <div className="container_main right-remove-part" style={{ float: "right", "vertical-align": "middle", "margin": "1%", "margin-right": "0%", "margin-left": "0%","position":"relative","top":"190px" }} id={"row_add_" + key}>
+                                            <div className="" style={{ "vertical-align": "middle" }}>
+                                                <FontAwesomeIcon onClick={(event) => context1.addItemHorizontal(key)} style={{ "position": "relative", "color": "rgb(255, 191, 31)", "vertical-align": "middle", "cursor": "pointer", "width": "40px", "height": "40px" }} icon={faPlusCircle} className="arrow pl-2" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="newline"></div>
                             </div>
-                        </div>
-                        </div>
-                    </div>
 
 
+                        )
+                    } else {
+                        //console.log("in0111111111111111111111111111")
+                        return (
+                            <div>
+                                <div className="container_main mt-3" style={{ "text-align": "left" }} id={"row_" + key}>
+                                    <div style={{ "text-align": "center" }}>
+                                        {context1.renderColumnsNew(key, "")}
+                                        <div className="container_main right-remove-part d-none" style={{ float: "right", "vertical-align": "middle", "margin": "1%", "margin-right": "0%", "margin-left": "0%", "position": "relative", "top": "190px" }} id={"row_add_" + key}>
+                                            <div className="" style={{ "vertical-align": "middle" }}>
+                                                <FontAwesomeIcon onClick={(event) => context1.addItemHorizontal(key)} style={{ "position": "relative", "color": "rgb(255, 191, 31)", "vertical-align": "middle", "cursor": "pointer", "width": "40px", "height": "40px" }} icon={faPlusCircle} className="arrow pl-2" />
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                </div>
+                                <div className="newline"></div>
+                            </div>
+
+
+                        )
+                    }
+
+                }
                 )
             } else {
-               //console.log("in0111111111111111111111111111")
-                return (
 
-                    <div className="container_main mt-3" style={{ "text-align": "left" }}  id={"row_" + key}>
-                        <div style={{ "text-align": "center" }}>
-                        {context1.renderColumnsNew(key, "")}
-                        <div className="container_main right-remove-part d-none" style={{ float: "right", "vertical-align": "middle", "margin": "1%", "margin-right": "0%", "margin-left": "0%" }} id={"row_add_" + key}>
-                            <div className="container_c2" style={{ "vertical-align": "middle" }}>
-                                <FontAwesomeIcon onClick={(event) => context1.addItemHorizontal(key)} style={{ "position": "relative", "color": "#000", "vertical-align": "middle", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faPlusCircle} className="arrow pl-2" />
-                            </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-
-                )
             }
-
-        }
-        )
     }else{
             return this.state.box_titles.map(function (o, key) {
                 ////console.log(context.state.temlate[key].position)
@@ -3044,8 +3051,8 @@ class Home extends React.Component {
                             <div style={{ "text-align": "center" }}>
                             {context1.renderColumnsNew(key, context.state.box_titles[key])}
                             <div className="container_main right-remove-part" style={{ float: "right", "vertical-align": "middle", "margin": "1%", "margin-right": "0%", "margin-left": "0%" }} id={"row_add_" + key}>
-                                <div className="container_c2" style={{ "vertical-align": "middle" }}>
-                                    <FontAwesomeIcon onClick={(event) => context1.addItemHorizontal(key)} style={{ "position": "relative", "color": "#000", "vertical-align": "middle", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faPlusCircle} className="arrow pl-2" />
+                                <div className="" style={{ "vertical-align": "middle" }}>
+                                        <FontAwesomeIcon onClick={(event) => context1.addItemHorizontal(key)} style={{ "position": "relative", "color": "rgb(255, 191, 31)", "vertical-align": "middle", "cursor": "pointer", "width": "40px", "height": "40px" }} icon={faPlusCircle} className="arrow pl-2" />
                                 </div>
                             </div>
                             </div>
@@ -3062,8 +3069,8 @@ class Home extends React.Component {
                             <div style={{ "text-align": "center" }}>
                             {context1.renderColumnsNew(key, context.state.box_titles[key])}
                             <div className="container_main right-remove-part d-none" style={{ float: "right", "vertical-align": "middle", "margin": "1%", "margin-right": "0%", "margin-left": "0%" }} id={"row_add_" + key}>
-                                <div className="container_c2" style={{ "vertical-align": "middle" }}>
-                                    <FontAwesomeIcon onClick={(event) => context1.addItemHorizontal(key)} style={{ "position": "relative", "color": "#000", "vertical-align": "middle", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faPlusCircle} className="arrow pl-2" />
+                                <div className="" style={{ "vertical-align": "middle" }}>
+                                        <FontAwesomeIcon onClick={(event) => context1.addItemHorizontal(key)} style={{ "position": "relative", "color": "rgb(255, 191, 31)", "vertical-align": "middle", "cursor": "pointer", "width": "40px", "height": "40px" }} icon={faPlusCircle} className="arrow pl-2" />
                                 </div>
                             </div>
                             </div>
@@ -3622,9 +3629,9 @@ class Home extends React.Component {
                                 <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "70%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                     {context1.state.boxes_new[key].title}
                                 </div>
-                                <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                    <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                    <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                 </div>
                                 <img src={homepic} style={{ width: "350px" }} />
                             </div>
@@ -3638,9 +3645,9 @@ class Home extends React.Component {
                                 <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                     {context1.state.boxes_new[key].title}
                                 </div>
-                                <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                     <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "gray", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color": "gray", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color": "red", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                 </div>
                                 <Gauge {...config3} />
                             </div>
@@ -3654,9 +3661,9 @@ class Home extends React.Component {
                                 <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "70%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                     {context1.state.boxes_new[key].title}
                                 </div>
-                                <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                     <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "gray", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color": "gray", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color": "red", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                 </div>
                                 <Area {...config4} />
 
@@ -3669,12 +3676,12 @@ class Home extends React.Component {
 
                             <div className={container}>
 
-                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                     {context1.state.boxes_new[key].title}
                                 </div>
-                                <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                    <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                    <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                 </div>
                                 <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                     <Spinner2 customText="Loading" />
@@ -3691,12 +3698,12 @@ class Home extends React.Component {
 
                             <div className={container}>
 
-                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                     {context1.state.boxes_new[key].title}
                                 </div>
-                                <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                    <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                    <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                 </div>
                                 <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                     <Spinner2 customText="Loading" />
@@ -3714,8 +3721,8 @@ class Home extends React.Component {
                             <div className={container}>
 
                                 <div style={{ "text-align": "right" }} className="p-1 pt-1 pr-1">
-                                    <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faPlusCircle} className="arrow pl-2" />
-                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faPlusCircle} className="arrow pl-2" />
+                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                 </div>
 
                             </div>
@@ -3729,12 +3736,12 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title}
                                     </div>
-                                    <div style={{ "text-align": "right", "position":"relative" , "top":"-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <div style={{ "text-align": "right", "position":"relative" , "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                     </div>
                                     <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                         <Spinner2 customText="Loading" />
@@ -3748,12 +3755,12 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title}
                                     </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                     </div>
                                     <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                         <Spinner2 customText="Loading" />
@@ -3768,12 +3775,12 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title}
                                     </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                     </div>
                                     <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                         <Spinner2 customText="Loading" />
@@ -3791,12 +3798,12 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title}
                                     </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                     </div>
                                     <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                         <Spinner2 customText="Loading" />
@@ -3809,12 +3816,12 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title}
                                     </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                     </div>
                                     <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                         <Spinner2 customText="Loading" />
@@ -3828,12 +3835,12 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title}
                                     </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                     </div>
                                     <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                         <Spinner2 customText="Loading" />
@@ -3849,12 +3856,12 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title}
                                     </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                     </div>
                                     <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                         <Spinner2 customText="Loading" />
@@ -3867,12 +3874,12 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title}
                                     </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                     </div>
                                     <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                         <Spinner2 customText="Loading" />
@@ -3886,12 +3893,12 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title}
                                     </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                     </div>
                                     <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                         <Spinner2 customText="Loading" />
@@ -3907,12 +3914,12 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title}
                                     </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                     </div>
                                     <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                         <Spinner2 customText="Loading" />
@@ -3925,12 +3932,12 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title}
                                     </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                     </div>
                                     <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                         <Spinner2 customText="Loading" />
@@ -3944,12 +3951,12 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title}
                                     </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column,1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                                     </div>
                                     <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                         <Spinner2 customText="Loading" />
@@ -3967,8 +3974,8 @@ class Home extends React.Component {
                         <div className={container}>
 
                             <div style={{ "text-align": "right" }} className="p-1 pt-1 pr-1">
-                                <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faPlusCircle} className="arrow pl-2" />
-                                <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faPlusCircle} className="arrow pl-2" />
+                                <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                             </div>
 
                         </div>
@@ -4003,7 +4010,7 @@ class Home extends React.Component {
 
               <div className="container_c0 text-center">
 
-                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                       Sensor Information
                   </div>
                   <div className={this.state.loading4} style={{"text-align":"center"} }>
@@ -4052,9 +4059,9 @@ class Home extends React.Component {
                             <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "70%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                 {context1.state.boxes[key].title}
                             </div>
-                            <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                            <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                             </div>
                             <img src={homepic} style={{ width: "350px" }} />
                         </div>
@@ -4068,9 +4075,9 @@ class Home extends React.Component {
                             <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                 {context1.state.boxes[key].title}
                             </div>
-                            <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                            <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                             </div>
                             <Gauge {...config3} />
                         </div>
@@ -4084,9 +4091,9 @@ class Home extends React.Component {
                             <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "70%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                 {context1.state.boxes[key].title}
                             </div>
-                            <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                            <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                             </div>
                             <Area {...config4} />
 
@@ -4099,12 +4106,12 @@ class Home extends React.Component {
 
                         <div className={container}>
 
-                            <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                            <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                 {context1.state.boxes[key].title}
                             </div>
-                            <div style={{ "text-align": "right", "position": "relative", "top": "-60px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"gray","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                            <div style={{ "text-align": "right", "position": "relative", "top": "-70px","right":"-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color":"#ffbf1f","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color":"red","opacity":"0.7","cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
                             </div>
                             <div className={context1.state.loading4} style={{ "text-align": "center" }}>
                                 <Spinner2 customText="Loading" />
@@ -4142,7 +4149,7 @@ class Home extends React.Component {
 
                     <div className="container_c0 text-center">
 
-                        <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "40%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                        <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                             Sensor Information
                         </div>
                         <div className={this.state.loading4} style={{"text-align":"center"} }>
@@ -5383,13 +5390,14 @@ class Home extends React.Component {
                         </div>
 
                         {this.listTopBoxes()}
-                    </div>
-                    <div className="newline"></div>
-                    <div className="container_main mt-3 pb-5">
-                        <div className="container_c0 text-center remove-part d-none" style={{ "min-height": "15vh" }}>
-                            <FontAwesomeIcon onClick={(event) => this.openModal3()} icon={faPlusSquare} className="arrow2" style={{ "color": "black", "height": "100px", width: "100px" }} />
+                        <div className="container_c6" style={{"float":"right","background-color":"#fff","opacity":"0.6"} }>
+                            <div className=" text-center remove-part d-none" style={{ }}>
+                                <FontAwesomeIcon onClick={(event) => this.openModal3()} icon={faPlus} className="arrow2" style={{ "color": "rgb(255, 191, 31)", "height": "60px", width: "60px", "opacity": "1" }} />
+                            </div>
                         </div>
                     </div>
+                    
+                   
 
                 </div>
                 <div className="container_main d-none">
@@ -5406,7 +5414,7 @@ class Home extends React.Component {
                     </div>
                     <div className="container_c2"><Line {...config} /> </div>
                 </div>
-
+                <div className="newline"></div>
                 <div className="text-center">
                     {this.listBoxes()}
                 </div>
@@ -5414,10 +5422,11 @@ class Home extends React.Component {
                 <div id="newRows" >
                     {this.listBoxesNew()}
                 </div>
-                <div className="container_main mt-3 pb-5 remove-part d-none" style={{ "text-align": "left" }}>
+                <div className = "newline"></div>
+                <div className="container_main remove-part d-none pb-3" style={{ "text-align": "left", "display": "inline-block", "background-color": "#fff", "opacity": "0.6", width: "92%", "float": "right", "border-radius": "10px", "border":"1px solid #ccc" }}>
                     <div style={{ "text-align": "center" }}>
-                        <div className="container_c0 text-center" style={{ "min-height": "15vh" }}>
-                            <FontAwesomeIcon onClick={(event) => this.addBoxes()} icon={faPlusSquare} className="arrow2" style={{ "color": "black", "height": "100px", width: "100px" }} />
+                        <div className=" text-center" style={{ }}>
+                            <FontAwesomeIcon onClick={(event) => this.addBoxes()} icon={faPlus} className="arrow2" style={{ "color": "#ffbf1f", "height": "60px", width: "100px", "opacity": "1" }} />
                         </div>
                     </div>
                 </div>

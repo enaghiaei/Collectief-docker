@@ -15,7 +15,7 @@ async function check_sensors(token,res0) {
 
     let [rows, fields] = [[], []];
     var con = await mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -92,8 +92,8 @@ async function check_sensors(token,res0) {
         }
     }
     [rows5] = await con.execute("UPDATE sensors_list SET sl_status = 2 WHERE 1=1");
-    [rows6, fields6] = await con.execute("SELECT DISTINCT sensor_serial FROM node_per_quarter  WHERE nph_from2 >= '" + x + "'");
-
+    [rows6, fields6] = await con.execute("SELECT DISTINCT sensor_serial FROM node_220403690  WHERE timestamp >= '" + x + "'");
+    console.log("list sensor serial", rows6)
     for (var key in rows6) {
         [rows7] = await con.execute("UPDATE sensors_list SET sl_status = 1 WHERE sl_sensor = ?", [rows6[key].sensor_serial]);
     }

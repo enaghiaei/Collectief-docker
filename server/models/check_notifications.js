@@ -14,7 +14,7 @@ async function check_(token, res0) {
 
     let [rows, fields] = [[], []];
     var con = await mysql.createConnection({
-        host: "mysql_db", port:"3307",
+        host: global.config.vals.database.host, port:global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
@@ -109,7 +109,9 @@ async function check_(token, res0) {
     var x1 = today3_2 + "-" + today1_2 + "-" + today2_2 + " " + h_2 + ":" + m + ":" + "00";
 
     [result0, fields] = await con.execute("select nt_operation AS operation,nt_value AS value,measure_kind,measure_name,notification.nt_id,nt_importance FROM notification JOIN notification_types ON notification_types.nte_id = notification.nte_id JOIN measure_types ON measure_types.measure_id = notification_types.measure_id  where nte_deleted = 0 and nt_deleted = 0 and nt_active = 1");
-   //console.log(result0)
+    console.log(result0)
+    console.log("select nt_operation AS operation,nt_value AS value,measure_kind,measure_name,notification.nt_id,nt_importance FROM notification JOIN notification_types ON notification_types.nte_id = notification.nte_id JOIN measure_types ON measure_types.measure_id = notification_types.measure_id  where nte_deleted = 0 and nt_deleted = 0 and nt_active = 1");
+
     for (var key in result0) {
        //console.log("key", key)
         var op = ""
@@ -126,6 +128,8 @@ async function check_(token, res0) {
             op = " > "
         }
         [result1, fields2] = await con.execute("SELECT MAX(ca_deleted) AS ca_deleted,MAX(cl_deleted) AS cl_deleted,AVG(measure_value) AS av,MAX(measure_value) AS av_max,MIN(measure_value) AS av_min,'" + h + " to " + h_2 + "' AS range_title,measure_name,sensor_serial,collectief_location.cl_title FROM node_2204036" + num_t + " JOIN sensors_list ON sensors_list.sl_sensor =  node_2204036" + num_t + ".sensor_serial LEFT JOIN collectief_assignment ON node_2204036" + num_t + ".sensor_serial = collectief_assignment.sensor_id LEFT JOIN collectief_location ON collectief_location.cl_id = collectief_assignment.cl_id  WHERE measure_kind = '" + result0[key].measure_kind + "' AND measure_name = '" + result0[key].measure_name + "'" + " AND timestamp >= '" + x0 + "'" + " AND timestamp <= '" + x1 + "' AND sl_status = 1 GROUP BY sensor_serial,cl_title,measure_name HAVING AVG(measure_value) " + op + result0[key].value);
+        console.log("SELECT MAX(ca_deleted) AS ca_deleted,MAX(cl_deleted) AS cl_deleted,AVG(measure_value) AS av,MAX(measure_value) AS av_max,MIN(measure_value) AS av_min,'" + h + " to " + h_2 + "' AS range_title,measure_name,sensor_serial,collectief_location.cl_title FROM node_2204036" + num_t + " JOIN sensors_list ON sensors_list.sl_sensor =  node_2204036" + num_t + ".sensor_serial LEFT JOIN collectief_assignment ON node_2204036" + num_t + ".sensor_serial = collectief_assignment.sensor_id LEFT JOIN collectief_location ON collectief_location.cl_id = collectief_assignment.cl_id  WHERE measure_kind = '" + result0[key].measure_kind + "' AND measure_name = '" + result0[key].measure_name + "'" + " AND timestamp >= '" + x0 + "'" + " AND timestamp <= '" + x1 + "' AND sl_status = 1 GROUP BY sensor_serial,cl_title,measure_name HAVING AVG(measure_value) " + op + result0[key].value);
+        console.log(result1);
         var message = ""
        //console.log("###")
        //console.log("key", key)

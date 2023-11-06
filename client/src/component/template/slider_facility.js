@@ -83,6 +83,7 @@ class Slider extends React.Component {
 
         $(".menu-crtl").click(function () {
             //alert($("#menu_stat").val());
+            //alert("2")
             var page_size = { width: $(window).width(), height: $(window).height() };
             if (page_size.width > 1056) {
                 if ($("#menu_stat").val() == "false")
@@ -133,6 +134,14 @@ class Slider extends React.Component {
              }
          }*/
         $(".App").css("height", window.innerHeight);
+        setTimeout(() => {
+            var page_size = { width: $(window).width(), height: $(window).height() };
+            if (page_size.width > 1056) {
+                //alert("1")
+                $(".main_panel").css("left", window.innerWidth * 0.07);
+                $(".main_panel").css("width", window.innerWidth * 0.91);
+            }
+        }, 500);
         // Draw canvas border for the first time.
         this.resizeCanvas();
     }

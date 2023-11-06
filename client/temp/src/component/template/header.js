@@ -83,7 +83,7 @@ class Header extends React.Component {
   companies() {
     const cookies = new Cookies();
     //cookies.set('token', result.token, { path: '/' });
-   //console.log("cookies="+cookies.get('token'));
+    console.log("cookies="+cookies.get('token'));
     return fetch('http://'+global.config.vals.root.ip+':3001/get_companies', {
       method: 'POST',
       headers: {
@@ -105,7 +105,7 @@ class Header extends React.Component {
             items: result.result
           }
           );
-         //console.log(result);
+          console.log(result);
           //this.renderRows();
           //this.renderRows();
 
@@ -131,7 +131,7 @@ is_login() {
 
   if(token != ""){
   var credentials = {token:token};
- //console.log(credentials);
+  console.log(credentials);
   return fetch('http://'+global.config.vals.root.ip+':3001/is_login', {
     method: 'POST',
     headers: {
@@ -146,8 +146,8 @@ is_login() {
           isLoaded: true,
           items: result.items
         });*/
-       //console.log(result);
-       //console.log("message="+result.message);
+        console.log(result);
+        console.log("message="+result.message);
         if(result.message === 1){   
           this.setState({fullname:result.name, c_view: "d-none"})
           //var [fullname, setCount] = useState({name:result.name});
@@ -164,7 +164,7 @@ is_login() {
           
 
         }
-       //console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+        console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
 
         //if(result.message == "1")
         //  window.location.href = "/dashboard";
@@ -189,7 +189,7 @@ is_login() {
 
   var cookies = new Cookies();
   //cookies.set('token', result.token, { path: '/' });
- //console.log("cookies="+cookies.get('token'));
+  console.log("cookies="+cookies.get('token'));
   return fetch('http://'+global.config.vals.root.ip+':3001/logout', {
     method: 'POST',
     headers: {
@@ -204,7 +204,7 @@ is_login() {
           isLoaded: true,
           items: result.items
         });*/
-       //console.log(result);
+        console.log(result);
         if(result.message == "1"){
 
           toast.info('Logout was successful', {
@@ -273,8 +273,8 @@ is_login() {
     var c_id = cookies.get("company_id");
     //alert(c_id)
     return  this.state.companies.map(function(o, i) {    
-     //console.log("i==="+i);
-     //console.log(context.state.companies[i].logo);
+      console.log("i==="+i);
+      console.log(context.state.companies[i].logo);
       if(parseInt(c_id) === parseInt(context.state.companies[i].company_id))
         return (<Dropdown.Item className="dropdown_item border-bottom selected_item"  onClick={(e)=>(context.handleclick(context.state.companies[i].company_id , context.state.companies[i].topright , context.state.companies[i].logo , context.state.companies[i].logo_type , context.state.companies[i].c_token , context.state.companies[i].name))}>{context.state.companies[i].name}</Dropdown.Item>); 
       else{
