@@ -6,11 +6,22 @@ var pro_all = require('./models/get_sensors_all');
 var pro_info = require('./models/get_sensors_info');
 var pro1 = require('./models/get_sensor_data');
 var pro2 = require('./models/get_location_data');
+var gmt = require('./models/get_measure_types');
 var gst = require('./models/get_sensors_type');
 var gt = require('./models/get_temperature');
 var gt_battery = require('./models/get_battery');
 var gt_ph = require('./models/get_temperature_per_hour');
+var gt_ph_12h = require('./models/get_temperature_per_hour_12h');
+var gt_ph_48h = require('./models/get_temperature_per_hour_48h');
+var gt_ph_7d = require('./models/get_temperature_per_hour_7d');
+var gt_ph_30d = require('./models/get_temperature_per_hour_30d');
+var gt_ph_365d = require('./models/get_temperature_per_hour_365d');
 var gt_ph_sensor = require('./models/get_temperature_per_hour_sensor');
+var gt_ph_sensor_12h = require('./models/get_temperature_per_hour_sensor_12h');
+var gt_ph_sensor_48h = require('./models/get_temperature_per_hour_sensor_48h');
+var gt_ph_sensor_7d = require('./models/get_temperature_per_hour_sensor_7d');
+var gt_ph_sensor_30d = require('./models/get_temperature_per_hour_sensor_30d');
+var gt_ph_sensor_365d = require('./models/get_temperature_per_hour_sensor_365d');
 var gt_ph_quarter = require('./models/get_temperature_per_quarter');
 var gt_pre = require('./models/get_pressure_per_hour');
 var gt_pre_sensor = require('./models/get_pressure_per_hour_sensor');
@@ -912,6 +923,18 @@ app.post("/get_sensors_type", (req, res) => {
 
 });
 
+app.post("/get_measure_types", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("get_sensors");
+    //console.log(req.body);
+
+    var result1 = gmt.get_measure_types(req.body, res);
+    //console.log("$$$$$");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
 
 app.post("/get_temperature", (req, res) => {
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
@@ -954,6 +977,73 @@ app.post("/temperature_per_hour", (req, res) => {
 
 });
 
+app.post("/temperature_per_hour_12h", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_hour");
+    //console.log(req.body);
+
+    var result1 = gt_ph_12h.get_temperature_per_hour_12h(req.body, res);
+    //console.log("$$$$$temperature_per_hour");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+app.post("/temperature_per_hour_48h", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_hour");
+    //console.log(req.body);
+
+    var result1 = gt_ph_48h.get_temperature_per_hour_48h(req.body, res);
+    //console.log("$$$$$temperature_per_hour");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+
+app.post("/temperature_per_hour_7d", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_hour");
+    //console.log(req.body);
+
+    var result1 = gt_ph_7d.get_temperature_per_hour_7d(req.body, res);
+    //console.log("$$$$$temperature_per_hour");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+
+app.post("/temperature_per_hour_30d", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_hour");
+    //console.log(req.body);
+
+    var result1 = gt_ph_30d.get_temperature_per_hour_30d(req.body, res);
+    //console.log("$$$$$temperature_per_hour");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+
+app.post("/temperature_per_hour_365d", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_hour");
+    //console.log(req.body);
+
+    var result1 = gt_ph_365d.get_temperature_per_hour_365d(req.body, res);
+    //console.log("$$$$$temperature_per_hour");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
 
 app.post("/temperature_per_hour_sensor", (req, res) => {
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
@@ -963,6 +1053,78 @@ app.post("/temperature_per_hour_sensor", (req, res) => {
     var result1 = gt_ph_sensor.get_temperature_per_hour_sensor(req.body, res);
    //console.log("$$$$$temperature_per_hour");
    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+
+
+app.post("/temperature_per_hour_sensor_12h", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_hour_sensor");
+    //console.log(req.body);
+
+    var result1 = gt_ph_sensor_12h.get_temperature_per_hour_sensor_12h(req.body, res);
+    //console.log("$$$$$temperature_per_hour");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+
+
+app.post("/temperature_per_hour_sensor_48h", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_hour_sensor");
+    //console.log(req.body);
+
+    var result1 = gt_ph_sensor_48h.get_temperature_per_hour_sensor_48h(req.body, res);
+    //console.log("$$$$$temperature_per_hour");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+
+app.post("/temperature_per_hour_sensor_7d", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_hour_sensor");
+    //console.log(req.body);
+
+    var result1 = gt_ph_sensor_7d.get_temperature_per_hour_sensor_7d(req.body, res);
+    //console.log("$$$$$temperature_per_hour");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+
+app.post("/temperature_per_hour_sensor_30d", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_hour_sensor");
+    //console.log(req.body);
+
+    var result1 = gt_ph_sensor_30d.get_temperature_per_hour_sensor_30d(req.body, res);
+    //console.log("$$$$$temperature_per_hour");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+
+app.post("/temperature_per_hour_sensor_365d", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_hour_sensor");
+    //console.log(req.body);
+
+    var result1 = gt_ph_sensor_365d.get_temperature_per_hour_sensor_365d(req.body, res);
+    //console.log("$$$$$temperature_per_hour");
+    //console.log(result1);
     //console.log("$$$$$");
     //check_l.check_(req.body,res);
 

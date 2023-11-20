@@ -4,7 +4,7 @@ require('dotenv').config();
 var mysql = require('mysql2/promise');
 var config = require('../config/config.js');
 //exports.get_temperature_per_hour = function (token, res0) {
-async function get_temperature_per_quarter(token, res0) {
+async function check_temperature_per_quarter(token, res0) {
     var login_time = Math.floor(new Date().getTime() / 1000);
     var result1 = false;
     //var sqlite3 = require('sqlite3');
@@ -328,5 +328,5 @@ async function get_temperature_per_quarter(token, res0) {
 };
 
 module.exports = {
-    get_temperature_per_quarter: get_temperature_per_quarter
+    check_temperature_per_quarter: check_temperature_per_quarter
 }

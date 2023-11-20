@@ -16,6 +16,7 @@ import Create_users from './component/users/create_users';
 import List_users from './component/users/list_users';
 import Sri from './component/sri/sri';
 import Home from './component/home';
+import Home_detail from './component/home_detail';
 import Login from './component/login';
 import About from './component/about';
 import Contact from './component/contact';
@@ -130,6 +131,7 @@ class App extends Component {
 						<Routes>
 							<Route exact path='/' element={< Login />}></Route>
 							<Route exact path='/home' element={< Home />}></Route>
+							<Route exact path='/home_detail' element={< Home_detail />}></Route>
 							<Route exact path='/schedule/setting' element={< Schedule />}></Route>
 							<Route exact path='/schedule/edit' element={< Schedule_edit />}></Route>
 							<Route exact path='/control/setting' element={< Control />}></Route>
@@ -171,6 +173,7 @@ class App extends Component {
 								<Routes>
 									<Route exact path='/' element={< Home />}></Route>
 									<Route exact path='/home' element={< Home />}></Route>
+									<Route exact path='/home_detail/:value' element={< Home_detail />}></Route>
 									<Route exact path='/schedule/setting' element={< Schedule />}></Route>
 									<Route exact path='/schedule/edit' element={< Schedule_edit />}></Route>
 									<Route exact path='/control/setting' element={< Control />}></Route>
@@ -215,6 +218,7 @@ class App extends Component {
 								<Routes>
 									<Route exact path='/' element={< Home />}></Route>
 									<Route exact path='/home' element={< Home />}></Route>
+									<Route exact path='/home_detail' element={< Home_detail />}></Route>
 									<Route exact path='/schedule/setting' element={< Schedule />}></Route>
 									<Route exact path='/schedule/edit' element={< Schedule_edit />}></Route>
 									<Route exact path='/control/setting' element={< Control />}></Route>
@@ -261,6 +265,7 @@ class App extends Component {
 								<Routes>
 									<Route exact path='/' element={< Home />}></Route>
 									<Route exact path='/home' element={< Home />}></Route>
+									<Route exact path='/home_detail' element={< Home_detail />}></Route>
 									<Route exact path='/schedule/setting' element={< Schedule />}></Route>
 									<Route exact path='/schedule/edit' element={< Schedule_edit />}></Route>
 									<Route exact path='/control/setting' element={< Control />}></Route>

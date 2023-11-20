@@ -26,7 +26,7 @@ import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock, faCalendarAlt, faCalendarWeek, faLightbulb, faCalendar, faCalendarTimes, faAdd, faMinus, faGear, faTemperature0, faPowerOff, faArrowRight, faArrowLeft, faInfo, faCircleInfo, faInfoCircle, faPlusSquare, faClose, faCheck, faTrashAlt, faPlusCircle, faPlus, faEdit, faPenClip, faPen, faWindowClose, faSun, faWind, faLocation, faLocationPin, faMapLocationDot, faBuilding, faHome, faTemperature, faTemperatureHigh, faTint, faCloud, faCompressAlt, faSmog, faBatteryFull } from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb,faClock, faCalendarAlt, faCalendarWeek, faCalendar, faCalendarTimes, faAdd, faMinus, faGear, faTemperature0, faPowerOff, faArrowRight, faArrowLeft, faInfo, faCircleInfo, faInfoCircle, faPlusSquare, faClose, faCheck, faTrashAlt, faPlusCircle, faPlus, faEdit, faPenClip, faPen, faWindowClose, faSun, faWind, faLocation, faLocationPin, faMapLocationDot, faBuilding, faHome, faTemperature, faTemperatureHigh, faTint, faCloud, faCompressAlt, faSmog, faBatteryFull } from '@fortawesome/free-solid-svg-icons';
 import Spinner2 from "./Spinner2"
 import ReactWeather, { useOpenWeather } from 'react-open-weather';
 import GoogleMapReact from 'google-map-react';
@@ -74,7 +74,6 @@ var building_str = {
     "buildingId": 9,
     "zones": {
         "B09Z01": {
-            "title":"B09Z01",
             "sensors": {
                 "sph_p": {
                     "22050333": [
@@ -89,7 +88,6 @@ var building_str = {
             "indicators": {}
         },
         "B09Z02": {
-            "title": "B09Z02",
             "sensors": {
                 "sph_p": {
                     "22050334": [
@@ -104,7 +102,6 @@ var building_str = {
             "indicators": {}
         },
         "B09Z03": {
-            "title": "B09Z03",
             "sensors": {
                 "sph_p": {
                     "22050335": [
@@ -119,7 +116,6 @@ var building_str = {
             "indicators": {}
         },
         "B09Z04": {
-            "title": "B09Z04",
             "sensors": {
                 "sph_p": {
                     "22040322": [
@@ -131,7 +127,6 @@ var building_str = {
             "indicators": {}
         },
         "B09Z05": {
-            "title": "B09Z05",
             "sensors": {
                 "sph_p": {
                     "22040324": [
@@ -143,7 +138,6 @@ var building_str = {
             "indicators": {}
         },
         "B09Z06": {
-            "title": "B09Z06",
             "sensors": {
                 "sph_p": {
                     "22040325": [
@@ -155,7 +149,6 @@ var building_str = {
             "indicators": {}
         },
         "B09Z07": {
-            "title": "B09Z07",
             "sensors": {
                 "sph_p": {
                     "22040326": [
@@ -168,14 +161,21 @@ var building_str = {
         }
     }
 };
-class Home extends React.Component {
+class Home_detail extends React.Component {
 
     constructor(props) {
 
         super(props);
+        
+        console.log("value!!!!!!!!!!!!", props)
+        console.log(window.location.pathname)
+        var xxx = window.location.pathname.split("/")
+        console.log(xxx[2])
+
         context3 = this
         this.state = {
             items: [],
+            measure_types: [],
             data5_sensor_7d: [],
             data5_sensor_30d: [],
             data5_sensor_365d: [],
@@ -225,6 +225,7 @@ class Home extends React.Component {
             country: "-",
             region: "-",
             name: "-",
+            office: xxx[2]
 
         };
         this.setState({
@@ -315,9 +316,6 @@ class Home extends React.Component {
             this.temperature_per_hour_365d();
             this.temperature_per_hour_sensor();
             this.temperature_per_hour_sensor_48h();
-            this.temperature_per_hour_sensor_7d();
-            this.temperature_per_hour_sensor_30d();
-            this.temperature_per_hour_sensor_365d();
             this.humidity_per_hour();
             this.humidity_per_hour_sensor();
             this.pm_per_hour();
@@ -336,17 +334,10 @@ class Home extends React.Component {
             //this.locations();
             this.temperature();
             this.temperature_per_hour();
-            this.temperature_per_hour_48h();
-            this.temperature_per_hour_7d();
-            this.temperature_per_hour_30d();
-            this.temperature_per_hour_365d();
             this.temperature_per_hour_sensor();
             this.humidity_per_hour();
             this.humidity_per_hour_sensor();
             this.temperature_per_hour_sensor_48h();
-            this.temperature_per_hour_sensor_7d();
-            this.temperature_per_hour_sensor_30d();
-            this.temperature_per_hour_sensor_365d();
             this.pm_per_hour();
             this.pm_per_hour_sensor();
             this.pressure_per_hour();
@@ -403,6 +394,47 @@ class Home extends React.Component {
         );
     }
 
+
+    get_measure_types() {
+        const cookies = new Cookies();
+        //cookies.set('token', result.token, { path: '/' });
+        ////console.log("cookies=" + cookies.get('token'));
+        return fetch('http://' + global.config.vals.root.ip + ':3002/get_measure_types', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: cookies.get('token') })
+        })
+            .then(data => data.json())
+            .then(
+                (result) => {
+                    /*this.setState({
+                      isLoaded: true,
+                      items: result.items
+                    });*/
+                    this.setState({
+                        measure_types: result.result
+                    }
+                    );
+                    ////console.log(result);
+                    //this.renderRows();
+                    //this.renderRows();
+
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
+
     renderLocationOnMap() {
         const K_WIDTH = 20;
         const K_HEIGHT = 20;
@@ -445,9 +477,9 @@ class Home extends React.Component {
         var context = this;
 
         return this.state.buildings.map(function (o, i) {
-           ////console.log(context.state.buildings[i])
+           //console.log(context.state.buildings[i])
             if (context.state.buildings[i].location.localeCompare("{}") < 0) {
-               ////console.log(context.state.buildings[i].location)
+               //console.log(context.state.buildings[i].location)
                 var x = JSON.parse(context.state.buildings[i].location)
                 if (context.state.current_location_id == i)
                     return (
@@ -469,7 +501,7 @@ class Home extends React.Component {
     getBuildings() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       ////console.log("cookies=" + cookies.get('token'));
+       //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location_', {
             method: 'POST',
             headers: {
@@ -484,12 +516,12 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                   ////console.log(result.result)
+                   //console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
-                        ////console.log(key)
-                        ////console.log(result.result[key].sce)
+                        //console.log(key)
+                        //console.log(result.result[key].sce)
                         //nt_tmp[key] = JSON.parse(result.result[key].sce)
                         nt_tmp[key].id = result.result[key].id
                         nt_tmp[key].title = result.result[key].title
@@ -499,13 +531,13 @@ class Home extends React.Component {
 
                     }
                     var x = JSON.parse(nt_tmp[0].location)
-                   ////console.log("xxxxxxxxxxxxxxxxxxxxxxxxx", x)
+                   //console.log("xxxxxxxxxxxxxxxxxxxxxxxxx", x)
                     this.get_weather2(x.lat, x.lng, 0, nt_tmp[0].title)
                     this.setState({
                         buildings: nt_tmp
                     }
                     );
-                   ////console.log(result);
+                   //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -526,7 +558,7 @@ class Home extends React.Component {
     get_sri() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       ////console.log("cookies=" + cookies.get('token'));
+       //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sri', {
             method: 'POST',
             headers: {
@@ -542,7 +574,7 @@ class Home extends React.Component {
                       items: result.items
                     });*/
                     try {
-                       ////console.log(result.result)
+                       //console.log(result.result)
                         var nt_tmp = [];
                         var yyy = JSON.parse(result.result);
                         var total_building = 0;
@@ -555,15 +587,15 @@ class Home extends React.Component {
                                 var xxx = zzz.chart;
                                 total_sri += parseInt(zzz.total_sri);
                                 class_sri = zzz.class_sri
-                               ////console.log("xxx", xxx)
+                               //console.log("xxx", xxx)
                                 var i = 0;
                                 total_building++;
                                 for (var key in xxx) {
                                     var index = i++;
                                     if (!nt_tmp[index]) {
                                         nt_tmp[index] = {};
-                                        ////console.log(key)
-                                        ////console.log(result.result[key].sce)
+                                        //console.log(key)
+                                        //console.log(result.result[key].sce)
                                         //nt_tmp[key] = JSON.parse(result.result[key].sce)
 
                                         nt_tmp[index].value = parseInt(xxx[key].val);
@@ -579,15 +611,15 @@ class Home extends React.Component {
 
                             }
                         }
-                       ////console.log("nt_tmp", nt_tmp)
-                       ////console.log("total_building", total_building)
+                       //console.log("nt_tmp", nt_tmp)
+                       //console.log("total_building", total_building)
                         for (var key in nt_tmp) {
                             nt_tmp[key].value = parseInt((nt_tmp[key].value / total_building).toFixed(0));
                         }
                         //sri_title: "SRI",
                         //    sri_val: 0
                         var total_sri_mid = total_sri / total_building
-                       ////console.log("nt_tmp", nt_tmp)
+                       //console.log("nt_tmp", nt_tmp)
                         this.setState({
                             get_sri: nt_tmp,
                             total_building: total_building,
@@ -595,7 +627,7 @@ class Home extends React.Component {
                             sri_title: "CLASS " + class_sri
                         }
                         );
-                       ////console.log(result);
+                       //console.log(result);
                     } catch (error) {
 
                     }
@@ -627,7 +659,7 @@ class Home extends React.Component {
      }*/
 
     /* renderRows(){
-      ////console.log("renderRows");
+      //console.log("renderRows");
        this.createRow();
      }*/
 
@@ -636,7 +668,7 @@ class Home extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-       ////console.log("cookies=" + cookies.get('token'));
+       //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensors_info', {
             method: 'POST',
             headers: {
@@ -651,9 +683,47 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    this.setState({
-                       
-                        sensor_detail: result.result
+                    var k = 0;
+                    var sensors = [];
+                    var sensorTypes = [];
+                    for (var key2 in result.result) {
+                        if (!sensorTypes.includes(result.result[key2].measure_name)) {
+                            sensorTypes[sensorTypes.length] = result.result[key2].measure_name;
+                        }
+                    }
+                    for (var key2 in building_str.zones[this.state.office].sensors.sph_p) {
+                        sensors[sensors.length] = parseInt(key2);
+                    }
+                    console.log("sensorTypes",sensorTypes)
+                    var measure_names = [];
+                    for (var key in sensorTypes) {
+                        var x = 0;
+                        var g = 0;
+                        var ind = 0;
+                        for (var key2 in result.result) {
+                            //console.log(result.result[key2].sensor_serial)
+                            if (sensors.includes(result.result[key2].sensor_serial)) {
+                                //console.log("in1")
+                                if (sensorTypes[key].localeCompare(result.result[key2].measure_name) === 0) {
+                                    //console.log("in2")
+                                    //console.log("val", result.result[key2].measure_value)
+                                    x += parseFloat(result.result[key2].measure_value);
+                                    //console.log("x",x)
+                                    g++;
+                                    ind = key2;
+                                }
+
+                            }
+                        }
+                        if (g > 0) {
+                            if (!measure_names.includes(sensorTypes[key]))
+                                measure_names[measure_names.length] = sensorTypes[key];
+                        }
+                    }
+                    console.log("measure_names", measure_names)
+                    this.setState({                       
+                        sensor_detail: result.result,
+                        measure_names: measure_names
                     }
                     );
                     
@@ -674,11 +744,10 @@ class Home extends React.Component {
 
     }
 
-
     sensors() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensors', {
             method: 'POST',
             headers: {
@@ -700,47 +769,7 @@ class Home extends React.Component {
                         loading0: "d-none"
                     }
                     );
-                    ////console.log(result);
-                    //this.renderRows();
-                    //this.renderRows();
-
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
-    }
-
-
-    get_measure_types() {
-        const cookies = new Cookies();
-        //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
-        return fetch('http://' + global.config.vals.root.ip + ':3002/get_measure_types', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ token: cookies.get('token') })
-        })
-            .then(data => data.json())
-            .then(
-                (result) => {
-                    /*this.setState({
-                      isLoaded: true,
-                      items: result.items
-                    });*/
-                    this.setState({
-                        measure_types: result.result
-                    }
-                    );
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -760,7 +789,7 @@ class Home extends React.Component {
     sensors_type() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensors_type', {
             method: 'POST',
             headers: {
@@ -780,7 +809,7 @@ class Home extends React.Component {
                         loading2: "d-none"
                     }
                     );
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -801,7 +830,7 @@ class Home extends React.Component {
     temperature() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_temperature', {
             method: 'POST',
             headers: {
@@ -851,7 +880,7 @@ class Home extends React.Component {
                         top_boxes_all[l].measure_name = zzz[key]
                         top_boxes_all[l].av = "-"
                     }
-                    ////console.log("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",zzz)
+                    //console.log("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",zzz)
                     //alert(result.result[0].av)
                     this.setState({
                         temperature: result.result[0].av.toFixed(2),
@@ -859,7 +888,7 @@ class Home extends React.Component {
                         top_boxes_all: top_boxes_all
                     }
                     );
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -899,7 +928,7 @@ class Home extends React.Component {
     chooseOperation_source(e) {
         //alert($("#box_function").val())
         var box_function = $("#source_type").val()
-        ////console.log("box_function", box_function)
+        //console.log("box_function", box_function)
         if (box_function == 0) {
             $("#level11").removeClass("d-none")
             $("#level11_1").addClass("d-none")
@@ -917,9 +946,9 @@ class Home extends React.Component {
     chooseOperation(e) {
         //alert($("#box_function").val())
         var box_function = $("#box_function").val()
-        ////console.log("box_function", box_function)
+        //console.log("box_function", box_function)
         if (box_function == 0) {
-            ////console.log("h0")
+            //console.log("h0")
             $("#level4").addClass("d-none")
             $("#level3").removeClass("d-none")
             $("#level2").removeClass("d-none")
@@ -928,7 +957,7 @@ class Home extends React.Component {
             //$("#level11").removeClass("d-none")
         }
         else if (box_function == 1) {
-            ////console.log("h1")
+            //console.log("h1")
             $("#level4").removeClass("d-none")
             $("#level3").addClass("d-none")
             $("#level2").addClass("d-none")
@@ -1026,7 +1055,7 @@ class Home extends React.Component {
         $("#row").val(row)
         $("#col").val(col)
         $("#edit").val(edit)
-        ////console.log("edittttttttttttt",edit)
+        //console.log("edittttttttttttt",edit)
 
 
 
@@ -1041,7 +1070,7 @@ class Home extends React.Component {
             }
             var g = (index) + (col);
             var x = this.state.boxes_new[g].type
-            ////console.log("editttttttttttttxxxxxxxxxxxxxx", x)
+            //console.log("editttttttttttttxxxxxxxxxxxxxx", x)
             $("#box_function").val(x.function)
             $("#box_chart").val(x.chart)
             $("#box_parametr").val(x.parametr)
@@ -1159,7 +1188,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1186,7 +1215,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1210,7 +1239,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1285,7 +1314,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1312,7 +1341,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1336,7 +1365,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1410,7 +1439,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1437,7 +1466,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1461,7 +1490,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1535,7 +1564,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1562,7 +1591,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1586,7 +1615,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1660,7 +1689,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1687,7 +1716,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1711,7 +1740,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] + " per hour";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
@@ -1753,11 +1782,27 @@ class Home extends React.Component {
     }
 
 
+    render_measure_types() {
+        var context = this;
+        return this.state.measure_types.map(function (o, i) {
+            if (context.state.measure_types[i].measure_name.localeCompare("Air temperature") === 0) {
+                return (
+                    <option selected value={context.state.measure_types[i].measure_name}>{context.state.measure_types[i].measure_name}</option>
+                )
+            } else {
+                return (<option value={context.state.measure_types[i].measure_name}>{context.state.measure_types[i].measure_name}</option>);
+
+            }
+        }
+        )
+    }
+
+
 
     temperature_per_hour_sensor() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/temperature_per_hour_sensor_12h', {
             method: 'POST',
             headers: {
@@ -1773,15 +1818,15 @@ class Home extends React.Component {
                       items: result.items
                     });*/
                     // Temperature (℃) per hour
-                    ////console.log(result.result);
+                    //console.log(result.result);
                     var data5 = [];
                     var i = 0;
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_max"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -1805,9 +1850,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -1828,9 +1873,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_min"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -1851,7 +1896,7 @@ class Home extends React.Component {
 
 
 
-                    ////console.log("data5", data5)
+                    //console.log("data5", data5)
                     this.setState({
                         
                         data5_sensor_12h: data5,
@@ -1866,7 +1911,7 @@ class Home extends React.Component {
                         }
                         );
                     }
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -1887,7 +1932,7 @@ class Home extends React.Component {
     temperature_per_hour_sensor_48h() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/temperature_per_hour_sensor_48h', {
             method: 'POST',
             headers: {
@@ -1903,15 +1948,15 @@ class Home extends React.Component {
                       items: result.items
                     });*/
                     // Temperature (℃) per hour
-                    ////console.log(result.result);
+                    //console.log(result.result);
                     var data5 = [];
                     var i = 0;
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_max"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -1935,9 +1980,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -1958,9 +2003,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_min"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -1981,7 +2026,7 @@ class Home extends React.Component {
 
 
 
-                    ////console.log("data5", data5)
+                    //console.log("data5", data5)
                     this.setState({
 
                         data5_sensor_48h: data5,
@@ -1996,397 +2041,7 @@ class Home extends React.Component {
                         }
                         );
                     }
-                    ////console.log(result);
-                    //this.renderRows();
-                    //this.renderRows();
-
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
-    }
-
-
-    temperature_per_hour_sensor_7d() {
-        const cookies = new Cookies();
-        //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
-        return fetch('http://' + global.config.vals.root.ip + ':3002/temperature_per_hour_sensor_7d', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ token: cookies.get('token') })
-        })
-            .then(data => data.json())
-            .then(
-                (result) => {
-                    /*this.setState({
-                      isLoaded: true,
-                      items: result.items
-                    });*/
-                    // Temperature (℃) per hour
-                    ////console.log(result.result);
-                    var data5 = [];
-                    var i = 0;
-
-                    for (var key in result.result) {
-                        for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
-                            if (result.result[key][key2]["av_max"] != "null") {
-                                data5[i] = {};
-                                data5[i].year = result.result[key][key2]["range_title"];
-                                data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max Temperature (℃) per hour";
-                                data5[i].category2 = "Max";
-                                data5[i].category3 = result.result[key][key2]["sensor_serial"];
-                            } else {
-                                data5[i] = {};
-                                data5[i].year = key;
-                                data5[i].value = key;
-                                data5[i].category = "1x";
-                            }
-                            i++
-                        }
-
-                    }
-
-
-
-
-                    for (var key in result.result) {
-                        for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
-                            if (result.result[key][key2]["av"] != "null") {
-                                data5[i] = {};
-                                data5[i].year = result.result[key][key2]["range_title"];
-                                data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average Temperature (℃) per hour";
-                                data5[i].category2 = "Average";
-                                data5[i].category3 = result.result[key][key2]["sensor_serial"];
-                            } else {
-                                data5[i] = {};
-                                data5[i].year = key;
-                                data5[i].value = key;
-                                data5[i].category = "0x";
-                            }
-                            i++
-                        }
-
-                    }
-
-                    for (var key in result.result) {
-                        for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
-                            if (result.result[key][key2]["av_min"] != "null") {
-                                data5[i] = {};
-                                data5[i].year = result.result[key][key2]["range_title"];
-                                data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min Temperature (℃) per hour";
-                                data5[i].category2 = "Min";
-                                data5[i].category3 = result.result[key][key2]["sensor_serial"];
-                            } else {
-                                data5[i] = {};
-                                data5[i].year = key;
-                                data5[i].value = key;
-                                data5[i].category = "2x";
-                            }
-                            i++
-                        }
-
-                    }
-
-
-
-                    ////console.log("data5", data5)
-                    this.setState({
-
-                        data5_sensor_7d: data5,
-                        loading4: "d-none"
-                    }
-                    );
-                    if ($("#t1").hasClass("date_pic_selected")) {
-                        this.setState({
-
-                            data5_sensor: data5,
-                            loading4: "d-none"
-                        }
-                        );
-                    }
-                    ////console.log(result);
-                    //this.renderRows();
-                    //this.renderRows();
-
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
-    }
-
-
-    temperature_per_hour_sensor_30d() {
-        const cookies = new Cookies();
-        //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
-        return fetch('http://' + global.config.vals.root.ip + ':3002/temperature_per_hour_sensor_30d', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ token: cookies.get('token') })
-        })
-            .then(data => data.json())
-            .then(
-                (result) => {
-                    /*this.setState({
-                      isLoaded: true,
-                      items: result.items
-                    });*/
-                    // Temperature (℃) per hour
-                    ////console.log(result.result);
-                    var data5 = [];
-                    var i = 0;
-
-                    for (var key in result.result) {
-                        for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
-                            if (result.result[key][key2]["av_max"] != "null") {
-                                data5[i] = {};
-                                data5[i].year = result.result[key][key2]["range_title"];
-                                data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max Temperature (℃) per hour";
-                                data5[i].category2 = "Max";
-                                data5[i].category3 = result.result[key][key2]["sensor_serial"];
-                            } else {
-                                data5[i] = {};
-                                data5[i].year = key;
-                                data5[i].value = key;
-                                data5[i].category = "1x";
-                            }
-                            i++
-                        }
-
-                    }
-
-
-
-
-                    for (var key in result.result) {
-                        for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
-                            if (result.result[key][key2]["av"] != "null") {
-                                data5[i] = {};
-                                data5[i].year = result.result[key][key2]["range_title"];
-                                data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average Temperature (℃) per hour";
-                                data5[i].category2 = "Average";
-                                data5[i].category3 = result.result[key][key2]["sensor_serial"];
-                            } else {
-                                data5[i] = {};
-                                data5[i].year = key;
-                                data5[i].value = key;
-                                data5[i].category = "0x";
-                            }
-                            i++
-                        }
-
-                    }
-
-                    for (var key in result.result) {
-                        for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
-                            if (result.result[key][key2]["av_min"] != "null") {
-                                data5[i] = {};
-                                data5[i].year = result.result[key][key2]["range_title"];
-                                data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min Temperature (℃) per hour";
-                                data5[i].category2 = "Min";
-                                data5[i].category3 = result.result[key][key2]["sensor_serial"];
-                            } else {
-                                data5[i] = {};
-                                data5[i].year = key;
-                                data5[i].value = key;
-                                data5[i].category = "2x";
-                            }
-                            i++
-                        }
-
-                    }
-
-
-
-                    ////console.log("data5", data5)
-                    this.setState({
-
-                        data5_sensor_30d: data5,
-                        loading4: "d-none"
-                    }
-                    );
-                    if ($("#t1").hasClass("date_pic_selected")) {
-                        this.setState({
-
-                            data5_sensor: data5,
-                            loading4: "d-none"
-                        }
-                        );
-                    }
-                    ////console.log(result);
-                    //this.renderRows();
-                    //this.renderRows();
-
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
-    }
-
-
-    temperature_per_hour_sensor_365d() {
-        const cookies = new Cookies();
-        //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
-        return fetch('http://' + global.config.vals.root.ip + ':3002/temperature_per_hour_sensor_365d', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ token: cookies.get('token') })
-        })
-            .then(data => data.json())
-            .then(
-                (result) => {
-                    /*this.setState({
-                      isLoaded: true,
-                      items: result.items
-                    });*/
-                    // Temperature (℃) per hour
-                    ////console.log(result.result);
-                    var data5 = [];
-                    var i = 0;
-
-                    for (var key in result.result) {
-                        for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
-                            if (result.result[key][key2]["av_max"] != "null") {
-                                data5[i] = {};
-                                data5[i].year = result.result[key][key2]["range_title"];
-                                data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max Temperature (℃) per hour";
-                                data5[i].category2 = "Max";
-                                data5[i].category3 = result.result[key][key2]["sensor_serial"];
-                            } else {
-                                data5[i] = {};
-                                data5[i].year = key;
-                                data5[i].value = key;
-                                data5[i].category = "1x";
-                            }
-                            i++
-                        }
-
-                    }
-
-
-
-
-                    for (var key in result.result) {
-                        for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
-                            if (result.result[key][key2]["av"] != "null") {
-                                data5[i] = {};
-                                data5[i].year = result.result[key][key2]["range_title"];
-                                data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average Temperature (℃) per hour";
-                                data5[i].category2 = "Average";
-                                data5[i].category3 = result.result[key][key2]["sensor_serial"];
-                            } else {
-                                data5[i] = {};
-                                data5[i].year = key;
-                                data5[i].value = key;
-                                data5[i].category = "0x";
-                            }
-                            i++
-                        }
-
-                    }
-
-                    for (var key in result.result) {
-                        for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
-                            if (result.result[key][key2]["av_min"] != "null") {
-                                data5[i] = {};
-                                data5[i].year = result.result[key][key2]["range_title"];
-                                data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min Temperature (℃) per hour";
-                                data5[i].category2 = "Min";
-                                data5[i].category3 = result.result[key][key2]["sensor_serial"];
-                            } else {
-                                data5[i] = {};
-                                data5[i].year = key;
-                                data5[i].value = key;
-                                data5[i].category = "2x";
-                            }
-                            i++
-                        }
-
-                    }
-
-
-
-                    ////console.log("data5", data5)
-                    this.setState({
-
-                        data5_sensor_365d: data5,
-                        loading4: "d-none"
-                    }
-                    );
-                    if ($("#t1").hasClass("date_pic_selected")) {
-                        this.setState({
-
-                            data5_sensor: data5,
-                            loading4: "d-none"
-                        }
-                        );
-                    }
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -2408,7 +2063,7 @@ class Home extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/humidity_per_hour', {
             method: 'POST',
             headers: {
@@ -2424,15 +2079,15 @@ class Home extends React.Component {
                       items: result.items
                     });*/
                     // Temperature (℃) per hour
-                    ////console.log(result.result);
+                    //console.log(result.result);
                     var data5 = [];
                     var i = 0;
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_max"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2456,9 +2111,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2479,9 +2134,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_min"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2502,14 +2157,14 @@ class Home extends React.Component {
 
 
 
-                    ////console.log("data5", data5)
+                    //console.log("data5", data5)
                     this.setState({
 
                         data7: data5,
                         loading4: "d-none"
                     }
                     );
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -2532,7 +2187,7 @@ class Home extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/humidity_per_hour_sensor', {
             method: 'POST',
             headers: {
@@ -2548,15 +2203,15 @@ class Home extends React.Component {
                       items: result.items
                     });*/
                     // Temperature (℃) per hour
-                    ////console.log(result.result);
+                    //console.log(result.result);
                     var data5 = [];
                     var i = 0;
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_max"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2580,9 +2235,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2603,9 +2258,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_min"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2626,14 +2281,14 @@ class Home extends React.Component {
 
 
 
-                    ////console.log("data5", data5)
+                    //console.log("data5", data5)
                     this.setState({
 
                         data7_sensor: data5,
                         loading4: "d-none"
                     }
                     );
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -2656,7 +2311,7 @@ class Home extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/pm_per_hour', {
             method: 'POST',
             headers: {
@@ -2672,15 +2327,15 @@ class Home extends React.Component {
                       items: result.items
                     });*/
                     // Temperature (℃) per hour
-                    ////console.log(result.result);
+                    //console.log(result.result);
                     var data5 = [];
                     var i = 0;
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_max"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2705,9 +2360,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2729,9 +2384,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_min"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2752,14 +2407,14 @@ class Home extends React.Component {
 
 
 
-                    ////console.log("data88888888888888888888888888888888888", data5)
+                    //console.log("data88888888888888888888888888888888888", data5)
                     this.setState({
 
                         data8: data5,
                         loading4: "d-none"
                     }
                     );
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -2782,7 +2437,7 @@ class Home extends React.Component {
 
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/pm_per_hour_sensor', {
             method: 'POST',
             headers: {
@@ -2798,15 +2453,15 @@ class Home extends React.Component {
                       items: result.items
                     });*/
                     // Temperature (℃) per hour
-                    ////console.log(result.result);
+                    //console.log(result.result);
                     var data5 = [];
                     var i = 0;
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_max"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2831,9 +2486,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2855,9 +2510,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_min"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2878,14 +2533,14 @@ class Home extends React.Component {
 
 
 
-                    ////console.log("data88888888888888888888888888888888888", data5)
+                    //console.log("data88888888888888888888888888888888888", data5)
                     this.setState({
 
                         data8_sensor: data5,
                         loading4: "d-none"
                     }
                     );
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -2907,7 +2562,7 @@ class Home extends React.Component {
     pressure_per_hour() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/pressure_per_hour', {
             method: 'POST',
             headers: {
@@ -2922,13 +2577,13 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    ////console.log(result.result);
+                    //console.log(result.result);
                     var data5 = [];
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[key] = {};
                                 data5[key].year = result.result[key][key2]["range_title"];
@@ -2946,9 +2601,9 @@ class Home extends React.Component {
                     var i = 0;
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2969,9 +2624,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_max"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -2992,9 +2647,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_min"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -3013,14 +2668,14 @@ class Home extends React.Component {
 
                     }
 
-                    ////console.log(data5)
+                    //console.log(data5)
                     this.setState({
 
                         data6: data5,
                         loading6: "d-none"
                     }
                     );
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -3041,7 +2696,7 @@ class Home extends React.Component {
     pressure_per_hour_sensor() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/pressure_per_hour_sensor', {
             method: 'POST',
             headers: {
@@ -3056,13 +2711,13 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    ////console.log(result.result);
+                    //console.log(result.result);
                     var data5 = [];
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[key] = {};
                                 data5[key].year = result.result[key][key2]["range_title"];
@@ -3080,9 +2735,9 @@ class Home extends React.Component {
                     var i = 0;
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -3103,9 +2758,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_max"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -3126,9 +2781,9 @@ class Home extends React.Component {
 
                     for (var key in result.result) {
                         for (var key2 in result.result[key]) {
-                            ////console.log(key)
-                            ////console.log(result.result[key])
-                            ////console.log(result.result[key][key2])
+                            //console.log(key)
+                            //console.log(result.result[key])
+                            //console.log(result.result[key][key2])
                             if (result.result[key][key2]["av_min"] != "null") {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
@@ -3147,14 +2802,14 @@ class Home extends React.Component {
 
                     }
 
-                    ////console.log(data5)
+                    //console.log(data5)
                     this.setState({
 
                         data6_sensor: data5,
                         loading6: "d-none"
                     }
                     );
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -3175,7 +2830,7 @@ class Home extends React.Component {
     locations() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location', {
             method: 'POST',
             headers: {
@@ -3196,7 +2851,7 @@ class Home extends React.Component {
                         loading1: "d-none"
                     }
                     );
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -3258,7 +2913,7 @@ class Home extends React.Component {
     show_sensor_data(serial_id) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_sensor_data', {
             method: 'POST',
             headers: {
@@ -3277,7 +2932,7 @@ class Home extends React.Component {
                     $(".serials_detail2").removeClass("d-none");
                     $(".serials_detail3").removeClass("d-none");
                     var str = ``;
-                    ////console.log(result);
+                    //console.log(result);
                     for (var key in result.result) {
                         var x = "";
                         if (result.result[key].measure_kind === "Lux") {
@@ -3327,7 +2982,7 @@ class Home extends React.Component {
     show_location_data(serial_id) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_location_data', {
             method: 'POST',
             headers: {
@@ -3346,7 +3001,7 @@ class Home extends React.Component {
                     $(".serials_location_detail2").removeClass("d-none");
                     $(".serials_location_detail3").removeClass("d-none");
                     var str = ``;
-                    ////console.log(result);
+                    //console.log(result);
                     for (var key in result.result) {
                         var x = "";
 
@@ -3436,7 +3091,7 @@ class Home extends React.Component {
     get_boxes() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_boxes', {
             method: 'POST',
             headers: {
@@ -3451,17 +3106,17 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    ////console.log(result.result)
+                    //console.log(result.result)
                     var nt_tmp = [];
                     var x = []
                     var y = []
                     var box_titles = []
                     for (var key in result.result) {
 
-                        ////console.log(key)
-                        ////console.log(result.result[key].sce)
+                        //console.log(key)
+                        //console.log(result.result[key].sce)
                         //nt_tmp[key] = JSON.parse(result.result[key].sce)
-                        ////console.log("cb_default=====", result.result[key].cb_default)
+                        //console.log("cb_default=====", result.result[key].cb_default)
                         if (parseInt(result.result[key].cb_default) == 1) {
                             var l = nt_tmp.length
                             nt_tmp[l] = {};
@@ -3490,8 +3145,8 @@ class Home extends React.Component {
                     }
 
                     var rows_new = [];
-                    ////console.log("nt_tmp", nt_tmp)
-                    ////console.log("rows", rows)
+                    //console.log("nt_tmp", nt_tmp)
+                    //console.log("rows", rows)
                     for (var key in x) {
                         if (!rows_new[x[key].row]) {
                             rows_new[x[key].row] = {}
@@ -3514,7 +3169,7 @@ class Home extends React.Component {
                     );
                     $("#boxes").val(JSON.stringify(x))
                     $("#boxes_top").val(JSON.stringify(y))
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -3535,11 +3190,11 @@ class Home extends React.Component {
     listBoxes() {
 
         var context1 = this;
-        ////console.log("notification:::", this.state.notification)
+        //console.log("notification:::", this.state.notification)
         //{notification_operation[context1.state.boxes[key].operation]} {context1.state.boxes[key].value} {notification_unit[context1.state.boxes[key].type]}
         return this.state.rows.map(function (o, key) {
-            //////console.log(context.state.temlate[key].position)
-            ////console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
+            ////console.log(context.state.temlate[key].position)
+            //console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
             var type = "";
 
             return (
@@ -3574,12 +3229,12 @@ class Home extends React.Component {
         var col = parseInt($("#col").val())
         var row = parseInt($("#row").val())
         var boxes_new = this.state.boxes_new;
-        ////console.log("row", row)
-        ////console.log("col", col)
-        ////console.log("boxes_new_old", boxes_new)
+        //console.log("row", row)
+        //console.log("col", col)
+        //console.log("boxes_new_old", boxes_new)
 
         var rows_new = this.state.rows_new;
-        ////console.log("rows_new_old", rows_new)
+        //console.log("rows_new_old", rows_new)
         //var rows = this.state.rows;
         var index = 0;
         for (var key in rows_new) {
@@ -3603,10 +3258,10 @@ class Home extends React.Component {
                 }
             }
         }
-        ////console.log("rows_new", rows_new)
+        //console.log("rows_new", rows_new)
         var g = (index) + (col);
-        ////console.log("g==", g)
-        ////console.log("index", index)
+        //console.log("g==", g)
+        //console.log("index", index)
         if (index == 0) {
             g = (col);
         }
@@ -3619,10 +3274,10 @@ class Home extends React.Component {
     }
 
     addItemHorizontal(row) {
-        ////console.log("ROW === " , row)
+        //console.log("ROW === " , row)
         // newRows
         var rows_new = this.state.rows_new;
-        ////console.log("rows_new.length", rows_new.length)
+        //console.log("rows_new.length", rows_new.length)
         var x = "";
         var nboxes = $("#nboxes").val();
         var column = parseInt($("#nboxes").val());
@@ -3637,7 +3292,7 @@ class Home extends React.Component {
             var split_array2 = []
             var flag = 1;
 
-            ////console.log("boxes_old", boxes_new)
+            //console.log("boxes_old", boxes_new)
             for (var k = 0; k < boxes_new.length; k++) {
                 if (flag == 1) {
                     split_array[k] = boxes_new[k]
@@ -3664,26 +3319,26 @@ class Home extends React.Component {
                 } else {
                     split_array2[split_array2.length] = boxes_new[k]
                 }
-                ////console.log("flag", flag)
+                //console.log("flag", flag)
             }
-            ////console.log("split_array2", split_array2)
-            ////console.log("split_array", split_array)
+            //console.log("split_array2", split_array2)
+            //console.log("split_array", split_array)
             var split_array3 = split_array.concat(split_array2);
-            ////console.log("split_array3", split_array3)
+            //console.log("split_array3", split_array3)
             $("#boxes").val(JSON.stringify(split_array3))
-            ////console.log("boxes_new", boxes_new)
+            //console.log("boxes_new", boxes_new)
             this.setState({
                 boxes_new: split_array3,
                 rows_new: rows_new
             })
-            ////console.log("nboxes", nboxes)
+            //console.log("nboxes", nboxes)
             var wAll = 90
             if (nboxes == 1) {
                 wAll = 90
             }
             var width = wAll / parseInt(nboxes)
             var w = (width) + ""
-            ////console.log("width", width)
+            //console.log("width", width)
             var container = "";
             if (column === 1) {
                 container = "container_c0"
@@ -3709,7 +3364,7 @@ class Home extends React.Component {
             }
             $("#boxes").val(JSON.stringify(this.state.boxes_new))
             $("#boxes_top").val(JSON.stringify(this.state.top_boxes))
-            ////console.log(x)
+            //console.log(x)
         }
         //$("#newRows").append('<div class="container_main mt-3">' + x + '</div>')
         //this.closeModal()
@@ -3723,7 +3378,7 @@ class Home extends React.Component {
         //alert(token)
         if (token != "" && token) {
             var credentials = { token: token };
-            ////console.log(credentials);
+            //console.log(credentials);
             return fetch('http://' + global.config.vals.root.ip + ':3002/is_login', {
                 method: 'POST',
                 headers: {
@@ -3738,8 +3393,8 @@ class Home extends React.Component {
                           isLoaded: true,
                           items: result.items
                         });*/
-                        ////console.log(result);
-                        ////console.log("message=" + result.message);
+                        //console.log(result);
+                        //console.log("message=" + result.message);
                         if (result.message === 1) {
                             this.setState({ fullname: result.name, is_login: true, user_type: result.user_type })
                             return true;
@@ -3747,7 +3402,7 @@ class Home extends React.Component {
                         }
                         else if (result.message === 0) {
 
-                            ////console.log("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                            //console.log("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                             const cookies = new Cookies();
                             cookies.remove('token');
                             window.location.href = "/";
@@ -3757,7 +3412,7 @@ class Home extends React.Component {
                         } else {
 
                         }
-                        ////console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+                        //console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
 
                         //if(result.message == "1")
                         //  window.location.href = "/dashboard";
@@ -3787,12 +3442,12 @@ class Home extends React.Component {
         //var col = parseInt($("#col").val())
         //var row = parseInt($("#row").val())
         var boxes_new = this.state.boxes_new;
-        ////console.log("row", row)
-        ////console.log("col", col)
-        ////console.log("boxes_new_old", boxes_new)
+        //console.log("row", row)
+        //console.log("col", col)
+        //console.log("boxes_new_old", boxes_new)
 
         var rows_new = this.state.rows_new;
-        ////console.log("rows_new_old", rows_new)
+        //console.log("rows_new_old", rows_new)
         //var rows = this.state.rows;
         var index = 0;
         for (var key in rows_new) {
@@ -3816,10 +3471,10 @@ class Home extends React.Component {
                }
            }
        }*/
-        ////console.log("rows_new", rows_new)
+        //console.log("rows_new", rows_new)
         /*var g = (index) + (col);
-       ////console.log("g==", g)
-       ////console.log("index", index)
+       //console.log("g==", g)
+       //console.log("index", index)
         if (index == 0) {
             g = (col);
         }
@@ -3841,8 +3496,8 @@ class Home extends React.Component {
         $('#box_value_type :selected').each(function () {
             selected2[$(this).val()] = $(this).text();
         });
-        ////console.log(selected);
-        ////console.log(selected2);
+        //console.log(selected);
+        //console.log(selected2);
         var box_function = parseInt($("#box_function").val())
         var box_chart = parseInt($("#box_chart").val())
         var box_parametr = parseInt($("#box_parametr").val())
@@ -3850,7 +3505,7 @@ class Home extends React.Component {
 
         var box_value_type = selected2
         var box_other = parseInt($("#box_other").val())
-        ////console.log("box_parametr", box_parametr)
+        //console.log("box_parametr", box_parametr)
         var box_title = $("#box_title").val()
         var location = $("#location_s").val()
         var sensor = $("#sensor_s").val()
@@ -3871,13 +3526,13 @@ class Home extends React.Component {
             for (var key in this.state.location_title) {
                 if (parseInt(this.state.location_title[key].id) === parseInt(location)) {
                     location_title = this.state.location_title[key].title
-                    ////console.log("location_title", location_title)
+                    //console.log("location_title", location_title)
                 }
             }
-            ////console.log("xxxxxxxxxxxx", x)
-            ////console.log("row", row)
-            ////console.log("col", col)
-            ////console.log("boxes_new_old", boxes_new)
+            //console.log("xxxxxxxxxxxx", x)
+            //console.log("row", row)
+            //console.log("col", col)
+            //console.log("boxes_new_old", boxes_new)
             var rows_new = this.state.rows_new;
             //var rows = this.state.rows;
             var index = 0;
@@ -3887,8 +3542,8 @@ class Home extends React.Component {
                 }
             }
             var g = (index) + (col);
-            ////console.log("g==", g)
-            ////console.log("index", index)
+            //console.log("g==", g)
+            //console.log("index", index)
             if (index == 0) {
                 g = (col);
             }
@@ -3914,7 +3569,7 @@ class Home extends React.Component {
             else
                 boxes_new[g].title_short = sensor;
 
-            ////console.log("boxes_new", boxes_new)
+            //console.log("boxes_new", boxes_new)
             this.setState({
                 boxes_new: boxes_new
             })
@@ -3925,7 +3580,7 @@ class Home extends React.Component {
                 position: "top-right",
                 autoClose: 2500,
                 hideProgressBar: false,
-                closeonClick: true,
+                closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
@@ -3943,8 +3598,8 @@ class Home extends React.Component {
         var box_parametr = parseInt($("#box_parametr_2").val())
         var box_title = $("#box_title_2").val()
 
-        ////console.log("box_parametr", box_parametr)
-        ////console.log("Top", this.state.top_boxes_all)
+        //console.log("box_parametr", box_parametr)
+        //console.log("Top", this.state.top_boxes_all)
         if (box_parametr != "") {
             var x = this.state.top_boxes;
 
@@ -4087,7 +3742,7 @@ class Home extends React.Component {
                     }
                 }
             }
-           ////console.log("x", x)
+           //console.log("x", x)
             this.setState({
                 top_boxes: x,
                 top_boxes_stat: "remove-part p-0 pt-0 pr-1"
@@ -4099,7 +3754,7 @@ class Home extends React.Component {
                 position: "top-right",
                 autoClose: 2500,
                 hideProgressBar: false,
-                closeonClick: true,
+                closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
@@ -4159,7 +3814,7 @@ class Home extends React.Component {
     addBoxes() {
         // newRows
         var rows_new = this.state.rows_new;
-        ////console.log("rows_new.length", rows_new.length)
+        //console.log("rows_new.length", rows_new.length)
         var x = "";
         var nboxes = 1;
         var column = parseInt(1);
@@ -4183,14 +3838,14 @@ class Home extends React.Component {
             boxes_new: boxes_new,
             rows_new: rows_new
         })
-        ////console.log("nboxes", nboxes)
+        //console.log("nboxes", nboxes)
         var wAll = 90
         if (nboxes == 1) {
             wAll = 90
         }
         var width = wAll / parseInt(nboxes)
         var w = (width) + ""
-        ////console.log("width", width)
+        //console.log("width", width)
         var container = "";
         if (column === 1) {
             container = "container_c0"
@@ -4214,7 +3869,7 @@ class Home extends React.Component {
             x += '<div class="' + container + '">' + '' + '</div>';
             //x += '<div className="' + container + '" style="width:' + w + '%">' + '</div>';
         }
-        ////console.log(x)
+        //console.log(x)
         //$("#newRows").append('<div class="container_main mt-3">' + x + '</div>')
         $("#boxes").val(JSON.stringify(this.state.boxes_new))
         $("#boxes_top").val(JSON.stringify(this.state.top_boxes))
@@ -4232,18 +3887,18 @@ class Home extends React.Component {
         //alert(group_type)
         var context1 = this;
         var context = this;
-        ////console.log(this.state.rows_new)
-        ////console.log("group_type", group_type)
-        ////console.log("notification:::", this.state.notification)
+        //console.log(this.state.rows_new)
+        //console.log("group_type", group_type)
+        //console.log("notification:::", this.state.notification)
         //{notification_operation[context1.state.boxes[key].operation]} {context1.state.boxes[key].value} {notification_unit[context1.state.boxes[key].type]}
         if (group_type == 0) {
             if (this.state.rows_new.length > 0) {
                 return this.state.rows_new.map(function (o, key) {
-                    //////console.log(context.state.temlate[key].position)
+                    ////console.log(context.state.temlate[key].position)
                     var type = "";
 
                     if ($(".edit-box").hasClass("d-none")) {
-                        ////console.log("in0000000000000000000000")
+                        //console.log("in0000000000000000000000")
                         return (
                             <div>
                                 <div className="container_main mt-3" style={{ "text-align": "left" }} id={"row_" + key}>
@@ -4262,7 +3917,7 @@ class Home extends React.Component {
 
                         )
                     } else {
-                        ////console.log("in0111111111111111111111111111")
+                        //console.log("in0111111111111111111111111111")
                         return (
                             <div>
                                 <div className="container_main mt-3" style={{ "text-align": "left" }} id={"row_" + key}>
@@ -4290,7 +3945,7 @@ class Home extends React.Component {
             }
         } else {
             return this.state.box_titles.map(function (o, key) {
-                //////console.log(context.state.temlate[key].position)
+                ////console.log(context.state.temlate[key].position)
                 var type = "";
 
                 if ($(".edit-box").hasClass("d-none")) {
@@ -4341,7 +3996,7 @@ class Home extends React.Component {
     get_location() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://' + global.config.vals.root.ip + ':3002/get_assignment_locations', {
             method: 'POST',
             headers: {
@@ -4356,12 +4011,12 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    ////console.log(result.result)
+                    //console.log(result.result)
                     var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
-                        ////console.log(key)
-                        ////console.log(result.result[key].sce)
+                        //console.log(key)
+                        //console.log(result.result[key].sce)
                         //nt_tmp[key] = JSON.parse(result.result[key].sce)
                         nt_tmp[key].id = result.result[key].id
                         nt_tmp[key].title = result.result[key].title
@@ -4372,7 +4027,7 @@ class Home extends React.Component {
                         location_title: nt_tmp
                     }
                     );
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -4393,7 +4048,7 @@ class Home extends React.Component {
     get_weather2(lat, lon, index, title) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://api.weatherapi.com/v1/forecast.json?key=70f98c0a4cb24a0ba3183217230604&q=' + lat + ',' + lon + '&days=7&aqi=no&alerts=no', {
             method: 'POST',
             headers: {
@@ -4404,7 +4059,7 @@ class Home extends React.Component {
             .then(data => data.json())
             .then(
                 (result) => {
-                   ////console.log("result", result);
+                   //console.log("result", result);
                     if (result.forecast) {
                         this.setState({
                             weather: result,
@@ -4422,12 +4077,12 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    ////console.log(result.result)
+                    //console.log(result.result)
                     /*var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
-                        ////console.log(key)
-                        ////console.log(result.result[key].sce)
+                        //console.log(key)
+                        //console.log(result.result[key].sce)
                         //nt_tmp[key] = JSON.parse(result.result[key].sce)
                         nt_tmp[key].id = result.result[key].id
                         nt_tmp[key].title = result.result[key].title
@@ -4438,7 +4093,7 @@ class Home extends React.Component {
                         location_title: nt_tmp
                     }
                     );*/
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -4459,7 +4114,7 @@ class Home extends React.Component {
     get_weather3(lat, lon) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://api.weatherapi.com/v1/forecast.json?key=70f98c0a4cb24a0ba3183217230604&q=' + lat + ',' + lon + '&days=7&aqi=no&alerts=no', {
             method: 'POST',
             headers: {
@@ -4470,7 +4125,7 @@ class Home extends React.Component {
             .then(data => data.json())
             .then(
                 (result) => {
-                   ////console.log("result", result);
+                   //console.log("result", result);
                     if (result.forecast) {
                         this.setState({
                             weather: result,
@@ -4484,12 +4139,12 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    ////console.log(result.result)
+                    //console.log(result.result)
                     /*var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
-                        ////console.log(key)
-                        ////console.log(result.result[key].sce)
+                        //console.log(key)
+                        //console.log(result.result[key].sce)
                         //nt_tmp[key] = JSON.parse(result.result[key].sce)
                         nt_tmp[key].id = result.result[key].id
                         nt_tmp[key].title = result.result[key].title
@@ -4500,7 +4155,7 @@ class Home extends React.Component {
                         location_title: nt_tmp
                     }
                     );*/
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -4521,7 +4176,7 @@ class Home extends React.Component {
     get_weather() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
-        ////console.log("cookies=" + cookies.get('token'));
+        //console.log("cookies=" + cookies.get('token'));
         return fetch('http://api.weatherapi.com/v1/forecast.json?key=70f98c0a4cb24a0ba3183217230604&q=london' + '&days=7&aqi=no&alerts=no', {
             method: 'POST',
             headers: {
@@ -4532,7 +4187,7 @@ class Home extends React.Component {
             .then(data => data.json())
             .then(
                 (result) => {
-                   ////console.log("result", result);
+                   //console.log("result", result);
                     this.setState({
                         weather: result,
                         forecastday: result.forecast.forecastday,
@@ -4543,12 +4198,12 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    ////console.log(result.result)
+                    //console.log(result.result)
                     /*var nt_tmp = [];
                     for (var key in result.result) {
                         nt_tmp[key] = {};
-                        ////console.log(key)
-                        ////console.log(result.result[key].sce)
+                        //console.log(key)
+                        //console.log(result.result[key].sce)
                         //nt_tmp[key] = JSON.parse(result.result[key].sce)
                         nt_tmp[key].id = result.result[key].id
                         nt_tmp[key].title = result.result[key].title
@@ -4559,7 +4214,7 @@ class Home extends React.Component {
                         location_title: nt_tmp
                     }
                     );*/
-                    ////console.log(result);
+                    //console.log(result);
                     //this.renderRows();
                     //this.renderRows();
 
@@ -4678,7 +4333,7 @@ class Home extends React.Component {
         var context = this;
         if (context.state.forecastnow.condition)
             return (
-                <div className="mt-1">
+                <div className="mt-5">
 
                     <div className="newline"></div>
 
@@ -4744,7 +4399,7 @@ class Home extends React.Component {
     renderWeather() {
         var context = this;
         return this.state.forecastday.map(function (o, i) {
-           ////console.log("forcast", context.state.forecastday[i])
+           //console.log("forcast", context.state.forecastday[i])
             var date = context.state.forecastday[i].date.split("-")
             var mstr = context.getStrMonth(date[1]);
             return (
@@ -4816,22 +4471,6 @@ class Home extends React.Component {
         )
     }
 
-
-    render_measure_types() {
-        var context = this;
-        return this.state.measure_types.map(function (o, i) {
-            if (context.state.measure_types[i].measure_name.localeCompare("Air temperature") === 0) {
-                return (
-                    <option selected value={context.state.measure_types[i].measure_name}>{context.state.measure_types[i].measure_name}</option>
-                )
-            } else {
-                return (<option value={context.state.measure_types[i].measure_name}>{context.state.measure_types[i].measure_name}</option>);
-
-            }
-        }
-        )
-    }
-
     renderGauge() {
         const config = {
             percent: (parseInt(this.state.sri_val)) / 100,
@@ -4874,27 +4513,15 @@ class Home extends React.Component {
         return <Gauge {...config} />;
     }
 
-    set_measure_type(zone) {
-        // <div id={title_short + "_t0"} className="date_pic date_pic_selected m-2" onClick={(event) => this.set_data_for_chart(0, title_short)}>
-        console.log("set_measure_type")
-        for (var i = 0; i <= 4; i++) {
-            console.log("i",i)
-            if ($("#" + zone + "_t" + i).hasClass("date_pic_selected")) {
-                console.log("zone in",zone)
-                this.set_data_for_chart(i,zone)
-            }
-        }
-    }
-
 
 
     renderColumnsNew(key2, title) {
 
         var context1 = this;
-        ////console.log(key2)
-        ////console.log("boxes_new----------------------------------", context1.state.boxes_new)
-        ////console.log("title",title)
-        ////console.log("notification:::", this.state.notification)
+        //console.log(key2)
+        //console.log("boxes_new----------------------------------", context1.state.boxes_new)
+        //console.log("title",title)
+        //console.log("notification:::", this.state.notification)
         var group_type = this.state.group_type
         if ($(".edit-box").hasClass("d-none")) {
             group_type = 0;
@@ -4931,7 +4558,7 @@ class Home extends React.Component {
         x.parametr = box_parametr
         x.value_type = box_value_type*/
         return this.state.boxes_new.map(function (o, key) {
-            //////console.log(context.state.temlate[key].position)
+            ////console.log(context.state.temlate[key].position)
 
             var type = "";
 
@@ -4944,8 +4571,8 @@ class Home extends React.Component {
                 var x7_sensor = context1.state.data7_sensor
                 var x8 = context1.state.data8
                 var x8_sensor = context1.state.data8_sensor
-                ////console.log("x555555555",x5)
-                ////console.log("x888888888", x8)
+                //console.log("x555555555",x5)
+                //console.log("x888888888", x8)
                 var x5_new = [];
                 var x6_new = [];
                 var x7_new = [];
@@ -4985,40 +4612,40 @@ class Home extends React.Component {
                 }
 
                 for (var key3 in x7) {
-                    ////console.log("loc_1*", x7[key3].category3)
-                    ////console.log("loc_1#", context1.state.boxes_new[key].type.location)
+                    //console.log("loc_1*", x7[key3].category3)
+                    //console.log("loc_1#", context1.state.boxes_new[key].type.location)
                     if (context1.state.boxes_new[key].type && context1.state.boxes_new[key].type.value_type && context1.state.boxes_new[key].type.value_type.includes(x7[key3].category2) && parseInt(context1.state.boxes_new[key].type.source_type) == 0 && parseInt(context1.state.boxes_new[key].type.location) === parseInt(x7[key3].category3)) {
-                        ////console.log("&&&&&&&&&&&&&&&&&&&&&");
+                        //console.log("&&&&&&&&&&&&&&&&&&&&&");
                         x7_new[x7_new.length] = x7[key3]
                     }
                 }
 
                 for (var key3 in x7_sensor) {
-                    ////console.log("loc_1*", x7[key3].category3)
-                    ////console.log("loc_1#", context1.state.boxes_new[key].type.location)
+                    //console.log("loc_1*", x7[key3].category3)
+                    //console.log("loc_1#", context1.state.boxes_new[key].type.location)
                     if (context1.state.boxes_new[key].type && context1.state.boxes_new[key].type.value_type && context1.state.boxes_new[key].type.value_type.includes(x7_sensor[key3].category2) && parseInt(context1.state.boxes_new[key].type.source_type) == 1 && parseInt(context1.state.boxes_new[key].type.sensor) === parseInt(x7_sensor[key3].category3)) {
-                        ////console.log("&&&&&&&&&&&&&&&&&&&&&");
+                        //console.log("&&&&&&&&&&&&&&&&&&&&&");
                         x7_new[x7_new.length] = x7_sensor[key3]
                     }
                 }
 
                 for (var key3 in x8) {
-                    ////console.log("loc_1*", x8[key3].category3)
-                    ////console.log("loc_1#", context1.state.boxes_new[key].type.location)
+                    //console.log("loc_1*", x8[key3].category3)
+                    //console.log("loc_1#", context1.state.boxes_new[key].type.location)
                     if (context1.state.boxes_new[key].type && context1.state.boxes_new[key].type.value_type && context1.state.boxes_new[key].type.value_type.includes(x8[key3].category2) && parseInt(context1.state.boxes_new[key].type.source_type) == 0 && parseInt(context1.state.boxes_new[key].type.location) === parseInt(x8[key3].category3)) {
                         x8_new[x8_new.length] = x8[key3]
                     }
                 }
 
                 for (var key3 in x8_sensor) {
-                    ////console.log("loc_1*", x8[key3].category3)
-                    ////console.log("loc_1#", context1.state.boxes_new[key].type.location)
+                    //console.log("loc_1*", x8[key3].category3)
+                    //console.log("loc_1#", context1.state.boxes_new[key].type.location)
                     if (context1.state.boxes_new[key].type && context1.state.boxes_new[key].type.value_type && context1.state.boxes_new[key].type.value_type.includes(x8_sensor[key3].category2) && parseInt(context1.state.boxes_new[key].type.source_type) == 1 && parseInt(context1.state.boxes_new[key].type.sensor) === parseInt(x8_sensor[key3].category3)) {
                         x8_new[x8_new.length] = x8_sensor[key3]
                     }
                 }
-                ////console.log("x555555555_new", x5_new)
-                ////console.log("x888888888_new", x8_new)
+                //console.log("x555555555_new", x5_new)
+                //console.log("x888888888_new", x8_new)
                 if (context1.state.boxes_new[key].type.function == 1) {
 
 
@@ -5028,11 +4655,8 @@ class Home extends React.Component {
                         return (
 
                             <div className={container}>
-                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "70%", display: "inline-table", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                    {context1.state.boxes_new[key].title_short}
-                                    &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                        {context1.render_measure_types()}
-                                    </select> Over Time
+                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "70%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    {context1.state.boxes_new[key].title}
                                 </div>
                                 <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                     <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5047,11 +4671,8 @@ class Home extends React.Component {
                         return (
 
                             <div className={container}>
-                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
-                                    {context1.state.boxes_new[key].title_short}
-                                    &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                        {context1.render_measure_types()}
-                                    </select> Over Time
+                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    {context1.state.boxes_new[key].title}
                                 </div>
                                 <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                     <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "gray", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5066,11 +4687,8 @@ class Home extends React.Component {
                         return (
 
                             <div className={container}>
-                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "70%", display: "inline-table", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                    {context1.state.boxes_new[key].title_short}
-                                    &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                        {context1.render_measure_types()}
-                                    </select> Over Time
+                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "70%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    {context1.state.boxes_new[key].title}
                                 </div>
                                 <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                     <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "gray", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5087,11 +4705,8 @@ class Home extends React.Component {
 
                             <div className={container}>
 
-                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                    {context1.state.boxes_new[key].title_short}
-                                    &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                        {context1.render_measure_types()}
-                                    </select> Over Time
+                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    {context1.state.boxes_new[key].title}
                                 </div>
                                 <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                     <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5112,11 +4727,8 @@ class Home extends React.Component {
 
                             <div className={container}>
 
-                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                    {context1.state.boxes_new[key].title_short}
-                                    &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                        {context1.render_measure_types()}
-                                    </select> Over Time
+                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                    {context1.state.boxes_new[key].title}
                                 </div>
                                 <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                     <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5150,36 +4762,38 @@ class Home extends React.Component {
                 } else if (context1.state.boxes_new[key].type.function == 0) {
                     if (context1.state.boxes_new[key].type.parametr == 0) {
                         if (context1.state.boxes_new[key].type.chart == 1) {
-                            return (
-                                <div className={container}>
+                            //for (var key5 in context1.measure_types) {
+                            if (context1.state.boxes_new[key].title_short.localeCompare(context1.state.office) === 0) { 
+                                return context1.state.measure_types.map(function (o, key5) {
+                                    if (context1.state.measure_names.includes(context1.state.measure_types[key5].measure_name)) {
+                                        return (
+                                            <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "2px solid #000","padding":"5px", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} style={{ "border-radius": "10px", "border":"1px solid rgb(130, 97, 16)"}} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
-                                    </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color": "red", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
-                                    </div>
-                                    <div className={context1.state.loading4} style={{ "text-align": "center" }}>
-                                        <Spinner2 customText="Loading" />
-                                    </div>
-                                    {context1.renderChart(x5_new,context1.state.boxes_new[key].title_short,key)}
+                                                <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                                    {context1.state.boxes_new[key].title_short} / {context1.state.measure_types[key5].measure_name}
+                                                </div>
+                                                <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                                    <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                                    <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color": "red", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                                </div>
+                                                <div className={context1.state.loading4} style={{ "text-align": "center" }}>
+                                                    <Spinner2 customText="Loading" />
+                                                </div>
+                                                {context1.renderChart(x5_new, context1.state.boxes_new[key].title_short, key, context1.state.measure_types[key5].measure_name, context1.state.measure_types[key5].measure_equal)}
 
-                                </div>
+                                            </div>
 
-                            )
+                                        )
+                                    }
+                            });
+                        }
+                            //}
                         } else if (context1.state.boxes_new[key].type.chart == 0) {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                        {context1.state.boxes_new[key].title}
                                     </div>
                                     <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                         <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5198,11 +4812,8 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                        {context1.state.boxes_new[key].title}
                                     </div>
                                     <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                         <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5224,11 +4835,8 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                        {context1.state.boxes_new[key].title}
                                     </div>
                                     <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                         <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5245,11 +4853,8 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                        {context1.state.boxes_new[key].title}
                                     </div>
                                     <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                         <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5267,11 +4872,8 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                        {context1.state.boxes_new[key].title}
                                     </div>
                                     <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                         <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5291,11 +4893,8 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                        {context1.state.boxes_new[key].title}
                                     </div>
                                     <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                         <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5312,11 +4911,8 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                        {context1.state.boxes_new[key].title}
                                     </div>
                                     <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                         <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5334,11 +4930,8 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                        {context1.state.boxes_new[key].title}
                                     </div>
                                     <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                         <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5358,11 +4951,8 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                        {context1.state.boxes_new[key].title}
                                     </div>
                                     <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                         <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5379,11 +4969,8 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                        {context1.state.boxes_new[key].title}
                                     </div>
                                     <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                         <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5401,11 +4988,8 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                                        {context1.state.boxes_new[key].title}
                                     </div>
                                     <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
                                         <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
@@ -5445,13 +5029,13 @@ class Home extends React.Component {
               
              
               <div className="container_c3 text-center">
-                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                       Lowest Battery Percentage (V)
                   </div>
                   <Gauge {...config3} />
               </div>
               <div className="container_c4">
-                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "70%", display: "inline-table", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
+                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "70%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
 
                       Reward Function
                       </div>
@@ -5463,7 +5047,7 @@ class Home extends React.Component {
 
               <div className="container_c0 text-center">
 
-                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
+                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                       Sensor Information
                   </div>
                   <div className={this.state.loading4} style={{"text-align":"center"} }>
@@ -5477,8 +5061,8 @@ class Home extends React.Component {
 
     renderColumns(key2) {
         var context1 = this;
-        ////console.log(key2)
-        ////console.log("notification:::", this.state.notification)
+        //console.log(key2)
+        //console.log("notification:::", this.state.notification)
         var column = this.state.rows[key2].c;
         var container = "";
         if (column === 1) {
@@ -5501,15 +5085,15 @@ class Home extends React.Component {
         }
         //{notification_operation[context1.state.boxes[key].operation]} {context1.state.boxes[key].value} {notification_unit[context1.state.boxes[key].type]}
         return this.state.boxes.map(function (o, key) {
-            //////console.log(context.state.temlate[key].position)
+            ////console.log(context.state.temlate[key].position)
             var type = "";
-            ////console.log("key--in",key)
+            //console.log("key--in",key)
             if (context1.state.boxes[key].row === key2) {
                 if (context1.state.boxes[key].type === 0) {
                     return (
 
                         <div className={container}>
-                            <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "70%", display: "inline-table", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
+                            <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "70%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                 {context1.state.boxes[key].title}
                             </div>
                             <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
@@ -5525,7 +5109,7 @@ class Home extends React.Component {
                     return (
 
                         <div className={container}>
-                            <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                            <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                 {context1.state.boxes[key].title}
                             </div>
                             <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
@@ -5541,7 +5125,7 @@ class Home extends React.Component {
                     return (
 
                         <div className={container}>
-                            <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "70%", display: "inline-table", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
+                            <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "70%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                 {context1.state.boxes[key].title}
                             </div>
                             <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
@@ -5559,7 +5143,7 @@ class Home extends React.Component {
 
                         <div className={container}>
 
-                            <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
+                            <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                                 {context1.state.boxes[key].title}
                             </div>
                             <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
@@ -5584,13 +5168,13 @@ class Home extends React.Component {
               
              
               <div className="container_c3 text-center">
-                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
+                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                       Lowest Battery Percentage (V)
                   </div>
                   <Gauge {...config3} />
               </div>
               <div className="container_c4">
-                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "70%", display: "inline-table", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
+                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "70%", display: "inline-table", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
 
                       Reward Function
                       </div>
@@ -5602,7 +5186,7 @@ class Home extends React.Component {
 
               <div className="container_c0 text-center">
 
-                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "1px solid rgb(255, 191, 31)", "letter-spacing": "2px" }}>
+                  <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "black", width: "100%", display: "inline-block", "border-bottom": "1px solid gray", "letter-spacing": "2px" }}>
                       Sensor Information
                   </div>
                   <div className={this.state.loading4} style={{"text-align":"center"} }>
@@ -5617,7 +5201,8 @@ class Home extends React.Component {
 
 
 
-    renderChart(data_tmp,title_short,key) {
+
+    renderChart(data_tmp, title_short, key, measure_name, measure_equal) {
         //+" ℃"
         /*
         xAxis: {
@@ -5626,7 +5211,7 @@ class Home extends React.Component {
             },*/
         ////console.log(this.state.data5);
         for (var i = 0; i <= 4; i++) {
-            if ($("#" + title_short + "_t" + i).hasClass("date_pic_selected")) {
+            if ($("#" + title_short + "_" + measure_equal + "_t" + i).hasClass("date_pic_selected")) {
                 if (i == 0)
                     data_tmp = this.state.data5_12h;
                 else if (i == 1)
@@ -5642,7 +5227,7 @@ class Home extends React.Component {
         var data_filter = [];
         var x5_new = [];
         var context1 = this;
-       //console.log("data_tmp", data_tmp)
+        console.log("data_tmp", data_tmp)
         for (var key3 in data_tmp) {
 
             if (context1.state.boxes_new[key].type && context1.state.boxes_new[key].type.value_type && context1.state.boxes_new[key].type.value_type.includes(data_tmp[key3].category2) && parseInt(context1.state.boxes_new[key].type.source_type) == 0 && parseInt(context1.state.boxes_new[key].type.location) === parseInt(data_tmp[key3].category3)) {
@@ -5658,19 +5243,19 @@ class Home extends React.Component {
                         data_filter[data_filter.length] = data_tmp[key];
                     }
                 } else {
-                    if (data_tmp[key].measure_name.localeCompare("Air temperature")) {
+                    if (data_tmp[key].measure_name.localeCompare(measure_name) === 0) {
                         data_filter[data_filter.length] = data_tmp[key];
                     }
                 }
             }
             else {
                 //Air temperature
-                if (data_tmp[key].measure_name.localeCompare("Air temperature")) {
+                if (data_tmp[key].measure_name.localeCompare(measure_name) === 0) {
                     data_filter[data_filter.length] = data_tmp[key];
                 }
             }
         }
-      //console.log("data_filter", data_filter)
+        console.log("data_filter", data_filter)
         var config44 = {
             "data": data_filter,
             xField: 'year',
@@ -5700,7 +5285,7 @@ class Home extends React.Component {
                 position: 'top',
             },
             annotations: [
-                
+
                 {
                     type: 'line',
                     start: ['min', 'median'],
@@ -5716,39 +5301,39 @@ class Home extends React.Component {
         if (data_tmp.length > 0)
             return (
                 <div style={{ "text-align": "left" }}>
-                    <div id={title_short + "_t0"} className="date_pic date_pic_selected m-2" onClick={(event) => this.set_data_for_chart(0, title_short)}>
+                    <div id={title_short + "_" + measure_equal + "_t0"} className="date_pic date_pic_selected m-2" onClick={(event) => this.set_data_for_chart(0, title_short, measure_name, measure_equal)}>
                         <FontAwesomeIcon icon={faClock} /> 12 hours
                     </div>
-                    <div id={title_short + "_t1"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(1, title_short)} >
+                    <div id={title_short + "_" + measure_equal + "_t1"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(1, title_short, measure_name, measure_equal)} >
                         <FontAwesomeIcon icon={faClock} /> 48 hours
                     </div>
-                    <div id={title_short + "_t2"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(2, title_short)}>
+                    <div id={title_short + "_" + measure_equal + "_t2"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(2, title_short, measure_name, measure_equal)}>
                         <FontAwesomeIcon icon={faCalendarWeek} /> week
                     </div>
-                    <div id={title_short + "_t3"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(3, title_short)}>
-                        <FontAwesomeIcon icon={faCalendarAlt}/> month
+                    <div id={title_short + "_" + measure_equal + "_t3"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(3, title_short, measure_name, measure_equal)}>
+                        <FontAwesomeIcon icon={faCalendarAlt} /> month
                     </div>
-                    <div id={title_short + "_t4"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(4, title_short)}>
+                    <div id={title_short + "_" + measure_equal + "_t4"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(4, title_short, measure_name, measure_equal)}>
                         <FontAwesomeIcon icon={faCalendarTimes} /> year
                     </div>
                     <Area {...config44} />
                 </div>
             );
         else {
-            return (< div  className='mt-5' ><div style={{ "text-align": "left" }}>
-                <div id={title_short + "_t0"} className="date_pic date_pic_selected m-2" onClick={(event) => this.set_data_for_chart(0, title_short)}>
+            return (< div className='mt-5' ><div style={{ "text-align": "left" }}>
+                <div id={title_short + "_" + measure_equal + "_t0"} className="date_pic date_pic_selected m-2" onClick={(event) => this.set_data_for_chart(0, title_short, measure_name, measure_equal)}>
                     <FontAwesomeIcon icon={faClock} /> 12 hours
                 </div>
-                <div id={title_short + "_t1"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(1, title_short)} >
+                <div id={title_short + "_" + measure_equal + "_t1"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(1, title_short, measure_name, measure_equal)} >
                     <FontAwesomeIcon icon={faClock} /> 48 hours
                 </div>
-                <div id={title_short + "_t2"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(2, title_short)}>
+                <div id={title_short + "_" + measure_equal + "_t2"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(2, title_short, measure_name, measure_equal)}>
                     <FontAwesomeIcon icon={faCalendarWeek} /> week
                 </div>
-                <div id={title_short + "_t3"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(3, title_short)}>
+                <div id={title_short + "_" + measure_equal + "_t3"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(3, title_short, measure_name, measure_equal)}>
                     <FontAwesomeIcon icon={faCalendarAlt} /> month
                 </div>
-                <div id={title_short + "_t4"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(4, title_short)}>
+                <div id={title_short + "_" + measure_equal + "_t4"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(4, title_short, measure_name, measure_equal)}>
                     <FontAwesomeIcon icon={faCalendarTimes} /> year
                 </div>
                 <div className="newline"></div>
@@ -5759,14 +5344,13 @@ class Home extends React.Component {
         }
     }
 
-    set_data_for_chart(type, title_short) {
-        console.log(title_short)
+    set_data_for_chart(type, title_short, measure_name, measure_equal) {
         for (var i = 0; i <= 4; i++) {
-            $("#" + title_short + "_t" + i).removeClass("date_pic_selected");
+            $("#" + title_short + "_" + measure_equal + "_t" + i).removeClass("date_pic_selected");
         }
-       
+
         if (type == 0) {
-           
+
             this.setState({
 
                 data5_sensor: this.state.data5_sensor_12h,
@@ -5774,11 +5358,11 @@ class Home extends React.Component {
 
             }
             );
-            $("#" + title_short +"_t" + type).addClass("date_pic_selected");
-            //set_data_for_chart(type, title_short)
+            $("#" + title_short + "_" + measure_equal + "_t" + type).addClass("date_pic_selected");
+            //this.set_data_for_chart(type, title_short, measure_name, measure_equal)
         }
         else if (type == 1) {
-            
+
             this.setState({
 
                 data5_sensor: this.state.data5_sensor_48h,
@@ -5786,11 +5370,11 @@ class Home extends React.Component {
 
             }
             );
-            $("#" + title_short + "_t" + type).addClass("date_pic_selected");
-            //set_data_for_chart(type, title_short)
+            $("#" + title_short + "_" + measure_equal + "_t" + type).addClass("date_pic_selected");
+            //this.set_data_for_chart(type, title_short, measure_name, measure_equal)
         }
         else if (type == 2) {
-            
+
             this.setState({
 
                 data5_sensor: this.state.data5_sensor_7d,
@@ -5798,11 +5382,11 @@ class Home extends React.Component {
 
             }
             );
-            $("#" + title_short + "_t" + type).addClass("date_pic_selected");
-            //set_data_for_chart(type, title_short)
+            $("#" + title_short + "_" + measure_equal + "_t" + type).addClass("date_pic_selected");
+            //this.set_data_for_chart(type, title_short, measure_name, measure_equal)
         }
         else if (type == 3) {
-            
+
             this.setState({
 
                 data5_sensor: this.state.data5_sensor_30d,
@@ -5810,11 +5394,11 @@ class Home extends React.Component {
 
             }
             );
-            $("#" + title_short + "_t" + type).addClass("date_pic_selected");
-            //set_data_for_chart(type, title_short)
+            $("#" + title_short + "_" + measure_equal + "_t" + type).addClass("date_pic_selected");
+            //this.set_data_for_chart(type, title_short, measure_name, measure_equal)
         }
-        else if (type == 4) { 
-            
+        else if (type == 4) {
+
             this.setState({
 
                 data5_sensor: this.state.data5_sensor_365d,
@@ -5822,16 +5406,16 @@ class Home extends React.Component {
 
             }
             );
-            $("#" + title_short + "_t" + type).addClass("date_pic_selected");
-            //set_data_for_chart(type, title_short)
+            $("#" + title_short + "_" + measure_equal + "_t" + type).addClass("date_pic_selected");
+            //this.set_data_for_chart(type, title_short, measure_name, measure_equal)
         }
     }
 
 
+
     renderChartColumn(data_tmp) {
         //+" ℃"
-        ////console.log(this.state.data5);
-
+        //console.log(this.state.data5);
         var config44 = {
             "data": data_tmp,
             xField: 'year',
@@ -5860,14 +5444,14 @@ class Home extends React.Component {
                 return (< div style={{ "text-align": "center", "font-weight": "bold", "font-size": "25px", "letter-spacing": "4px" }} className='mt-5' > No Data</div >);
             }
         } catch (err) {
-           ////console.log(err)
+           //console.log(err)
         }
     }
 
 
     renderChartColumn2(data_tmp) {
         //+" ℃"
-        ////console.log(this.state.data5);
+        //console.log(this.state.data5);
         var config44 = {
             "data": data_tmp,
             xField: 'year',
@@ -5931,7 +5515,7 @@ class Home extends React.Component {
                 return (< div style={{ "text-align": "center", "font-weight": "bold", "font-size": "25px", "letter-spacing": "4px" }} className='mt-5' > No Data</div >);
             }
         } catch (err) {
-           ////console.log(err)
+           //console.log(err)
         }
     }
 
@@ -5939,7 +5523,7 @@ class Home extends React.Component {
 
     renderChartBar(data_tmp) {
         //+" ℃"
-        ////console.log(this.state.data5);
+        //console.log(this.state.data5);
         var config44 = {
             "data": data_tmp,
             xField: 'value',
@@ -5969,7 +5553,7 @@ class Home extends React.Component {
 
 
     renderChart1() {
-        ////console.log(this.state.data5);
+        //console.log(this.state.data5);
 
     }
 
@@ -6643,51 +6227,54 @@ class Home extends React.Component {
         
             var sensors = [];
 
-            for (var key3 in building_str.zones[zone].sensors.sph_p) {
-               ////console.log(key3)
-               ////console.log(parseInt(key3))
-                sensors[sensors.length] = parseInt(key3);
-            }
+           // for (var key3 in building_str.zones[zone].sensors.sph_p) {
+               //console.log(key3)
+               //console.log(parseInt(key3))
+                sensors[sensors.length] = parseInt(zone);
+           // }
 
-           ////console.log(sensors)
+           //console.log(sensors)
 
             for (var key2 in this.state.sensor_detail) {
                 if (!sensorTypes.includes(this.state.sensor_detail[key2].measure_name)) {
                     sensorTypes[sensorTypes.length] = this.state.sensor_detail[key2].measure_name;
                 }
         }
-       ////console.log("sensorTypes",sensorTypes)
+        //console.log("sensorTypes",sensorTypes)
+        var measure_names = [];
         for (var key in sensorTypes) {
             var x = 0;
             var g = 0;
             var ind = 0;
                 for (var key2 in this.state.sensor_detail) {
-                   ////console.log(this.state.sensor_detail[key2].sensor_serial)
+                   //console.log(this.state.sensor_detail[key2].sensor_serial)
                     if (sensors.includes(this.state.sensor_detail[key2].sensor_serial)) {
-                       ////console.log("in1")
+                       //console.log("in1")
                         if (sensorTypes[key].localeCompare(this.state.sensor_detail[key2].measure_name) === 0) {
-                           ////console.log("in2")
-                           ////console.log("val", this.state.sensor_detail[key2].measure_value)
+                           //console.log("in2")
+                           //console.log("val", this.state.sensor_detail[key2].measure_value)
                             x += parseFloat(this.state.sensor_detail[key2].measure_value);
-                           ////console.log("x",x)
+                           //console.log("x",x)
                             g++;
                             ind = key2;
                         }
                            
                     }
             }
-           ////console.log(sensorTypes[key])
-           ////console.log("g",g)  
-           ////console.log("x", x) 
-            //faTemperatureHigh, faTint, faCloud, faCompressAlt, faSmog, faBatteryFull,faLightbulb
+           //console.log(sensorTypes[key])
+           //console.log("g",g)  
+           //console.log("x", x) 
+            //faTemperatureHigh, faTint, faCloud, faCompressAlt, faSmog, faBatteryFull
             var key2 = ind;
             if (g > 0) {
+                if (!measure_names.includes(sensorTypes[key]))
+                    measure_names[measure_names.length] = sensorTypes[key];
                 var z = x / g;
                 if (this.state.sensor_detail[key2].measure_name.localeCompare("Cell temperature") === 0) {
                     zoneElements.push(
                         <div className="wrap1">
                             <div className="wrap2">
-                                <div style={{ display: "inline-block", "width": "75px" }}>{z.toFixed(2)} <span class="wrap2-unit">&#8451;</span></div> <FontAwesomeIcon style={{ "width": "20px", "height": "20px", "color": "#826110" , "position" : "relative" , "top" : "5px" , "margin-left" : "3px" }} icon={faTemperatureHigh} />
+                                <div style={{ display: "inline-block", "width": "75px" }}>{z.toFixed(2)} <span class="wrap2-unit">&#8451;</span></div> <FontAwesomeIcon style={{ "width": "20px", "height": "20px", "color": "#826110", "position": "relative", "top": "5px", "margin-left": "3px" }} icon={faTemperatureHigh} />
                             </div>
 
                             <div className="wrap3">
@@ -6714,7 +6301,7 @@ class Home extends React.Component {
                     zoneElements.push(
                         <div className="wrap1">
                             <div className="wrap2">
-                                <div style={{ display: "inline-block", "width":"75px" }}> {z.toFixed(2)} <span class="wrap2-unit">lux</span></div> <FontAwesomeIcon style={{ "width": "20px", "height": "20px", "color": "#826110", "position": "relative", "top": "5px", "margin-left": "3px" }} icon={faLightbulb} />
+                                <div style={{ display: "inline-block", "width": "75px" }}> {z.toFixed(2)} <span class="wrap2-unit">lux</span></div> <FontAwesomeIcon style={{ "width": "20px", "height": "20px", "color": "#826110", "position": "relative", "top": "5px", "margin-left": "3px" }} icon={faLightbulb} />
                             </div>
 
                             <div className="wrap3">
@@ -6815,9 +6402,14 @@ class Home extends React.Component {
                     );
                 }
             }
-            }
+        
+        }
 
-           ////console.log(zoneElements)
+       /* this.setState({
+            measure_names:measure_names
+        })*/
+
+           //console.log(zoneElements)
 
         
 
@@ -6825,40 +6417,36 @@ class Home extends React.Component {
         
     }
     
-    set_detail(office) {
-        //alert(office)
-       ////console.log(office)
-      
-        window.location.href = "/home_detail/" + office;
-    }
+
 
     renderZones() {
 
         var x = ``;;
         var zoneElements = [];
         for (var key in building_str.zones) {
-            zoneElements.push();
-        }
-       // return zoneElements;
-        var context = this;
-        let arr = Object.values(building_str);
-        let arr2 = Object.values(arr[5]);
-       ////console.log(arr)
-        return arr2.map(function (o, i) {
-            return (<div key={key} id={"office_" + key} className="container_c2" style={{ "cursor": "pointer", "opacity": "0.9", "background-color": "#ffbf1f", backgroundImage: `url(${collectief_logo4})`, "background-position": "right bottom", "background-repeat": "no-repeat", "background-size": "150px 150px" }}>
-                <div className="" onClick={(event) => (context.set_detail(arr2[i]["title"]))}>
-                    <div className="row-title">
-                        {arr2[i]["title"]}
-                    </div>
-                    <div style={{ "text-align": "left" }} className="p-4">
-                        {context.renderZoneInfo(arr2[i]["title"])}
-                    </div>
+            console.log("office",this.state.office)
+            if (this.state.office.localeCompare(key) === 0) {
+                for (var key2 in building_str.zones[this.state.office].sensors.sph_p) {
+                    zoneElements.push(<div className="container_c0" style={{ "opacity": "0.9", "background-color": "#ffbf1f", backgroundImage: `url(${collectief_logo4})`, "background-position": "right bottom", "background-repeat": "no-repeat", "background-size": "150px 150px", "min-height": "220px" }}>
+                        <div className="">
+                            <div className="row-title">
+                                {this.state.office} / {key2}
+                            </div>
+                            <div style={{ "text-align": "left" }} className="p-4">
+                                {this.renderZoneInfo(key2)}
+                            </div>
 
-                </div>
-            </div>);
-        });
-        
+                        </div>
+                    </div>);
+                }
+            }
+        }
+        return zoneElements;
+
     }
+
+
+
 
 
 
@@ -7139,22 +6727,8 @@ class Home extends React.Component {
                         <div style={{}} dir="ltr">
                             
 
-                            
-                            <div className="container_c2" style={{ "opacity": "0.9", "background-color": "#D1A40B", backgroundImage: `url(${collectief_logo4})`, "background-position": "right bottom", "background-repeat": "no-repeat", "background-size": "150px 150px" }}>
-                                <div className="">
-                                    <div className="row-title2">
-
-                                        <div>
-                                            {building_str.building_name}
-                                        </div>
-                                        
-                                    </div>
-                                    <div>
-                                        {this.renderWeatherPerDay2()}
-                                    </div>
-                                </div>
-                            </div>
                             {this.renderZones()}
+                          
                             <div className="newline"></div>
                             <div className="text-center">
                                 {this.listBoxes()}
@@ -7395,4 +6969,4 @@ class Home extends React.Component {
 
 
 
-export default Home;
+export default Home_detail;

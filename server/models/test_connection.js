@@ -197,7 +197,7 @@ exports.test_connection = function (token, res0) {
                 console.log("SELECT hc_entities.field_id AS sensor_serial,hc_measure_data.*,hc_measures.tag FROM hc_measures JOIN hc_measure_data ON hc_measure_data.measure_id=hc_measures.id JOIN hc_entity_data_groups ON hc_measures.edg_id = hc_entity_data_groups.id JOIN hc_entities ON hc_entities.id = hc_entity_data_groups.entity_id where dt >= '" + x1 + "' and dt <= '" + x0 + "' limit 10")
                 //console.log("SELECT hc_entities.ent_id AS sensor_serial,hc_measure_data.*,hc_measures.tag FROM hc_measures JOIN hc_measure_data ON hc_measure_data.measure_id=hc_measures.id JOIN hc_entity_data_groups ON hc_measures.edg_id = hc_entity_data_groups.id JOIN hc_entities ON hc_entities.id = hc_entity_data_groups.entity_id where dt >= '" + x1 + "' and dt <= '" + x0 + "' limit 10")
                 //console.log("sql===", connection.sql);
-                console.log(results); // results contains rows returned by server
+                console.log("results==!!##$$$",results); // results contains rows returned by server
                 console.log("@")
                 console.log("@")
                 console.log("@")
@@ -231,6 +231,7 @@ exports.test_connection = function (token, res0) {
 
                 }
                 con.end();
+                con2.end();
                 res0.json({ result: 1 });
             }
             );

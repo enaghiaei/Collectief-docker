@@ -17,4 +17,5 @@ module.exports = global.config = {
         // rest of your translation object
     }
     // other global config variables you wish
+    //  value: "192.168.43.91"
 };

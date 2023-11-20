@@ -4,7 +4,12 @@ import './index.css';
 import App from './App';
 import './config';
 import reportWebVitals from './reportWebVitals';
-
+import './assets/fonts/font1.ttf';
+import './assets/fonts/font2.ttf';
+import './assets/fonts/font3.ttf';
+import './assets/fonts/font4.ttf';
+import './assets/fonts/font5.ttf';
+import './assets/fonts/font7.ttf';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 

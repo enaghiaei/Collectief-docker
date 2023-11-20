@@ -108,6 +108,20 @@ CREATE TABLE `collectief_assignment` (
   `ca_deleted` int NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
+--
+-- Dumping data for table `collectief_assignment`
+--
+
+INSERT INTO `collectief_assignment` (`ca_id`, `cl_id`, `sensor_id`, `ca_date`, `ca_user`, `ca_deleted`) VALUES
+(1, 3, 22040319, '2023-11-17 12:36:37.733', 0, 0),
+(2, 4, 22040320, '2023-11-17 12:37:35.081', 0, 0),
+(3, 5, 22050335, '2023-11-17 12:38:08.793', 0, 0),
+(4, 5, 22040321, '2023-11-17 12:38:21.201', 0, 0),
+(5, 6, 22040322, '2023-11-17 12:38:48.550', 0, 0),
+(6, 7, 22040324, '2023-11-17 12:39:34.120', 0, 0),
+(7, 8, 22040325, '2023-11-17 12:40:16.062', 0, 0),
+(8, 9, 22040326, '2023-11-17 12:41:23.180', 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -128,6 +142,14 @@ CREATE TABLE `collectief_boxes` (
   `cb_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `collectief_boxes`
+--
+
+INSERT INTO `collectief_boxes` (`cb_id`, `cb_title`, `cb_width`, `cb_row`, `cb_column`, `cb_type`, `cb_type_2`, `cb_deleted`, `cb_user`, `cb_default`, `cb_date`) VALUES
+(7, NULL, '0', 0, 0, '[{\"row\":0,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"3\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z01 Temprature Over Time\",\"title_short\":\"B09Z01\"},{\"row\":1,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"4\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z02 Temprature Over Time\",\"title_short\":\"B09Z02\"},{\"row\":2,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"5\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z03 Temprature Over Time\",\"title_short\":\"B09Z03\"},{\"row\":3,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"6\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z04 Temprature Over Time\",\"title_short\":\"B09Z04\"},{\"row\":4,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"7\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z05 Temprature Over Time\",\"title_short\":\"B09Z05\"},{\"row\":5,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"8\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z06 Temprature Over Time\",\"title_short\":\"B09Z06\"},{\"row\":6,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"9\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z07 Temprature Over Time\",\"title_short\":\"B09Z07\"}]', '[]', 0, 1, 0, '2023-11-17 12:56:10');
+
+
 -- --------------------------------------------------------
 
 --
@@ -146,6 +168,22 @@ CREATE TABLE `collectief_location` (
   `cl_parent` int NOT NULL,
   `cl_deleted` int NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+
+
+--
+-- Dumping data for table `collectief_location`
+--
+
+INSERT INTO `collectief_location` (`cl_id`, `cl_title`, `cl_type`, `cl_location`, `cl_detail`, `cl_data`, `cl_date`, `cl_user`, `cl_parent`, `cl_deleted`) VALUES
+(1, 'Cluster 1', 1, '{\"lat\":\"-1\",\"lng\":\"-1\"}', '{\"cluster\":\"Cluster 1\",\"building\":\"\",\"unit\":\"\",\"room\":\"\"}', '{}', '2023-11-17 12:26:34', 0, -1, 0),
+(2, 'Guy Ourisson Building (GOB)', 2, '{\"lat\":\"35.1414598117012\",\"lng\":\"33.37997421169489\"}', '{\"cluster\":\"Cluster 1\",\"building\":\"Guy Ourisson Building (GOB)\",\"unit\":\"\",\"room\":\"\"}', '{}', '2023-11-17 12:27:42', 0, 1, 0),
+(3, 'B09Z01', 3, '{\"lat\":\"-1\",\"lng\":\"-1\"}', '{\"cluster\":\"Cluster 1\",\"building\":\"Guy Ourisson Building (GOB)\",\"unit\":\"\",\"room\":\"\"}', '{}', '2023-11-17 12:30:08', 0, 2, 0),
+(4, 'B09Z02', 3, '{\"lat\":\"-1\",\"lng\":\"-1\"}', '{\"cluster\":\"Cluster 1\",\"building\":\"Guy Ourisson Building (GOB)\",\"unit\":\"\",\"room\":\"\"}', '{}', '2023-11-17 12:30:37', 0, 2, 0),
+(5, 'B09Z03', 3, '{\"lat\":\"-1\",\"lng\":\"-1\"}', '{\"cluster\":\"Cluster 1\",\"building\":\"Guy Ourisson Building (GOB)\",\"unit\":\"\",\"room\":\"\"}', '{}', '2023-11-17 12:30:52', 0, 2, 0),
+(6, 'B09Z04', 3, '{\"lat\":\"-1\",\"lng\":\"-1\"}', '{\"cluster\":\"Cluster 1\",\"building\":\"Guy Ourisson Building (GOB)\",\"unit\":\"\",\"room\":\"\"}', '{}', '2023-11-17 12:31:03', 0, 2, 0),
+(7, 'B09Z05', 3, '{\"lat\":\"-1\",\"lng\":\"-1\"}', '{\"cluster\":\"Cluster 1\",\"building\":\"Guy Ourisson Building (GOB)\",\"unit\":\"\",\"room\":\"\"}', '{}', '2023-11-17 12:31:24', 0, 2, 0),
+(8, 'B09Z06', 3, '{\"lat\":\"-1\",\"lng\":\"-1\"}', '{\"cluster\":\"Cluster 1\",\"building\":\"Guy Ourisson Building (GOB)\",\"unit\":\"\",\"room\":\"\"}', '{}', '2023-11-17 12:32:26', 0, 2, 0),
+(9, 'B09Z07', 3, '{\"lat\":\"-1\",\"lng\":\"-1\"}', '{\"cluster\":\"Cluster 1\",\"building\":\"Guy Ourisson Building (GOB)\",\"unit\":\"\",\"room\":\"\"}', '{}', '2023-11-17 12:32:43', 0, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -188,7 +226,7 @@ INSERT INTO `measure_types` (`measure_id`, `measure_kind`, `measure_name`, `meas
 (8, 'Temperature', 'Cell temperature', 'press_0'),
 (9, 'Pressure', 'Atm. pressure', 'press_1'),
 (10, 'Temperature', 'Air temperature', 't_rh_0'),
-(11, 'Humidity', 'Relative humidity', 'tr_h_1'),
+(11, 'Humidity', 'Relative humidity', 't_rh_1'),
 (12, 'Lux', 'Lux 5', 'lux5_0'),
 (13, 'Lux', 'Lux 4', 'lux4_0'),
 (14, 'Lux', 'Lux 3', 'lux3_0'),
@@ -626,6 +664,7 @@ ALTER TABLE `collectief_assignment`
 --
 ALTER TABLE `collectief_boxes`
   ADD PRIMARY KEY (`cb_id`);
+
 
 --
 -- Indexes for table `collectief_location`

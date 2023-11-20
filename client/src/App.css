@@ -9,14 +9,75 @@
   pointer-events: none;
 }
 
+.row-title {
+    font-weight: bold;
+    text-align: center;
+    padding-top: 15px;
+   
+    background: linear-gradient(310deg, #000 0%, #D1B51E 100%);
+    padding: 15px;
+    color: #eee;
+    
+    font-size: 28px;
+    padding-left: 20px;
+    
+}
+
+.date_pic{
+    display: inline-block;
+    color: #bbb;
+    cursor: pointer;
+}
+
+
+.date_pic_selected {
+    display: inline-block;
+    color: #ffbf1f;
+    font-weight: bold;
+}
+
+.wrap1 {
+    display: inline-block;
+    min-width: 130px;
+    min-height: 70px;
+    font-family: font2;
+}
+
+.wrap2 {
+    font-weight: bold;
+}
+
+
+.wrap3 {
+    
+}
+
+.wrap2-unit {
+    font-size: 14px;
+    color: rgb(130, 97, 16);
+}
+
+
+.row-title2 {
+    font-weight: bold;
+    text-align: center;
+    padding-top: 15px;
+    border-radius: 10px 10px 0px 0px;
+    background: linear-gradient(310deg, #000 0%, #D1B51E 100%);
+    padding: 15px;
+    color: #eee;
+    font-size: 23px;
+    padding-left: 20px;
+}
+
 .container_c0 {
     border-radius: 16px;
     background-color: #fff;
     padding: 1vh;
-    width: 88%;
+    width: 98%;
     min-height: 485px;
     display: inline-block;
-    margin: 1%;    
+    margin: 1%;
     border: 1px solid #ccc;
     border-radius: 10px;
     float: right;
@@ -453,6 +514,19 @@
     }
 
 
+.weather_day_title2 {
+    display: inline-table;
+    width: 200px;
+    line-height: 40px;
+    color: #826110;
+    
+    text-align: center;
+    font-weight: bold;
+    font-family: font7;
+    font-size: 28px;
+}
+
+
 
     .weather_day_value {
         display: inline-table;
@@ -461,6 +535,16 @@
         text-align: left;
         font-weight: bold;
     }
+
+
+.weather_day_value2 {
+    display: inline-table;
+    width: 220px;
+    line-height: 35px;
+    text-align: center;
+    font-weight: bold;
+    color:#fff;    
+}
 
     @media only screen and (max-width: 756px) {
         .container_c0 {
@@ -513,15 +597,34 @@
 .container_c2 {
     border-radius: 16px;
     background-color: #fff;
-    padding: 1vh;
-    width: 28%;
-    min-height: 485px;
+    width: 31%;
+    max-height: 400px;
+    min-height: 400px;
+    overflow: auto;
     display: inline-block;
     margin: 1%;
     border: 1px solid #ccc;
     border-radius: 10px;
-    float: right;
+    float: left;
 }
+
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #ccc; /* Background color of the track */
+    border-radius: 0px 10px 10px 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D1B51E; /* Color of the scrollbar thumb */
+    border-radius: 0px 10px 10px 0px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555; /* Color of the scrollbar thumb on hover */
+    }
 
     @media only screen and (max-width: 756px) {
         .container_c2 {

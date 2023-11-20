@@ -191,6 +191,7 @@ class Home extends React.Component {
       //console.log("renderRows");
        this.createRow();
      }*/
+
     sensors() {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
