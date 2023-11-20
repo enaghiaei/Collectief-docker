@@ -1,8 +1,10 @@
 ﻿
 import React from "react";
 //import ReactWeather from 'react-open-weather';
-import { Column } from '@ant-design/plots';
+
 import { Line } from '@ant-design/charts';
+import { Column, G2 } from '@ant-design/plots';
+import { deepMix } from '@antv/util';
 import { Gauge } from '@ant-design/plots';
 import { Bar } from '@ant-design/plots';
 import { Liquid } from '@ant-design/plots';
@@ -26,7 +28,7 @@ import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLightbulb,faClock, faCalendarAlt, faCalendarWeek, faCalendar, faCalendarTimes, faAdd, faMinus, faGear, faTemperature0, faPowerOff, faArrowRight, faArrowLeft, faInfo, faCircleInfo, faInfoCircle, faPlusSquare, faClose, faCheck, faTrashAlt, faPlusCircle, faPlus, faEdit, faPenClip, faPen, faWindowClose, faSun, faWind, faLocation, faLocationPin, faMapLocationDot, faBuilding, faHome, faTemperature, faTemperatureHigh, faTint, faCloud, faCompressAlt, faSmog, faBatteryFull } from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb,faMoon,faClock, faCalendarAlt, faCalendarWeek, faCalendar, faCalendarTimes, faAdd, faMinus, faGear, faTemperature0, faPowerOff, faArrowRight, faArrowLeft, faInfo, faCircleInfo, faInfoCircle, faPlusSquare, faClose, faCheck, faTrashAlt, faPlusCircle, faPlus, faEdit, faPenClip, faPen, faWindowClose, faSun, faWind, faLocation, faLocationPin, faMapLocationDot, faBuilding, faHome, faTemperature, faTemperatureHigh, faTint, faCloud, faCompressAlt, faSmog, faBatteryFull } from '@fortawesome/free-solid-svg-icons';
 import Spinner2 from "./Spinner2"
 import ReactWeather, { useOpenWeather } from 'react-open-weather';
 import GoogleMapReact from 'google-map-react';
@@ -198,6 +200,7 @@ class Home_detail extends React.Component {
             box_parametr: 0,
             box_value_type: [0, 1],
             box_title: "",
+            dark: "dark",
             data5: [{ "year": "1300", "value": "100", "category": "0x" }],
             data6: [{ "year": "1300", "value": "100", "category": "0x" }],
             boxes: [],
@@ -225,7 +228,8 @@ class Home_detail extends React.Component {
             country: "-",
             region: "-",
             name: "-",
-            office: xxx[2]
+            office: xxx[2],
+            color:"#fff"
 
         };
         this.setState({
@@ -1192,6 +1196,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1219,6 +1224,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1243,6 +1249,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1318,6 +1325,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1345,6 +1353,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1369,6 +1378,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1443,6 +1453,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1470,6 +1481,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1494,6 +1506,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1568,6 +1581,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1595,6 +1609,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1619,6 +1634,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1693,6 +1709,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1720,6 +1737,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1744,6 +1762,7 @@ class Home_detail extends React.Component {
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -5256,6 +5275,7 @@ class Home_detail extends React.Component {
             }
         }
         console.log("data_filter", data_filter)
+        const theme = G2.getTheme(this.state.dark);
         var config44 = {
             "data": data_filter,
             xField: 'year',
@@ -5263,7 +5283,7 @@ class Home_detail extends React.Component {
             yField: 'value',
 
             seriesField: 'category',
-            height: 270,
+            height: 460,
             width: 300,
             xAxis: {
                 // type: 'timeCat',
@@ -5284,6 +5304,29 @@ class Home_detail extends React.Component {
             legend: {
                 position: 'top',
             },
+            appendPadding: 10,
+            theme: deepMix({}, theme, {
+                components: {
+                    scrollbar: {
+                        // 默认样式
+                        default: {
+                            style: {
+                                trackColor: 'rgba(255, 191, 31,0.05)',
+                                thumbColor: 'rgba(255, 191, 31,0.25)',
+                            },
+                        },
+                        // hover 时，可以设置滑块样式
+                        hover: {
+                            style: {
+                                thumbColor: 'rgba(255,255,255,0.6)',
+                            },
+                        },
+                    },
+                },
+            }),
+            scrollbar: {
+                type: 'horizontal',
+            },
             annotations: [
 
                 {
@@ -5297,6 +5340,31 @@ class Home_detail extends React.Component {
                 },
             ],
         };
+        var x = "";
+        if (data_filter[0]["measure_kind"] === "Lux") {
+            x = "Lm/m²";
+        }
+        else if (data_filter[0]["measure_kind"] === "Humidity") {
+            x = "HR";
+        }
+        else if (data_filter[0]["measure_kind"] === "Temperature") {
+            x = "℃";
+        }
+        else if (data_filter[0]["measure_kind"] === "Pressure") {
+            x = "Pa";
+        }
+        else if (data_filter[0]["measure_kind"] === "Mass") {
+            x = "μg/m³";
+        }
+        else if (data_filter[0]["measure_kind"] === "TVOC") {
+            x = "PPB";
+        }
+        else if (data_filter[0]["measure_kind"] === "CO2") {
+            x = "PPM";
+        }
+        else if (data_filter[0]["measure_kind"] === "Voltage") {
+            x = "V";
+        }
         //faClock, faCalendarAlt, faCalendarWeek, faCalendar
         if (data_tmp.length > 0)
             return (
@@ -5316,6 +5384,7 @@ class Home_detail extends React.Component {
                     <div id={title_short + "_" + measure_equal + "_t4"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(4, title_short, measure_name, measure_equal)}>
                         <FontAwesomeIcon icon={faCalendarTimes} /> year
                     </div>
+                    <div style={{ "text-align": "left", "position": "relative", "top": "38px", "left": "5px", "font-weight": "bold", "color": this.state.color, "z-index": "30", "display": "inline-block","float":"left" }}>{x}</div>
                     <Area {...config44} />
                 </div>
             );
@@ -6449,6 +6518,19 @@ class Home_detail extends React.Component {
 
 
 
+    setDark(stat) {
+        if (stat === 1) {
+            $("#sun_mode").addClass("d-none")
+            $("#dark_mode").removeClass("d-none")
+            this.setState({ dark: "light", "color": "black" })
+        }
+        else {
+            $("#dark_mode").addClass("d-none")
+            $("#sun_mode").removeClass("d-none")
+            this.setState({ dark: "dark", "color": "white" })
+        }
+    }
+
 
     render() {
 
@@ -6735,6 +6817,11 @@ class Home_detail extends React.Component {
                             </div>
 
                             <div id="newRows" >
+                                <div style={{ "text-align": "left", "position": "relative", "left": "15px", "top": "15px" }}>
+                                    <FontAwesomeIcon icon={faMoon} style={{ "font-size": "30px", "cursor": "pointer" }} id="dark_mode" className="d-none" onClick={(event) => this.setDark(0)} />
+                                    <FontAwesomeIcon icon={faSun} style={{ "font-size": "30px", "cursor": "pointer" }} id="sun_mode" onClick={(event) => this.setDark(1)} />
+                                    &nbsp;&nbsp;<span style={{ "coloe": "gray", "font-weight": "bold" }}>Dark/Light mode</span>
+                                </div>
                                 {this.listBoxesNew()}
                             </div>
                             <div className="newline"></div>

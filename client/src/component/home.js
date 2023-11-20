@@ -1,9 +1,11 @@
 ﻿
 import React from "react";
 //import ReactWeather from 'react-open-weather';
-import { Column } from '@ant-design/plots';
+import { Column, G2 } from '@ant-design/plots';
+import { deepMix } from '@antv/util';
 import { Line } from '@ant-design/charts';
 import { Gauge } from '@ant-design/plots';
+
 import { Bar } from '@ant-design/plots';
 import { Liquid } from '@ant-design/plots';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,7 +28,7 @@ import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock, faCalendarAlt, faCalendarWeek, faLightbulb, faCalendar, faCalendarTimes, faAdd, faMinus, faGear, faTemperature0, faPowerOff, faArrowRight, faArrowLeft, faInfo, faCircleInfo, faInfoCircle, faPlusSquare, faClose, faCheck, faTrashAlt, faPlusCircle, faPlus, faEdit, faPenClip, faPen, faWindowClose, faSun, faWind, faLocation, faLocationPin, faMapLocationDot, faBuilding, faHome, faTemperature, faTemperatureHigh, faTint, faCloud, faCompressAlt, faSmog, faBatteryFull } from '@fortawesome/free-solid-svg-icons';
+import { faMoon,faClock, faCalendarAlt, faCalendarWeek, faLightbulb, faCalendar, faCalendarTimes, faAdd, faMinus, faGear, faTemperature0, faPowerOff, faArrowRight, faArrowLeft, faInfo, faCircleInfo, faInfoCircle, faPlusSquare, faClose, faCheck, faTrashAlt, faPlusCircle, faPlus, faEdit, faPenClip, faPen, faWindowClose, faSun, faWind, faLocation, faLocationPin, faMapLocationDot, faBuilding, faHome, faTemperature, faTemperatureHigh, faTint, faCloud, faCompressAlt, faSmog, faBatteryFull } from '@fortawesome/free-solid-svg-icons';
 import Spinner2 from "./Spinner2"
 import ReactWeather, { useOpenWeather } from 'react-open-weather';
 import GoogleMapReact from 'google-map-react';
@@ -196,6 +198,7 @@ class Home extends React.Component {
             box_chart: 0,
             box_other: 0,
             box_parametr: 0,
+            dark:"dark",
             box_value_type: [0, 1],
             box_title: "",
             data5: [{ "year": "1300", "value": "100", "category": "0x" }],
@@ -225,6 +228,7 @@ class Home extends React.Component {
             country: "-",
             region: "-",
             name: "-",
+            color: "#fff"
 
         };
         this.setState({
@@ -1145,7 +1149,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -1159,10 +1163,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1186,10 +1191,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1210,10 +1216,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1271,7 +1278,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -1285,10 +1292,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1312,10 +1320,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1336,10 +1345,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1396,7 +1406,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -1410,10 +1420,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1437,10 +1448,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1461,10 +1473,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1521,7 +1534,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -1535,10 +1548,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1562,10 +1576,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1586,10 +1601,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1646,7 +1662,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -1660,10 +1676,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1687,10 +1704,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1711,10 +1729,11 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per hour";
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] +" per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
                             } else {
                                 data5[i] = {};
                                 data5[i].year = key;
@@ -1772,7 +1791,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -1786,7 +1805,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max Temperature (℃) per hour";
+                                data5[i].category = "Max Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -1812,7 +1831,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average Temperature (℃) per hour";
+                                data5[i].category = "Average Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -1835,7 +1854,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min Temperature (℃) per hour";
+                                data5[i].category = "Min Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -1902,7 +1921,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -1916,7 +1935,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max Temperature (℃) per hour";
+                                data5[i].category = "Max Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -1942,7 +1961,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average Temperature (℃) per hour";
+                                data5[i].category = "Average Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -1965,7 +1984,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min Temperature (℃) per hour";
+                                data5[i].category = "Min Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2032,7 +2051,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -2046,7 +2065,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max Temperature (℃) per hour";
+                                data5[i].category = "Max Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2072,7 +2091,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average Temperature (℃) per hour";
+                                data5[i].category = "Average Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2095,7 +2114,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min Temperature (℃) per hour";
+                                data5[i].category = "Min Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2162,7 +2181,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -2176,7 +2195,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max Temperature (℃) per hour";
+                                data5[i].category = "Max Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2202,7 +2221,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average Temperature (℃) per hour";
+                                data5[i].category = "Average Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2225,7 +2244,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min Temperature (℃) per hour";
+                                data5[i].category = "Min Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2292,7 +2311,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -2306,7 +2325,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max Temperature (℃) per hour";
+                                data5[i].category = "Max Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2332,7 +2351,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average Temperature (℃) per hour";
+                                data5[i].category = "Average Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2355,7 +2374,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min Temperature (℃) per hour";
+                                data5[i].category = "Min Temperature (℃) per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2423,7 +2442,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -2438,7 +2457,7 @@ class Home extends React.Component {
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
-                                data5[i].category = "Max Humidity (℃) per hour";
+                                data5[i].category = "Max Humidity (℃) per 10 minutes";
                                 data5[i].category2 = "Max";
                             } else {
                                 data5[i] = {};
@@ -2463,7 +2482,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average Humidity (℃) per hour";
+                                data5[i].category = "Average Humidity (℃) per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                             } else {
@@ -2486,7 +2505,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min Humidity (℃) per hour";
+                                data5[i].category = "Min Humidity (℃) per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                             } else {
@@ -2547,7 +2566,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -2562,7 +2581,7 @@ class Home extends React.Component {
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
-                                data5[i].category = "Max Humidity (℃) per hour";
+                                data5[i].category = "Max Humidity (℃) per 10 minutes";
                                 data5[i].category2 = "Max";
                             } else {
                                 data5[i] = {};
@@ -2587,7 +2606,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average Humidity (℃) per hour";
+                                data5[i].category = "Average Humidity (℃) per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2610,7 +2629,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min Humidity (℃) per hour";
+                                data5[i].category = "Min Humidity (℃) per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2671,7 +2690,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -2685,7 +2704,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] + " per hour";
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] + " per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                             } else {
@@ -2712,7 +2731,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] + " per hour";
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] + " per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                             } else {
@@ -2736,7 +2755,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] + " per hour";
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] + " per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                             } else {
@@ -2797,7 +2816,7 @@ class Home extends React.Component {
                       isLoaded: true,
                       items: result.items
                     });*/
-                    // Temperature (℃) per hour
+                    // Temperature (℃) per 10 minutes
                     ////console.log(result.result);
                     var data5 = [];
                     var i = 0;
@@ -2811,7 +2830,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] + " per hour";
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] + " per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2838,7 +2857,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] + " per hour";
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] + " per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2862,7 +2881,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] + " per hour";
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] + " per 10 minutes";
                                 data5[i].category2 = "Min";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -2933,7 +2952,7 @@ class Home extends React.Component {
                                 data5[key] = {};
                                 data5[key].year = result.result[key][key2]["range_title"];
                                 data5[key].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[key].category = "Pressure (P) per hour";
+                                data5[key].category = "Pressure (P) per 10 minutes";
                                 data5[key].category3 = result.result[key][key2]["cl_id"];
                             } else {
                                 data5[key] = {};
@@ -2953,7 +2972,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average Pressure (P) per hour";
+                                data5[i].category = "Average Pressure (P) per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                             } else {
@@ -2976,7 +2995,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max Pressure (P) per hour";
+                                data5[i].category = "Max Pressure (P) per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                             } else {
@@ -2999,7 +3018,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min Pressure (P) per hour";
+                                data5[i].category = "Min Pressure (P) per 10 minutes";
                                 data5[i].category3 = result.result[key][key2]["cl_id"];
                                 data5[i].category2 = "Min";
                             } else {
@@ -3067,7 +3086,7 @@ class Home extends React.Component {
                                 data5[key] = {};
                                 data5[key].year = result.result[key][key2]["range_title"];
                                 data5[key].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[key].category = "Pressure (P) per hour";
+                                data5[key].category = "Pressure (P) per 10 minutes";
                                 data5[key].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
                                 data5[key] = {};
@@ -3087,7 +3106,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av"]);
-                                data5[i].category = "Average Pressure (P) per hour";
+                                data5[i].category = "Average Pressure (P) per 10 minutes";
                                 data5[i].category2 = "Average";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -3110,7 +3129,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
-                                data5[i].category = "Max Pressure (P) per hour";
+                                data5[i].category = "Max Pressure (P) per 10 minutes";
                                 data5[i].category2 = "Max";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                             } else {
@@ -3133,7 +3152,7 @@ class Home extends React.Component {
                                 data5[i] = {};
                                 data5[i].year = result.result[key][key2]["range_title"];
                                 data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
-                                data5[i].category = "Min Pressure (P) per hour";
+                                data5[i].category = "Min Pressure (P) per 10 minutes";
                                 data5[i].category3 = result.result[key][key2]["sensor_serial"];
                                 data5[i].category2 = "Min";
                             } else {
@@ -5153,9 +5172,9 @@ class Home extends React.Component {
                             return (
                                 <div className={container}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "2px solid #000","padding":"5px", "letter-spacing": "2px" }}>
+                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "2px solid #eee","padding":"5px", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} style={{ "border-radius": "10px", "border":"1px solid rgb(130, 97, 16)"}} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
+                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} style={{ "border-radius": "10px", "border": "0px solid rgb(130, 97, 16)", "width": "200px", "background-color": "rgb(255, 191, 31)", "padding":"5px"}} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
                                             {context1.render_measure_types()}
                                         </select> Over Time
                                     </div>
@@ -5670,6 +5689,8 @@ class Home extends React.Component {
                 }
             }
         }
+
+        const theme = G2.getTheme(this.state.dark);
       //console.log("data_filter", data_filter)
         var config44 = {
             "data": data_filter,
@@ -5678,7 +5699,7 @@ class Home extends React.Component {
             yField: 'value',
 
             seriesField: 'category',
-            height: 270,
+            height: 460,
             width: 300,
             xAxis: {
                 // type: 'timeCat',
@@ -5699,6 +5720,29 @@ class Home extends React.Component {
             legend: {
                 position: 'top',
             },
+            appendPadding: 10,
+            theme: deepMix({}, theme, {
+                components: {
+                    scrollbar: {
+                        // 默认样式
+                        default: {
+                            style: {
+                                trackColor: 'rgba(255, 191, 31,0.05)',
+                                thumbColor: 'rgba(255, 191, 31,0.25)',
+                            },
+                        },
+                        // hover 时，可以设置滑块样式
+                        hover: {
+                            style: {
+                                thumbColor: 'rgba(255,255,255,0.6)',
+                            },
+                        },
+                    },
+                },
+            }),
+            scrollbar: {
+                type: 'horizontal',
+            },
             annotations: [
                 
                 {
@@ -5713,6 +5757,31 @@ class Home extends React.Component {
             ],
         };
         //faClock, faCalendarAlt, faCalendarWeek, faCalendar
+        var x = "";
+        if (data_filter[0]["measure_kind"] === "Lux") {
+            x = "Lm/m²";
+        }
+        else if (data_filter[0]["measure_kind"] === "Humidity") {
+            x = "HR";
+        }
+        else if (data_filter[0]["measure_kind"] === "Temperature") {
+            x = "℃";
+        }
+        else if (data_filter[0]["measure_kind"] === "Pressure") {
+            x = "Pa";
+        }
+        else if (data_filter[0]["measure_kind"] === "Mass") {
+            x = "μg/m³";
+        }
+        else if (data_filter[0]["measure_kind"] === "TVOC") {
+            x = "PPB";
+        }
+        else if (data_filter[0]["measure_kind"] === "CO2") {
+            x = "PPM";
+        }
+        else if (data_filter[0]["measure_kind"] === "Voltage") {
+            x = "V";
+        }
         if (data_tmp.length > 0)
             return (
                 <div style={{ "text-align": "left" }}>
@@ -5731,6 +5800,7 @@ class Home extends React.Component {
                     <div id={title_short + "_t4"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(4, title_short)}>
                         <FontAwesomeIcon icon={faCalendarTimes} /> year
                     </div>
+                    <div style={{ "text-align": "left", "position": "relative", "top": "38px", "float": "left", "left": "5px", "font-weight": "bold", "color": this.state.color, "z-index": "30", "display":"inline-block" }}>{x}</div>
                     <Area {...config44} />
                 </div>
             );
@@ -6714,7 +6784,7 @@ class Home extends React.Component {
                     zoneElements.push(
                         <div className="wrap1">
                             <div className="wrap2">
-                                <div style={{ display: "inline-block", "width":"75px" }}> {z.toFixed(2)} <span class="wrap2-unit">lux</span></div> <FontAwesomeIcon style={{ "width": "20px", "height": "20px", "color": "#826110", "position": "relative", "top": "5px", "margin-left": "3px" }} icon={faLightbulb} />
+                                <div style={{ display: "inline-block", "width":"100px" }}> {z.toFixed(2)} <span class="wrap2-unit">Lm/m²</span></div> <FontAwesomeIcon style={{ "width": "20px", "height": "20px", "color": "#826110", "position": "relative", "top": "5px", "margin-left": "3px" }} icon={faLightbulb} />
                             </div>
 
                             <div className="wrap3">
@@ -6845,7 +6915,7 @@ class Home extends React.Component {
         let arr2 = Object.values(arr[5]);
        ////console.log(arr)
         return arr2.map(function (o, i) {
-            return (<div key={key} id={"office_" + key} className="container_c2" style={{ "cursor": "pointer", "opacity": "0.9", "background-color": "#ffbf1f", backgroundImage: `url(${collectief_logo4})`, "background-position": "right bottom", "background-repeat": "no-repeat", "background-size": "150px 150px" }}>
+            return (<div key={key} id={"office_" + key} className="container_c2" style={{ "cursor": "pointer", "opacity": "0.9", "background-color": "#ffbf1f", backgroundImage: `url(${collectief_logo4})`, "background-position": "right bottom", "background-repeat": "no-repeat", "background-size": "150px 150px","border":"2px solid #000","border-radius":"15px" }}>
                 <div className="" onClick={(event) => (context.set_detail(arr2[i]["title"]))}>
                     <div className="row-title">
                         {arr2[i]["title"]}
@@ -6858,6 +6928,19 @@ class Home extends React.Component {
             </div>);
         });
         
+    }
+
+    setDark(stat) {
+        if (stat === 1) {
+            $("#sun_mode").addClass("d-none")
+            $("#dark_mode").removeClass("d-none")
+            this.setState({dark:"light","color":"black"})
+        }
+        else {
+            $("#dark_mode").addClass("d-none")
+            $("#sun_mode").removeClass("d-none")
+            this.setState({ dark: "dark", "color": "white" })
+        }
     }
 
 
@@ -7161,6 +7244,11 @@ class Home extends React.Component {
                             </div>
 
                             <div id="newRows" >
+                                <div style={{"text-align":"left","position":"relative","left":"15px","top":"15px"}}>
+                                    <FontAwesomeIcon icon={faMoon} style={{"font-size":"30px","cursor":"pointer"}} id="dark_mode" className="d-none" onClick={(event) => this.setDark(0)} />
+                                    <FontAwesomeIcon icon={faSun} style={{ "font-size": "30px", "cursor": "pointer" }} id="sun_mode" onClick={(event) => this.setDark(1)} />
+                                    &nbsp;&nbsp;<span style={{"coloe":"gray","font-weight":"bold"} }>Dark/Light mode</span>
+                                </div>
                                 {this.listBoxesNew()}
                             </div>
                             <div className="newline"></div>
