@@ -228,7 +228,7 @@ class Home extends React.Component {
             country: "-",
             region: "-",
             name: "-",
-            color: "#fff"
+            color: "#000"
 
         };
         this.setState({
@@ -5170,7 +5170,7 @@ class Home extends React.Component {
                     if (context1.state.boxes_new[key].type.parametr == 0) {
                         if (context1.state.boxes_new[key].type.chart == 1) {
                             return (
-                                <div className={container}>
+                                <div className={container} style={{ "background-color": context1.state.color}}>
 
                                     <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "2px solid #eee","padding":"5px", "letter-spacing": "2px" }}>
                                         {context1.state.boxes_new[key].title_short}
@@ -6934,12 +6934,12 @@ class Home extends React.Component {
         if (stat === 1) {
             $("#sun_mode").addClass("d-none")
             $("#dark_mode").removeClass("d-none")
-            this.setState({dark:"light","color":"black"})
+            this.setState({dark:"light","color":"white"})
         }
         else {
             $("#dark_mode").addClass("d-none")
             $("#sun_mode").removeClass("d-none")
-            this.setState({ dark: "dark", "color": "white" })
+            this.setState({ dark: "dark", "color": "black" })
         }
     }
 

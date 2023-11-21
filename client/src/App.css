@@ -71,7 +71,7 @@
 }
 
 .container_c0 {
-    border-radius: 16px;
+    border-radius: 26px;
     background-color: #fff;
     padding: 1vh;
     width: 98%;
@@ -81,6 +81,7 @@
     border: 1px solid #eee;
     border-radius: 10px;
     float: right;
+    margin-top: 130px;
 }
 
 .home_l1_left {
