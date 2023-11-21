@@ -16,17 +16,19 @@ exports.test_connection = function (token, res0) {
         database: 'LSI_test_db'
     }
     var con = mysql.createConnection({
-        host: "mysql_db", port: "3307",
+        host: "mysql_db",
+        port: global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name
     });
 
     var con2 = mysql.createConnection({
-        host: global.config.vals.local_ip.value, port: "3306",
-        user: "root",
-        password: "marco",
-        database: "collectief_db"
+        host: global.config.vals.local_ip.value,
+        port: global.config.vals.database_hub_core.port,
+        user: global.config.vals.database_hub_core.user,
+        password: global.config.vals.database_hub_core.password,
+        database: global.config.vals.database_hub_core.name
     });
     console.log("ip", global.config.vals.local_ip)
     /*const tunnelConfig = {

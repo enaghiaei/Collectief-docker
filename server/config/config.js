@@ -6,13 +6,20 @@ module.exports = global.config = {
         root: {
             ip: "localhost:8081"
         },
-        database: {
-            password: "collectief_user",
-            name: "collectief",
+        database: {                       
             user: "collectief_user",
+            password: "collectief_user", 
+            name: "collectief",
             port: "3307",
             host:"mysql_db"
 
+        },        
+        database_hub_core: {                      
+            user: "root",
+            password: "marco",  
+            name: "collectief_db",
+            port: "3306",
+            host: "maria_db"
         }
         // rest of your translation object
     }
