@@ -5341,29 +5341,31 @@ class Home_detail extends React.Component {
             ],
         };
         var x = "";
-        if (data_filter[0]["measure_kind"] === "Lux") {
-            x = "Lm/m²";
-        }
-        else if (data_filter[0]["measure_kind"] === "Humidity") {
-            x = "HR";
-        }
-        else if (data_filter[0]["measure_kind"] === "Temperature") {
-            x = "℃";
-        }
-        else if (data_filter[0]["measure_kind"] === "Pressure") {
-            x = "Pa";
-        }
-        else if (data_filter[0]["measure_kind"] === "Mass") {
-            x = "μg/m³";
-        }
-        else if (data_filter[0]["measure_kind"] === "TVOC") {
-            x = "PPB";
-        }
-        else if (data_filter[0]["measure_kind"] === "CO2") {
-            x = "PPM";
-        }
-        else if (data_filter[0]["measure_kind"] === "Voltage") {
-            x = "V";
+        if (data_filter[0]) {
+            if (data_filter[0]["measure_kind"] === "Lux") {
+                x = "Lm/m²";
+            }
+            else if (data_filter[0]["measure_kind"] === "Humidity") {
+                x = "HR";
+            }
+            else if (data_filter[0]["measure_kind"] === "Temperature") {
+                x = "℃";
+            }
+            else if (data_filter[0]["measure_kind"] === "Pressure") {
+                x = "Pa";
+            }
+            else if (data_filter[0]["measure_kind"] === "Mass") {
+                x = "μg/m³";
+            }
+            else if (data_filter[0]["measure_kind"] === "TVOC") {
+                x = "PPB";
+            }
+            else if (data_filter[0]["measure_kind"] === "CO2") {
+                x = "PPM";
+            }
+            else if (data_filter[0]["measure_kind"] === "Voltage") {
+                x = "V";
+            }
         }
         //faClock, faCalendarAlt, faCalendarWeek, faCalendar
         if (data_tmp.length > 0)

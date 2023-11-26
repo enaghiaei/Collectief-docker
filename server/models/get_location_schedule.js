@@ -69,7 +69,7 @@ async function get_(token, res0) {
                                console.log(res2.sql)
                                console.log("result3 === ", result3);
                                 con.end();
-                                res0.json({ result: result.concat(result3) });
+                                res0.json({ result: result3 });
                                
                             });
 

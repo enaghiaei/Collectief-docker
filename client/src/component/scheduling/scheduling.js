@@ -338,6 +338,8 @@ class Scheduling extends React.Component {
                         sc_tmp[key] = JSON.parse(result.result[key].sce)
                         sc_tmp[key].id = result.result[key].id
                         sc_tmp[key].active = result.result[key].active
+                        sc_tmp[key].mode_of_schedule = result.result[key].mode
+                        sc_tmp[key].mode = result.result[key].mode
                     }
                     this.setState({
                         schedules: sc_tmp
@@ -520,7 +522,7 @@ class Scheduling extends React.Component {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
         console.log("cookies=" + cookies.get('token'));
-        return fetch('http://' + global.config.vals.root.ip + ':3002/get_location', {
+        return fetch('http://' + global.config.vals.root.ip + ':3002/get_location_schedule', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -37,6 +37,7 @@ var get_nt = require('./models/get_notification');
 var get_nt_types = require('./models/get_notification_types');
 var get_nt_mes = require('./models/get_notification_messages');
 var get_lo = require('./models/get_location');
+var get_lo_sch = require('./models/get_location_schedule');
 var get_lo_c = require('./models/get_clusters');
 var get_lo_b = require('./models/get_buildings');
 var get_lo_u = require('./models/get_units');
@@ -401,6 +402,18 @@ app.post("/get_location", (req, res) => {
 
 });
 
+app.post("/get_location_schedule", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("get_notification");
+    //console.log(req.body);
+
+    var result1 = get_lo_sch.get_(req.body, res);
+    //console.log("$$$$$");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
 
 app.post("/get_clusters", (req, res) => {
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
