@@ -49,6 +49,7 @@ var get_bo = require('./models/get_boxes');
 var get_nt_def = require('./models/get_notification_default');
 var get_nt_b = require('./models/get_notification_base');
 var del_sc = require('./models/delete_schedule');
+var pow_sc = require('./models/power_schedule');
 var del_sc_access = require('./models/delete_user_access');
 var upd_sc = require('./models/update_schedule');
 var upd_nt = require('./models/update_notification');
@@ -614,14 +615,28 @@ app.post("/delete_notification", (req, res) => {
 
 });
 
-app.post("/delete_schedule", (req, res) => {
+app.post("/power_schedule", (req, res) => {
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
    //console.log("delete_schedule");
    //console.log(req.body);
 
-    var result1 = del_sc.delete_(req.body, res);
+    var result1 = pow_sc.power_(req.body, res);
    //console.log("$$$$$");
    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+
+app.post("/delete_schedule", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("delete_schedule");
+    //console.log(req.body);
+
+    var result1 = del_sc.delete_(req.body, res);
+    //console.log("$$$$$");
+    //console.log(result1);
     //console.log("$$$$$");
     //check_l.check_(req.body,res);
 

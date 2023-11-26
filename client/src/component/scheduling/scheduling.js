@@ -968,7 +968,7 @@ class Scheduling extends React.Component {
 
             
             //console.log(mo)
-            if (current_mode !== 0 && current_mode != -1) {
+            if (current_mode != -1) {
                 var mo = modes[current_mode].split("");
                 parts[index].value = mo[0] + "" + mo[1]
             }

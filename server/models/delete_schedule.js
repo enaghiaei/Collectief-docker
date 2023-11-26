@@ -25,7 +25,7 @@ exports.delete_ = function (schedule, res0) {
         //console.log(res.sql);
 
     });
-    var res1 = con.query("select * FROM session where s_token=?", [token.token], function (err, result0, fields) {
+    var res1 = con.query("select * FROM session where s_token=?", [schedule.token], function (err, result0, fields) {
     var sql = "update schedule set sc_deleted='1' where sc_id = ?";
     var where = [schedule.id];
     con.query(sql, where, function (err, result) {
