@@ -1942,7 +1942,7 @@ class Scheduling extends React.Component {
                             <FontAwesomeIcon icon={faGear} className="circle mr-4" /><button className="button">SET MODE</button>
                         </div>
                         <div className="icon-row-l1 mr-3 pointer" onClick={(event) => this.setTemp(event)} id="set_value">
-                            <FontAwesomeIcon icon={faTemperature0} className="circle mr-4" /><button className="button">SET TEMPERATURE</button>
+                            <FontAwesomeIcon icon={faTemperature0} className="circle mr-4" /><button className="button">SET POINT</button>
                         </div>
                         
                     </div>
@@ -1952,7 +1952,7 @@ class Scheduling extends React.Component {
 
                         <div className="slider-parent_l1 mt-3 ml-3">
                             <Typography id="input-slider" gutterBottom className="title">
-                                <span className="mr-1 text-item">Temperature</span>
+                                <span className="mr-1 text-item">Value</span>
                             </Typography>
                             <Grid container spacing={2} alignItems="center">
                                 <Grid item>
@@ -2024,6 +2024,7 @@ class Scheduling extends React.Component {
     }
 
     setScheduleType1(mode_of_schedule) {
+        $(".set_temperature").addClass("d-none")
         $("#aut_or_man").css("display", "none")
         if (mode_of_schedule == 1) {
             $("#set_mode").css("display", "none")
