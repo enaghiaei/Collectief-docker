@@ -339,7 +339,7 @@ class Scheduling extends React.Component {
                         sc_tmp[key].id = result.result[key].id
                         sc_tmp[key].active = result.result[key].active
                         sc_tmp[key].mode_of_schedule = result.result[key].mode
-                        sc_tmp[key].mode = result.result[key].mode
+                        //sc_tmp[key].mode = result.result[key].mode
                     }
                     this.setState({
                         schedules: sc_tmp
@@ -589,7 +589,7 @@ class Scheduling extends React.Component {
                 'Content-Type': 'application/json'
             },
 
-            body: JSON.stringify({ sce: JSON.stringify(schedule[index]), id: schedule[index].id, token: cookies.get('token'), "location": $("#location_s").val(), "type": $("#select1").val() })
+            body: JSON.stringify({ sce: JSON.stringify(schedule[index]), id: schedule[index].id, token: cookies.get('token'), "location": $("#location_s").val(), "type": $("#select1").val(), "mode": this.state.mode_of_schedule })
         })
             .then(data => data.json())
             .then(
@@ -965,7 +965,9 @@ class Scheduling extends React.Component {
             }
             else
                 parts[index] = {};
-
+            if (this.state.mode_of_schedule == "1") {
+                current_mode = -1;
+            }
             
             //console.log(mo)
             if (current_mode != -1) {
@@ -2041,6 +2043,26 @@ class Scheduling extends React.Component {
         });
     }
 
+    setScheduleType3(mode_of_schedule) {
+        $("#mode_of_schedule").val(mode_of_schedule)
+        console.log("mode_of_schedule_hidden", $("#mode_of_schedule").val())
+        $(".set_temperature").addClass("d-none")
+        $("#aut_or_man").css("display", "none")
+        if (mode_of_schedule == 1) {
+            $("#set_mode").css("display", "none")
+            $("#set_value").css("display", "block")
+        } else {
+            $("#set_mode").css("display", "block")
+            $("#set_value").css("display", "none")
+        }
+        console.log("mode_of_schedule", mode_of_schedule)
+        
+        //this.setScheduleType2(mode_of_schedule)
+        this.setState({
+            mode_of_schedule: mode_of_schedule
+        });
+    }
+
     setScheduleType2(mode_of_schedule) {
         //"color": "#4A4949" "border": "3px solid gray" 
         this.setState({
@@ -2128,6 +2150,7 @@ class Scheduling extends React.Component {
     //}
 
     editScheduleUrl(id, key) {
+        var key6 = key;
         console.log("edit")
         console.log(this.state.schedules[key].parts)
         $("#schedule_name").val(this.state.schedules[key].name)
@@ -2215,9 +2238,14 @@ class Scheduling extends React.Component {
             style2: x_new2,
             parts: parts_tmp,
             current_schedule_id: id,
-            current_sensor_type: current_sensor_type
+            current_sensor_type: current_sensor_type,
+            mode_of_schedule: this.state.schedules[key6].mode_of_schedule,
+            mode: this.state.schedules[key6].mode
 
         });
+
+        this.setScheduleType3(this.state.schedules[key6].mode_of_schedule);
+        console.log("modeeeeeeeeeeeee", this.state.schedules[key6].mode_of_schedule)
         //this.inputElement.click();
         //this.inputElement.click();
         console.log("parts_tmp", parts_tmp)
