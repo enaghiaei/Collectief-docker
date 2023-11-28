@@ -8,13 +8,7 @@ exports.test_connection = function (token, res0) {
     const mysql = require('mysql2');
     const { Client } = require('ssh2');
     const sshClient = new Client();
-    const dbServer = {
-        host: 'localhost',
-        port: '3307',
-        user: 'reader',
-        password: 'collectief2023',
-        database: 'LSI_test_db'
-    }
+   
     var con = mysql.createConnection({
         host: "mysql_db",
         port: global.config.vals.database.port,
@@ -30,64 +24,13 @@ exports.test_connection = function (token, res0) {
         password: global.config.vals.database_hub_core.password,
         database: global.config.vals.database_hub_core.name
     });
-    console.log("ip", global.config.vals.local_ip)
-    /*const tunnelConfig = {
-        host: 'test.lsi-lastem.com',
-        port: 23822,
-        username: 'root',
-        password: '2c141d461390'
-    }*/
-    const tunnelConfig = {
-        host: '194.4.144.60',
-        port: 23822,
-        username: 'root',
-        password: '2c141d461390'
-    }
-    const forwardConfig = {
-        srcHost: '127.0.0.1',
-        srcPort: 3307,
-        dstHost: '127.0.0.1',
-        dstPort: 3307
-    };
-    /*const SSHConnection = new Promise((resolve, reject) => {
-        sshClient.on('ready', () => {
-           //console.log("xxx")
-            sshClient.forwardOut(
-                forwardConfig.srcHost,
-                forwardConfig.srcPort,
-                forwardConfig.dstHost,
-                forwardConfig.dstPort,
-                (err, stream) => {
-                    if (err) reject(err);
-                   //console.log("yyy")
-                    const updatedDbServer = {
-                        ...dbServer,
-                        stream
-                    };*/
-    /*const connection = mysql.createConnection(updatedDbServer);
-    //const connection2 = mysql.createConnection(updatedDbServer);
-    connection.connect((error) => {
-       //console.log("zzz")
-        if (error) {
-            reject(error);
-        }
-        resolve(connection);
-    });*/
+   
     const nDate_2 = new Date();
     var s = nDate_2.getSeconds();
-    //console.log("Seconds====", s)
     const nDate0 = new Date(nDate_2.getTime()).toLocaleString('en-US', {
         hour12: false,
         timeZone: "Europe/London"
-    });
-    /*const nDate = new Date(nDate_2.getTime() - ((3600 * 1000) + (60 * 1000) + (s * 1000))).toLocaleString('en-US', {
-        hour12: false,
-        timeZone: "Europe/London"
-    });
-    const nDate2 = new Date(nDate_2.getTime() - ((3600 * 1000) + (120 * 1000) + (s * 1000))).toLocaleString('en-US', {
-        hour12: false,
-        timeZone: "Europe/London"
-    });*/
+    });    
     const nDate = new Date(nDate_2.getTime() - ((60 * 1000) + (s * 1000))).toLocaleString('en-US', {
         hour12: false,
         timeZone: "Europe/London"
@@ -96,9 +39,9 @@ exports.test_connection = function (token, res0) {
         hour12: false,
         timeZone: "Europe/London"
     });
-    console.log("nDate0 ==== ", nDate0)
+    /*console.log("nDate0 ==== ", nDate0)
     console.log("nDate ==== ", nDate)
-    console.log("nDate2 ==== ", nDate2)
+    console.log("nDate2 ==== ", nDate2)*/
     const nDate_new = new Date(nDate_2.getTime() - ((3600 * 100) + (60 * 1000) + (s * 1000)));
     const nDate2_new = new Date(nDate_2.getTime() - ((3600 * 100) + (120 * 1000) + (s * 1000)));
     let today_ = nDate
@@ -127,10 +70,7 @@ exports.test_connection = function (token, res0) {
     if (today2 < 10) {
         today2 = "0" + today2;
     }
-    // let today_2 = nDate2
-    ////console.log("today_", today_)
-    //var today_tmp_2 = today_2.split("/");
-    ////console.log("today_tmp", today_tmp)
+    
     let today1_2 = today_tmp_2[0];
     let today2_2 = today_tmp_2[1];
     let today3_2 = today_tmp_2[2];
@@ -171,11 +111,7 @@ exports.test_connection = function (token, res0) {
     }
     var x0 = today3 + "-" + today1 + "-" + today2 + "T" + h + ":" + m + ":" + "00.000Z";
     var x1 = today3_2 + "-" + today1_2 + "-" + today2_2 + "T" + h_2 + ":" + m_2 + ":" + "00.000Z";
-    console.log("x0==============", x0)
-    //console.log("x1==============", x1)
-    //console.log("Europe/London",nDate);
-    //console.log("Europe/London", nDate_2);
-    //dt >= '+x0+' and dt <= '+x1+'
+    
     con2.connect((err) => {
         if (err) {
             console.error('Error connecting to database 1:', err);
@@ -196,17 +132,9 @@ exports.test_connection = function (token, res0) {
         "SELECT hc_entities.field_id AS sensor_serial,hc_measure_data.*,hc_measures.tag FROM hc_measures JOIN hc_measure_data ON hc_measure_data.measure_id=hc_measures.id JOIN hc_entity_data_groups ON hc_measures.edg_id = hc_entity_data_groups.id JOIN hc_entities ON hc_entities.id = hc_entity_data_groups.entity_id where dt >= '" + x1 + "' and dt <= '" + x0 + "'",
         function (err, results, fields) {
             con.query("SELECT * FROM measure_types WHERE 1=1", function (err, results_m, fields) {
-                console.log("SELECT hc_entities.field_id AS sensor_serial,hc_measure_data.*,hc_measures.tag FROM hc_measures JOIN hc_measure_data ON hc_measure_data.measure_id=hc_measures.id JOIN hc_entity_data_groups ON hc_measures.edg_id = hc_entity_data_groups.id JOIN hc_entities ON hc_entities.id = hc_entity_data_groups.entity_id where dt >= '" + x1 + "' and dt <= '" + x0 + "' limit 10")
+                //console.log("SELECT hc_entities.field_id AS sensor_serial,hc_measure_data.*,hc_measures.tag FROM hc_measures JOIN hc_measure_data ON hc_measure_data.measure_id=hc_measures.id JOIN hc_entity_data_groups ON hc_measures.edg_id = hc_entity_data_groups.id JOIN hc_entities ON hc_entities.id = hc_entity_data_groups.entity_id where dt >= '" + x1 + "' and dt <= '" + x0 + "' limit 10")
                 //console.log("SELECT hc_entities.ent_id AS sensor_serial,hc_measure_data.*,hc_measures.tag FROM hc_measures JOIN hc_measure_data ON hc_measure_data.measure_id=hc_measures.id JOIN hc_entity_data_groups ON hc_measures.edg_id = hc_entity_data_groups.id JOIN hc_entities ON hc_entities.id = hc_entity_data_groups.entity_id where dt >= '" + x1 + "' and dt <= '" + x0 + "' limit 10")
-                //console.log("sql===", connection.sql);
-                console.log("results==!!##$$$",results); // results contains rows returned by server
-                console.log("@")
-                console.log("@")
-                console.log("@")
-                console.log("@")
-                console.log("@")
-                console.log("@")
-                console.log(results_m)
+                //console.log("sql===", connection.sql);                
                 //console.log(fields); // fields contains extra meta data about results, if available
                 for (var key in results) {
 
