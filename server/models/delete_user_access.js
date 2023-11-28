@@ -8,7 +8,8 @@ exports.delete_ = function (schedule, res0) {
     var insert_id = 0;
     var mysql = require('mysql2'); var config = require('../config/config.js');
     var con = mysql.createConnection({
-        host: global.config.vals.database.host, port:global.config.vals.database.port,        
+        host: global.config.vals.database.host,
+        port: global.config.vals.database.port,        
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
         database: global.config.vals.database.name

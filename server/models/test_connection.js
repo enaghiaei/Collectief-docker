@@ -10,7 +10,7 @@ exports.test_connection = function (token, res0) {
     const sshClient = new Client();
    
     var con = mysql.createConnection({
-        host: "mysql_db",
+        host: global.config.vals.database.host,
         port: global.config.vals.database.port,
         user: global.config.vals.database.user,
         password: global.config.vals.database.password,
