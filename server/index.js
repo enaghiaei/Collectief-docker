@@ -82,7 +82,7 @@ var usr_access = require('./models/get_users_access');
 var glt = require('./models/get_location_types'); 
 var dis_sens = require('./models/disconnect_sensor'); 
 var test_conn = require('./models/test_connection'); 
-var test_conn2 = require('./models/test_connection_2'); 
+ 
 var update_sensor_list = require('./models/update_sensor_list'); 
 var get_sri = require('./models/get_sri');
 var update_sri = require('./models/update_sri'); 
@@ -206,14 +206,6 @@ app.get('/ksb_3', function (req, res) {
 });
 
 
-app.get("/test_connection_2", (req, res) => {
-    
-    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
-   //console.log("logout");
-   //console.log(req.body);
-    test_conn2.test_connection_2(req.body, res);
-
-});
 
 app.post("/update_sri", (req, res) => {
 
