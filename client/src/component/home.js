@@ -355,6 +355,7 @@ class Home extends React.Component {
             this.pm_per_hour_sensor();
             this.pressure_per_hour();
             this.pressure_per_hour_sensor();
+            this.sensors_detail()
         }, 30000);
 
         //this.xxxx()
