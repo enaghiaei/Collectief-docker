@@ -38,9 +38,10 @@ async function get_(token, res0) {
                             con.end();
                             res0.json({ result: JSON.stringify(result3) });
                         });
+                    } else {
+                        con.end();
+                        res0.json({ result: [] });
                     }
-                    con.end();
-                    res0.json({ result: [] });
                 } else {
                     con.end();
                     res0.json({ result: [] });
