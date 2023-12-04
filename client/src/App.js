@@ -13,6 +13,7 @@ import Buildings from './component/locations/buildings';
 import Units from './component/locations/units';
 import Rooms from './component/locations/rooms';
 import Create_users from './component/users/create_users';
+import Edit_users from './component/users/edit_users';
 import List_users from './component/users/list_users';
 import Sri from './component/sri/sri';
 import Home from './component/home';
@@ -137,6 +138,7 @@ class App extends Component {
 							<Route exact path='/control/setting' element={< Control />}></Route>
 							<Route exact path='/sensors/list_sensors' element={< List_sensors />}></Route>
 							<Route exact path='/users/list_users' element={< List_users />}></Route>
+							<Route exact path='/users/edit_users' element={< Edit_users />}></Route>
 							<Route exact path='/users/create_users' element={< Create_users />}></Route>
 							<Route exact path='/about' element={< About />}></Route>
 							<Route exact path='/contact' element={< Contact />}></Route>
@@ -184,6 +186,7 @@ class App extends Component {
 									<Route exact path='/sensors/locations/rooms' element={< Rooms />}></Route>
 									<Route exact path='/users/list_users' element={< List_users />}></Route>
 									<Route exact path='/users/create_users' element={< Create_users />}></Route>
+									<Route exact path='/users/edit_users/:value' element={< Edit_users />}></Route>
 									<Route exact path='/notification' element={< Notif />}></Route>
 									<Route exact path='/about' element={< About />}></Route>
 									<Route exact path='/contact' element={< Contact />}></Route>
@@ -218,7 +221,7 @@ class App extends Component {
 								<Routes>
 									<Route exact path='/' element={< Home />}></Route>
 									<Route exact path='/home' element={< Home />}></Route>
-									<Route exact path='/home_detail' element={< Home_detail />}></Route>
+									<Route exact path='/home_detail/:value' element={< Home_detail />}></Route>
 									<Route exact path='/schedule/setting' element={< Schedule />}></Route>
 									<Route exact path='/schedule/edit' element={< Schedule_edit />}></Route>
 									<Route exact path='/control/setting' element={< Control />}></Route>
@@ -229,6 +232,7 @@ class App extends Component {
 									<Route exact path='/sensors/locations/rooms' element={< Rooms />}></Route>
 									<Route exact path='/users/list_users' element={< List_users />}></Route>
 									<Route exact path='/users/create_users' element={< Create_users />}></Route>
+									<Route exact path='/users/edit_users/:value' element={< Edit_users />}></Route>
 									<Route exact path='/notification' element={< Notif />}></Route>
 									<Route exact path='/about' element={< About />}></Route>
 									<Route exact path='/contact' element={< Contact />}></Route>
@@ -265,7 +269,7 @@ class App extends Component {
 								<Routes>
 									<Route exact path='/' element={< Home />}></Route>
 									<Route exact path='/home' element={< Home />}></Route>
-									<Route exact path='/home_detail' element={< Home_detail />}></Route>
+									<Route exact path='/home_detail/:value' element={< Home_detail />}></Route>
 									<Route exact path='/schedule/setting' element={< Schedule />}></Route>
 									<Route exact path='/schedule/edit' element={< Schedule_edit />}></Route>
 									<Route exact path='/control/setting' element={< Control />}></Route>
@@ -276,6 +280,7 @@ class App extends Component {
 									<Route exact path='/sensors/locations/rooms' element={< Rooms />}></Route>
 									<Route exact path='/users/list_users' element={< List_users />}></Route>
 									<Route exact path='/users/create_users' element={< Create_users />}></Route>
+									<Route exact path='/users/edit_users/:value' element={< Edit_users />}></Route>
 									<Route exact path='/notification' element={< Notif />}></Route>
 									<Route exact path='/about' element={< About />}></Route>
 									<Route exact path='/contact' element={< Contact />}></Route>
