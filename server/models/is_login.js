@@ -110,8 +110,12 @@ exports.check_ = function (token,res1) {
         if (result && result[0]) {
             var res = con.query("select fullname,user_type,location_id,cl_title AS location_title FROM users LEFT JOIN users_detail ON users.user_id = users_detail.user_id LEFT JOIN collectief_location ON collectief_location.cl_id = users_detail.location_id  where users.user_id=?", [result[0].s_user_id], function (err, result2, fields) {
                 con.end();
+                var location_list = [];
+                for (var key in result2) {
+                    location_list[location_list.length] = result2[key]["location_title"];
+                }
                 if (result[0]) {
-                    res1.json({ message: 1, name: result2[0]["fullname"], user_type: result2[0]["user_type"], location_id: result2[0]["location_id"], location_title: result2[0]["location_title"] });
+                    res1.json({ location_list: JSON.stringify(location_list), message: 1, name: result2[0]["fullname"], user_type: result2[0]["user_type"], location_id: result2[0]["location_id"], location_title: result2[0]["location_title"] });
                 }
                 else {
                     res1.json({ message: 0 });

@@ -1,7 +1,7 @@
 const md5 = require("md5");
 const sha1 = require("sha1");
 
-async function create (req,ip,res0) {
+async function edit (req,ip,res0) {
    //console.log(req);
     var token = req.token;
     req.country = ""
@@ -27,26 +27,29 @@ async function create (req,ip,res0) {
     await con.beginTransaction();
 
     [result0, fields] = await con.query("select * FROM session where s_token=?", [token]);
+    [result11, fields] = await con.query("select * FROM users where token=?", [req.user_token]);
+    var [result22] = await con.query("DELETE FROM users_detail where user_id=?", [result11[0]["user_id"]]);
        // if (err) throw err;
        //console.log(res3.sql);
         // var res1 = con.query("select * FROM session where s_token=?",[token.token], function (err, result0, fields) {  
        //console.log(result0);
-        var val = [[req.username, md5(req.password), req.name, req.phone, result0[0].s_user_id,req.user_type]];
-        [result] = await con.query("INSERT INTO users (email,password,fullname,phone_number,owner,user_type) VALUES ?", [val]);
+    var val = [[req.username, md5(req.password), req.name, req.phone, result0[0].s_user_id, req.user_type, req.user_token]];
+        //[result] = await con.query("INSERT INTO users (email,password,fullname,phone_number,owner,user_type) VALUES ?", [val]);
           // console.log(res.sql);
-            console.log(result); 
-            insert_id = result.insertId;
+            //console.log(result); 
+    insert_id = result11[0]["user_id"];
             if (insert_id > 0) {
 
-                sql = "update users set token='" + md5(sha1(insert_id)) + "' where user_id = ?";
-                var where = [insert_id];
+                sql = "update users set email=?,password=?,fullname=?,phone_number=? where user_id = ?";
+                var where = [req.username, md5(req.password), req.name, req.phone, insert_id];
                 [result] = await con.query(sql, where);
                    // if (err) throw err;
                     updated = result.affectedRows;
                    //console.log(res3.sql);
                    //console.log(token_list);
                     var x = {};
-                    var user_type = parseInt(req.user_type)
+                    //var user_type = parseInt(req.user_type)
+                var user_type = 4;
                     if (user_type === 4) {
                         var success = 0;
                         var fail = 0;
@@ -216,5 +219,5 @@ async function create (req,ip,res0) {
 };
 
 module.exports = {
-    create: create
+    edit: edit
 }

@@ -76,8 +76,10 @@ var create_user = require('./models/create_user');
 var delete_s = require('./models/deletesession');
 var check_l = require('./models/check_login');
 var is_login = require('./models/is_login');
-var create_user = require('./models/create_user');
+var edit_user = require('./models/edit_user');
 var usr = require('./models/get_users');
+var usr_v2 = require('./models/get_users_v2');
+var usr_detail = require('./models/get_users_detail');
 var usr_access = require('./models/get_users_access'); 
 var glt = require('./models/get_location_types'); 
 var dis_sens = require('./models/disconnect_sensor'); 
@@ -146,6 +148,16 @@ app.post("/create_user", (req, res) => {
     var result = create_user.create(req.body, req.socket.remoteAddress, res);
    //console.log("create_user");
    //console.log(result);
+
+}
+
+);
+
+
+app.post("/edit_user", (req, res) => {
+    var result = edit_user.edit(req.body, req.socket.remoteAddress, res);
+    //console.log("create_user");
+    //console.log(result);
 
 }
 
@@ -563,6 +575,34 @@ app.post("/get_users", (req, res) => {
    //console.log("$$$$$");
    //console.log(result1);
    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+
+app.post("/get_users_v2", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("get_users");
+    //console.log(req.body);
+
+    result1 = usr_v2.get_users_v2(req.body, res);
+    //console.log("$$$$$");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+
+app.post("/get_users_detail", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("get_users");
+    //console.log(req.body);
+
+    result1 = usr_detail.get_users_detail(req.body, res);
+    //console.log("$$$$$");
+    //console.log(result1);
+    //console.log("$$$$$");
     //check_l.check_(req.body,res);
 
 });
