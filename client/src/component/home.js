@@ -214,6 +214,7 @@ class Home extends React.Component {
             box_titles: [],
             location_title: [],
             is_login: false,
+            location_list: [],
             group_type: 1,
             sensor_location_cunt: "",
             top_boxes_stat: "remove-part p-0 pt-0 pr-1 d-none",
@@ -3467,11 +3468,44 @@ class Home extends React.Component {
             .then(data => data.json())
             .then(
                 (result) => {
+                   // var result = {}
+                   // result.result = JSON.parse('[{"row":0,"type":{"function":0,"chart":1,"parametr":0,"value_type":["Average","Max","Min"],"other":0,"location":"3","sensor":"","source_type":0},"column":0,"title":"B09Z01 Temprature Over Time","title_short":"B09Z01"},{"row":1,"type":{"function":0,"chart":1,"parametr":0,"value_type":["Average","Max","Min"],"other":0,"location":"4","sensor":"","source_type":0},"column":0,"title":"B09Z02 Temprature Over Time","title_short":"B09Z02"},{"row":2,"type":{"function":0,"chart":1,"parametr":0,"value_type":["Average","Max","Min"],"other":0,"location":"5","sensor":"","source_type":0},"column":0,"title":"B09Z03 Temprature Over Time","title_short":"B09Z03"},{"row":3,"type":{"function":0,"chart":1,"parametr":0,"value_type":["Average","Max","Min"],"other":0,"location":"6","sensor":"","source_type":0},"column":0,"title":"B09Z04 Temprature Over Time","title_short":"B09Z04"},{"row":4,"type":{"function":0,"chart":1,"parametr":0,"value_type":["Average","Max","Min"],"other":0,"location":"7","sensor":"","source_type":0},"column":0,"title":"B09Z05 Temprature Over Time","title_short":"B09Z05"},{"row":5,"type":{"function":0,"chart":1,"parametr":0,"value_type":["Average","Max","Min"],"other":0,"location":"8","sensor":"","source_type":0},"column":0,"title":"B09Z06 Temprature Over Time","title_short":"B09Z06"},{"row":6,"type":{"function":0,"chart":1,"parametr":0,"value_type":["Average","Max","Min"],"other":0,"location":"9","sensor":"","source_type":0},"column":0,"title":"B09Z07 Temprature Over Time","title_short":"B09Z07"}]');
                     /*this.setState({
                       isLoaded: true,
                       items: result.items
                     });*/
                     ////console.log(result.result)
+                    result = {
+                        "result": [
+                            {
+                                "cb_id": 7,
+                                "cb_title": null,
+                                "cb_width": "0",
+                                "cb_row": 0,
+                                "cb_column": 0,
+                                "cb_type": "[{\"row\":0,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"3\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z01 Temprature Over Time\",\"title_short\":\"B09Z01\"},{\"row\":1,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"4\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z02 Temprature Over Time\",\"title_short\":\"B09Z02\"},{\"row\":2,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"5\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z03 Temprature Over Time\",\"title_short\":\"B09Z03\"},{\"row\":3,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"6\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z04 Temprature Over Time\",\"title_short\":\"B09Z04\"},{\"row\":4,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"7\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z05 Temprature Over Time\",\"title_short\":\"B09Z05\"},{\"row\":5,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"8\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z06 Temprature Over Time\",\"title_short\":\"B09Z06\"},{\"row\":6,\"type\":{\"function\":0,\"chart\":1,\"parametr\":0,\"value_type\":[\"Average\",\"Max\",\"Min\"],\"other\":0,\"location\":\"9\",\"sensor\":\"\",\"source_type\":0},\"column\":0,\"title\":\"B09Z07 Temprature Over Time\",\"title_short\":\"B09Z07\"}]",
+                                "cb_type_2": "[]",
+                                "cb_deleted": 0,
+                                "cb_user": 1,
+                                "cb_default": 0,
+                                "cb_date": "2023-11-17T12:56:10.000Z",
+                                "user_id": 1,
+                                "email": "collectief4@gmail.com",
+                                "fullname": "sgz",
+                                "phone_number": null,
+                                "password": "25d55ad283aa400af464c76d713c07ad",
+                                "is_active": 1,
+                                "token": "1de57bbafded83ce3774ce0482f42bc0e",
+                                "created_at": "2020-11-03T13:14:36.000Z",
+                                "updated_at": "2023-04-15T08:45:46.000Z",
+                                "user_type": 4,
+                                "is_technical_support": 1,
+                                "user_pic": null,
+                                "owner": 0,
+                                "is_admin": 1
+                            }
+                        ]
+                    }
                     var nt_tmp = [];
                     var x = []
                     var y = []
@@ -3761,7 +3795,7 @@ class Home extends React.Component {
                         ////console.log(result);
                         ////console.log("message=" + result.message);
                         if (result.message === 1) {
-                            this.setState({ fullname: result.name, is_login: true, user_type: result.user_type })
+                            this.setState({ fullname: result.name, is_login: true, user_type: result.user_type, location_list: JSON.parse(result.location_list) })
                             return true;
 
                         }
@@ -5170,27 +5204,29 @@ class Home extends React.Component {
                 } else if (context1.state.boxes_new[key].type.function == 0) {
                     if (context1.state.boxes_new[key].type.parametr == 0) {
                         if (context1.state.boxes_new[key].type.chart == 1) {
-                            return (
-                                <div className={container} style={{ "background-color": context1.state.color}}>
+                            if (context1.state.location_list.includes(context1.state.boxes_new[key].title_short) || context1.state.user_type === 3) {
+                                return (
+                                    <div className={container} style={{ "background-color": context1.state.color }}>
 
-                                    <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "2px solid #eee","padding":"5px", "letter-spacing": "2px" }}>
-                                        {context1.state.boxes_new[key].title_short}
-                                        &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} style={{ "border-radius": "10px", "border": "0px solid rgb(130, 97, 16)", "width": "200px", "background-color": "rgb(255, 191, 31)", "padding":"5px"}} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
-                                            {context1.render_measure_types()}
-                                        </select> Over Time
-                                    </div>
-                                    <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
-                                        <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
-                                        <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color": "red", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
-                                    </div>
-                                    <div className={context1.state.loading4} style={{ "text-align": "center" }}>
-                                        <Spinner2 customText="Loading" />
-                                    </div>
-                                    {context1.renderChart(x5_new,context1.state.boxes_new[key].title_short,key)}
+                                        <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "2px solid #eee", "padding": "5px", "letter-spacing": "2px" }}>
+                                            {context1.state.boxes_new[key].title_short}
+                                            &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} style={{ "border-radius": "10px", "border": "0px solid rgb(130, 97, 16)", "width": "200px", "background-color": "rgb(255, 191, 31)", "padding": "5px" }} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
+                                                {context1.render_measure_types()}
+                                            </select> Over Time
+                                        </div>
+                                        <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                            <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                            <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color": "red", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                        </div>
+                                        <div className={context1.state.loading4} style={{ "text-align": "center" }}>
+                                            <Spinner2 customText="Loading" />
+                                        </div>
+                                        {context1.renderChart(x5_new, context1.state.boxes_new[key].title_short, key)}
 
-                                </div>
+                                    </div>
 
-                            )
+                                )
+                            }
                         } else if (context1.state.boxes_new[key].type.chart == 0) {
                             return (
                                 <div className={container}>
@@ -6918,6 +6954,7 @@ class Home extends React.Component {
         let arr2 = Object.values(arr[5]);
        ////console.log(arr)
         return arr2.map(function (o, i) {
+            if (context.state.location_list.includes(arr2[i]["title"]) || context.state.user_type === 3) { 
             return (<div key={key} id={"office_" + key} className="container_c2" style={{ "cursor": "pointer", "opacity": "0.9", "background-color": "#ffbf1f", backgroundImage: `url(${collectief_logo4})`, "background-position": "right bottom", "background-repeat": "no-repeat", "background-size": "150px 150px","border":"2px solid #000","border-radius":"15px" }}>
                 <div className="" onClick={(event) => (context.set_detail(arr2[i]["title"]))}>
                     <div className="row-title">
@@ -6929,6 +6966,7 @@ class Home extends React.Component {
 
                 </div>
             </div>);
+            }
         });
         
     }
@@ -7173,50 +7211,266 @@ class Home extends React.Component {
             )
         }
         else if (this.state.user_type === 3) {
-            var x = this.state.weather;
             return (
                 <div className="main_panel">
                     <div className="container_main">
-                        <div className="text-center">
-                            <div className="container_c0">
+                        <div style={{}} dir="ltr">
+
+
+
+                            <div className="container_c2" style={{ "opacity": "0.9", "background-color": "#D1A40B", backgroundImage: `url(${collectief_logo4})`, "background-position": "right bottom", "background-repeat": "no-repeat", "background-size": "150px 150px" }}>
                                 <div className="">
-                                    <div className="home_l1_left2 text-bold ">
-                                        {this.renderChartColumn2(this.state.get_sri)}
-                                    </div>
-                                    <div className="home_l1_right2">
-                                        {this.renderGauge()}
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div className="home_l2 mt-4">
-                                        {this.SimpleMap()}
-                                    </div>
+                                    <div className="row-title2">
 
-                                    <div className="newline"></div>
-                                    <div className="text-center title_of_location2 pt-4 pb-4">
-                                        {this.state.country} . {this.state.region} . {this.state.name} . {this.state.current_location_title}
-                                    </div>
-                                    <div className="home_l1_left">
-                                        <div className="p-2 text-center title_of_location">
-                                            {this.state.current_location_title}
+                                        <div>
+                                            {building_str.building_name}
                                         </div>
-                                        {this.renderWeather()}
-                                    </div>
-                                    <div className="home_l1_right">
-                                        {this.renderWeatherPerDay()}
-                                    </div>
 
+                                    </div>
+                                    <div>
+                                        {this.renderWeatherPerDay2()}
+                                    </div>
                                 </div>
-                                <div class="row">
-                                    {this.renderBottomDashboard()}
+                            </div>
+                            {this.renderZones()}
+                            <div className="newline"></div>
+                            <div className="text-center">
+                                {this.listBoxes()}
+                            </div>
+
+                            <div id="newRows" >
+                                <div style={{ "text-align": "left", "position": "relative", "left": "15px", "top": "15px" }}>
+                                    <FontAwesomeIcon icon={faMoon} style={{ "font-size": "30px", "cursor": "pointer" }} id="dark_mode" className="d-none" onClick={(event) => this.setDark(0)} />
+                                    <FontAwesomeIcon icon={faSun} style={{ "font-size": "30px", "cursor": "pointer" }} id="sun_mode" onClick={(event) => this.setDark(1)} />
+                                    &nbsp;&nbsp;<span style={{ "coloe": "gray", "font-weight": "bold" }}>Dark/Light mode</span>
+                                </div>
+                                {this.listBoxesNew()}
+                            </div>
+                            <div className="newline"></div>
+                            <div className="container_main remove-part d-none pb-3" style={{ "text-align": "left", "display": "inline-block", "background-color": "#fff", "opacity": "0.6", width: "92%", "float": "right", "border-radius": "10px", "border": "1px solid #ccc" }}>
+                                <div style={{ "text-align": "center" }}>
+                                    <div className=" text-center" style={{}}>
+                                        <FontAwesomeIcon onClick={(event) => this.addBoxes()} icon={faPlus} className="arrow2" style={{ "color": "#ffbf1f", "height": "60px", width: "100px", "opacity": "1" }} />
+                                    </div>
                                 </div>
                             </div>
 
-                        </div>
+                            <div>
 
+                                <Modal
+                                    isOpen={this.state.setIsOpen}
+                                    onAfterOpen={this.afterOpenModal}
+                                    onRequestClose={this.closeModal}
+                                    style={customStyles}
+                                    contentLabel="Example Modal"
+                                >
+                                    <div style={{ "text-align": "right", "min-width": "300px" }} className="mb-4">
+                                        <button onClick={(event) => this.closeModal()} style={{ "text-align": "right", "border": "0px", "width": "25px", "height": "25px", "background-color": "white" }}> <FontAwesomeIcon alt="Close" title="Close" onClick={(event) => this.show_sensors1()} style={{ "width": "30px", "height": "30px" }} icon={faClose} /></button>
+                                    </div>
+                                    <div className="m-2">
+                                        <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }}>Number Of Boxes</span>
+                                        <input id="nboxes" value="1" type="text" className="mr-4" style={{ border: "1px solid black", "border-radius": "5px" }} size="4" />
+                                        <button style={{ "border-radius": "7px" }} onClick={(event) => this.addBoxes()} >
+                                            <FontAwesomeIcon icon={faCheck} />
+                                        </button>
+
+                                    </div>
+                                </Modal>
+                            </div>
+                            <div>
+
+                                <Modal
+                                    isOpen={this.state.setIsOpen2}
+                                    onAfterOpen={this.afterOpenModal2}
+                                    onRequestClose={this.closeModal2}
+                                    style={customStyles2}
+                                    contentLabel="Example Modal"
+                                >
+                                    <div style={{ "text-align": "right", "min-width": "400px", "border-bottom": "1px solid gray" }} className="mb-2 pb-2">
+                                        <button onClick={(event) => this.closeModal2()} style={{ "text-align": "right", "border": "0px", "width": "25px", "height": "25px", "background-color": "white" }}> <FontAwesomeIcon alt="Close" title="Close" onClick={(event) => this.show_sensors1()} style={{ "width": "30px", "height": "30px" }} icon={faClose} /></button>
+                                    </div>
+                                    <div className="m-2">
+                                        <div className="d-none">
+                                            <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }}>Title</span>
+                                            <div className="newline mt-1"></div>
+                                            <input id="box_title" type="text" className="ml-1 mr-4" placeholder="title" style={{ border: "1px solid black", width: "180px", "border-radius": "5px" }} size="4" />
+                                            <div className="newline mt-3"></div>
+                                        </div>
+                                        <div id="level0" className="mb-3">
+
+                                            <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }}>Element Type</span>
+                                            <div className="newline mt-1"></div>
+
+                                            <select className="ml-1" id="box_function" onChange={(event) => this.chooseOperation(event)} value={this.state.box_function} style={{ width: "90%", "padding": "8px", "border-radius": "5px" }}>
+                                                <option value="-1">Choose Element type</option>
+                                                <option value="0">Chart</option>
+                                                <option value="1">Other</option>
+                                            </select>
+
+                                        </div>
+
+                                        <div id="level0_0" className="d-none mb-3">
+
+                                            <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }}>Source Type</span>
+                                            <div className="newline mt-1"></div>
+
+                                            <select className="ml-1" id="source_type" onChange={(event) => this.chooseOperation_source(event)} value={this.state.source_type} style={{ width: "90%", "padding": "8px", "border-radius": "5px" }}>
+                                                <option value="-1">Choose Source type</option>
+                                                <option value="0">From Location</option>
+                                                <option value="1">From Sensor</option>
+                                            </select>
+
+                                        </div>
+
+                                        <div id="level11" className="d-none mb-3">
+                                            <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }}>Location</span>
+                                            <div className="newline mt-1"></div>
+                                            <select className="ml-1" id="location_s" style={{ width: "180px", "border-radius": "5px", width: "90%", "padding": "8px" }}>
+                                                <option value="">Choose location</option>
+                                                {this.renderLocationOptions()}
+                                            </select>
+                                        </div>
+
+                                        <div id="level11_1" className="d-none mb-3">
+                                            <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }}>Sensor</span>
+                                            <div className="newline mt-1"></div>
+                                            <select className="ml-1" id="sensor_s" style={{ width: "180px", "border-radius": "5px", width: "90%", "padding": "8px" }}>
+                                                <option value="">Choose sensor</option>
+                                                {this.renderSensorsOptions()}
+                                            </select>
+                                        </div>
+
+                                        <div id="level1" className="d-none mb-3">
+
+                                            <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }}>Chart Type</span>
+                                            <div className="newline mt-1"></div>
+
+                                            <select className="ml-1" id="box_chart" onChange={(event) => this.chooseOperation_chart(event)} value={this.state.box_chart} style={{ width: "180px", "border-radius": "5px", width: "90%", "padding": "8px" }}>
+                                                <option value="0">Column Chart</option>
+                                                <option value="1">Line   Chart</option>
+                                                <option value="2">Bar   Chart</option>
+                                            </select>
+
+                                        </div>
+
+
+                                        <div id="level2" className="d-none mb-3">
+
+                                            <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }}>Parametr Type</span>
+                                            <div className="newline mt-1"></div>
+                                            <select className="ml-1" id="box_parametr" onChange={(event) => this.chooseOperation_parametr(event)} value={this.state.box_parametr} style={{ width: "180px", "border-radius": "5px", width: "90%", "padding": "8px" }}>
+                                                <option value="0">Temprature</option>
+                                                <option value="1">Pressure</option>
+                                                <option value="2">Humidity</option>
+                                                <option value="3">Mass (PM)</option>
+                                                <option value="4">Voltage</option>
+                                            </select>
+
+                                        </div>
+
+                                        <div id="level3" className="d-none mb-3">
+
+                                            <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }}>Value Type</span>
+                                            <div className="newline mt-1"></div>
+                                            <select className="ml-1" id="box_value_type" onChange={(event) => this.chooseOperation_value_type(event)} value={this.state.box_value_type} style={{ width: "180px", "border-radius": "5px", width: "90%", "padding": "8px" }} multiple>
+                                                <option value="0">Average</option>
+                                                <option value="1">Max</option>
+                                                <option value="2">Min</option>
+                                            </select>
+
+                                        </div>
+
+
+                                        <div id="level4" className="d-none mb-4">
+
+                                            <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }}>Type</span>
+                                            <div className="newline mt-1"></div>
+
+                                            <select className="ml-1" id="box_other" value={this.state.box_other} onChange={(event) => this.chooseOperation_other(event)} style={{ width: "180px", "border-radius": "5px", width: "90%", "padding": "8px" }}>
+                                                <option value="0">Building Layout</option>
+                                                <option value="1">Battery Percentage</option>
+                                                <option value="2">Reward Function</option>
+                                            </select>
+
+                                        </div>
+
+
+
+                                        <div className="newline mt-4"></div>
+                                        <div style={{ "text-align": "center", "border-top": "1px solid gray" }} className="pt-4">
+                                            <button style={{ "padding": "10px", "padding-left": "20px", "padding-right": "20px", "border-radius": "7px", "background-color": "#ffbf1f", "color": "#000", "border": "0px", "font-weight": "bold" }} onClick={(event) => this.addItem()} >
+                                                Add
+                                            </button>
+                                        </div>
+
+                                    </div>
+
+                                </Modal>
+                            </div>
+
+                            <div>
+
+                                <Modal
+                                    isOpen={this.state.setIsOpen3}
+                                    onAfterOpen={this.afterOpenModal3}
+                                    onRequestClose={this.closeModal3}
+                                    style={customStyles2}
+                                    contentLabel="Example Modal"
+                                >
+                                    <div style={{ "text-align": "right", "min-width": "400px", "border-bottom": "1px solid gray" }} className="mb-2 pb-2">
+                                        <button onClick={(event) => this.closeModal3()} style={{ "text-align": "right", "border": "0px", "width": "25px", "height": "25px", "background-color": "white" }}> <FontAwesomeIcon alt="Close" title="Close" onClick={(event) => this.show_sensors1()} style={{ "width": "30px", "height": "30px" }} icon={faClose} /></button>
+                                    </div>
+                                    <div className="m-2">
+
+
+                                        <div className="newline mt-1"></div>
+
+
+
+                                        <div id="level2_0" className="mb-3">
+
+                                            <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }}>Parametr Type</span>
+                                            <div className="newline mt-1"></div>
+                                            <select className="ml-1" id="box_parametr_2" style={{ width: "90%", "border-radius": "5px", "padding": "8px" }}>
+                                                <option value="0">Cell temperature</option>
+                                                <option value="1">Air temperature</option>
+                                                <option value="2">Pressure</option>
+                                                <option value="3">Humidity</option>
+                                                <option value="4">Voltage</option>
+                                                <option value="5">PM 1 (MASS)</option>
+                                                <option value="6">PM 2.5 (MASS)</option>
+                                                <option value="7">PM 4 (MASS)</option>
+                                                <option value="8">PM 10 (MASS)</option>
+                                                <option value="9">CO2</option>
+                                                <option value="10">TVOC</option>
+                                            </select>
+
+                                        </div>
+
+
+
+                                        <div className="newline mt-4"></div>
+                                        <div style={{ "text-align": "center", "border-top": "1px solid gray" }} className="pt-4">
+                                            <button style={{ "padding": "10px", "padding-left": "20px", "padding-right": "20px", "border-radius": "7px", "background-color": "#ffbf1f", "color": "#000", "border": "0px", "font-weight": "bold" }} onClick={(event) => this.addItemTop()} >
+                                                Add
+                                            </button>
+                                        </div>
+
+                                    </div>
+
+                                </Modal>
+                            </div>
+
+                            <input type="hidden" id="row" />
+                            <input type="hidden" id="col" />
+                            <input type="hidden" id="boxes" />
+                            <input type="hidden" id="boxes_top" />
+                            <input type="hidden" id="edit" />
+
+                        </div>
                     </div>
                 </div>
-            )
+            );
         }
         else if (this.state.user_type === 4) {
             return (
@@ -7482,8 +7736,5 @@ class Home extends React.Component {
         }
     }
 }
-
-
-
 
 export default Home;
