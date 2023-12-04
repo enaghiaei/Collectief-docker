@@ -101,7 +101,7 @@ class List_users extends React.Component {
       const cookies = new Cookies();
       //cookies.set('token', result.token, { path: '/' });
       console.log("cookies="+cookies.get('token'));
-      return fetch('http://'+global.config.vals.root.ip+':3002/get_users', {
+      return fetch('http://'+global.config.vals.root.ip+':3002/get_users_v2', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -137,6 +137,10 @@ class List_users extends React.Component {
         )
     }
 
+    edit_user(token) {
+        window.location.href = "/users/edit_users/" + token;
+    }
+
     renderRows(){
       var context = this; 
       return  this.state.items.map(function(o, i) {
@@ -149,8 +153,8 @@ class List_users extends React.Component {
               }
           }
           var xx = {};
-          if (context.state.items[i].location_detail != "")
-             xx = JSON.parse(context.state.items[i].location_detail)
+          //if (context.state.items[i].location_detail != "")
+          //   xx = JSON.parse(context.state.items[i].location_detail)
           var cluster = "-"
           var building = "-"
           var unit = "-"
@@ -174,25 +178,17 @@ class List_users extends React.Component {
             {context.state.items[i].email}
           </td>
           <td>
-                {user_type}
-            </td>
-            <td>
-                {cluster}
-            </td>
-            <td>
-                {building}
-            </td>
-            <td>
-                {unit}
-            </td>
+            {user_type}
+          </td>
+           
           <td>
           {x[0]}
           </td>
           <td>
           {x[1].replace(".000Z","")}
           </td>
-          <td>
-          {<img src={action}></img>}
+            <td>
+                {<img style= {{"cursor" : "pointer"}} onClick={(event) => context.edit_user(context.state.items[i].token)} src={action}></img>}
           </td>
           <td>
           {<img src={info}></img>}
@@ -259,9 +255,7 @@ class List_users extends React.Component {
                         <th>Name</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th>Cluster</th>
-                        <th>Building</th>
-                        <th>Unit</th>
+                       
                         <th>Date</th>
                         <th>Time</th>
                         <th>Info</th>
@@ -281,6 +275,9 @@ class List_users extends React.Component {
             </div>
               );
         }
+        /* <th>Cluster</th>
+                        <th>Building</th>
+                        <th>Unit</th> */
     }
 
 }

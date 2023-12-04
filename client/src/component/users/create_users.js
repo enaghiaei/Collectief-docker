@@ -102,9 +102,9 @@ class Create_users extends React.Component {
                             //fullname = result.name;
 
                             //setState(result.name);
-                            this.getBuildings();
-                            this.getClusters();
-                            this.getUnits();
+                            this.getBuildings(result.location_id);
+                            this.getClusters(result.location_id);
+                            this.getUnits(result.location_id);
                             return result.name;
 
                         }
@@ -370,7 +370,7 @@ class Create_users extends React.Component {
             <div>
                 <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }} id="location_parent_title"></span>
                 <div className="newline mt-1"></div>
-                <select className="ml-1" onClick={(event) => this.setLocation()} id="location" style={{ width: "90%", "padding": "8px", "border-radius": "5px" }}>
+                <select className="ml-1" onClick={(event) => this.setLocation()} multiple id="location" style={{ width: "90%", "padding": "8px", "border-radius": "5px" }}>
                     <option value="-1">Choose Location</option>
                     {context.renderLocationValues()}
                 </select>
@@ -379,7 +379,7 @@ class Create_users extends React.Component {
     }
 
 
-    getClusters() {
+    getClusters(user_location_id) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
         console.log("cookies=" + cookies.get('token'));
@@ -388,7 +388,7 @@ class Create_users extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ token: cookies.get('token'), type: 1 , location_id: this.state.user_location_id })
+            body: JSON.stringify({ token: cookies.get('token'), type: 1 , location_id: user_location_id })
         })
             .then(data => data.json())
             .then(
@@ -432,7 +432,7 @@ class Create_users extends React.Component {
     }
 
 
-    getBuildings() {
+    getBuildings(user_location_id) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
         console.log("cookies=" + cookies.get('token'));
@@ -441,7 +441,7 @@ class Create_users extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ token: cookies.get('token'), type: 2 , location_id: this.state.user_location_id })
+            body: JSON.stringify({ token: cookies.get('token'), type: 2 , location_id: user_location_id })
         })
             .then(data => data.json())
             .then(
@@ -485,7 +485,7 @@ class Create_users extends React.Component {
     }
 
 
-    getUnits() {
+    getUnits(user_location_id) {
         const cookies = new Cookies();
         //cookies.set('token', result.token, { path: '/' });
         console.log("cookies=" + cookies.get('token'));
@@ -494,7 +494,7 @@ class Create_users extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ token: cookies.get('token'), type: 3 , location_id: this.state.user_location_id })
+            body: JSON.stringify({ token: cookies.get('token'), type: 3 , location_id: user_location_id })
         })
             .then(data => data.json())
             .then(
