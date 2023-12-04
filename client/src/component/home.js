@@ -6955,7 +6955,7 @@ class Home extends React.Component {
        ////console.log(arr)
         return arr2.map(function (o, i) {
             if (context.state.location_list.includes(arr2[i]["title"]) || context.state.user_type === 3) { 
-            return (<div key={key} id={"office_" + key} className="container_c2" style={{ "cursor": "pointer", "opacity": "0.9", "background-color": "#ffbf1f", backgroundImage: `url(${collectief_logo4})`, "background-position": "right bottom", "background-repeat": "no-repeat", "background-size": "150px 150px","border":"2px solid #000","border-radius":"15px" }}>
+            return (<div key={i} id={"office_" + i} className="container_c2" style={{ "cursor": "pointer", "opacity": "0.9", "background-color": "#ffbf1f", backgroundImage: `url(${collectief_logo4})`, "background-position": "right bottom", "background-repeat": "no-repeat", "background-size": "150px 150px","border":"2px solid #000","border-radius":"15px" }}>
                 <div className="" onClick={(event) => (context.set_detail(arr2[i]["title"]))}>
                     <div className="row-title">
                         {arr2[i]["title"]}
