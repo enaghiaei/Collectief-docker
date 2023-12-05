@@ -257,9 +257,9 @@ class List_users extends React.Component {
                         <th>Role</th>
                        
                         <th>Date</th>
-                        <th>Time</th>
-                        <th>Info</th>
+                        <th>Time</th>                       
                         <th>Action</th>
+                        <th>Info</th>
                       </tr>
                     </thead>
                     <tbody>
