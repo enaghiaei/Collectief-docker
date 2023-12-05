@@ -23,10 +23,22 @@
     
 }
 
-.date_pic{
+.check_box_content{
+    font-weight: bold;
+    text-align: left;
+    width: 90%;
+    display: inline-block;
+}
+
+.date_pic {
     display: inline-block;
     color: #bbb;
     cursor: pointer;
+}
+
+.location_list{
+    height: 150px;
+    overflow-y: scroll;
 }
 
 
