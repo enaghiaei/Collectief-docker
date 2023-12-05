@@ -343,9 +343,14 @@ class Create_users extends React.Component {
         )
     }
 
-    setLocation() {
-        var  location_id = $("#location").val();
-        this.setState({ "location_id": location_id });
+    setLocation(id) {
+        
+        var checkedItems = [];
+        $('.check_box_item:checked').each(function () {
+            checkedItems.push($(this).val());
+        });
+        console.log("checkedItems", checkedItems)
+        this.setState({ "location_id": checkedItems });
     }
 
 
@@ -358,12 +363,28 @@ class Create_users extends React.Component {
         return this.state.location_types_parent.map(function (o, i) {
             // var x = context.state.sensor_info[i].p_created_at.split("T");
             return (
-                <option value={context.state.location_types_parent[i].id}> {context.state.location_types_parent[i].title}</ option>
+                <div className="check_box_content" value={context.state.location_types_parent[i].id}><input className="check_box_item" type="checkbox" onClick={(event) => context.setLocation(context.state.location_types_parent[i].id)} id={"check_" + context.state.location_types_parent[i].id} value={context.state.location_types_parent[i].id} />&nbsp;&nbsp;&nbsp;{context.state.location_types_parent[i].title}</div>
             );
         });
     }
 
 
+    renderLocations() {
+        var context = this;
+        return (
+            <div className = "location_list">
+                <span className="mr-2" style={{ "color": "#000", "font-weight": "bold" }} id="location_parent_title"></span>
+                <div className="newline mt-1"></div>
+                
+                    {context.renderLocationValues()}
+               
+            </div>
+        )
+    }
+
+    /*
+    
+    
     renderLocations() {
         var context = this;
         return (
@@ -377,6 +398,8 @@ class Create_users extends React.Component {
             </div>
         )
     }
+
+    */
 
 
     getClusters(user_location_id) {
