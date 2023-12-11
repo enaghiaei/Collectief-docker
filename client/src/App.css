@@ -42,6 +42,29 @@
 }
 
 
+.date-title {
+    padding-bottom: 10px;
+    color: #000;
+    font-weight: bold;
+    text-align: left;
+    width: 90%;
+}
+
+.date1{
+    display: inline-block;
+    width: 45%;
+    margin-top: 40px;
+}
+
+
+.datetime-local {
+    border-radius: 10px;
+    padding: 10px;
+    width: 90%;
+    
+}
+
+
 .date_pic_selected {
     display: inline-block;
     color: #ffbf1f;
@@ -96,6 +119,18 @@
     margin-top: 130px;
 }
 
+.container_c0_filter {
+    border-radius: 26px;
+    background-color: #fff;
+    opacity:1;
+    padding: 1vh;
+    width: 98%;
+    display: inline-block;
+    margin: 1%;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    float: right;
+}
 .home_l1_left {
     display: inline-table;
     height: 340px;
