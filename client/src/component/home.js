@@ -28,7 +28,7 @@ import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMoon,faClock, faCalendarAlt, faCalendarWeek, faLightbulb, faCalendar, faCalendarTimes, faAdd, faMinus, faGear, faTemperature0, faPowerOff, faArrowRight, faArrowLeft, faInfo, faCircleInfo, faInfoCircle, faPlusSquare, faClose, faCheck, faTrashAlt, faPlusCircle, faPlus, faEdit, faPenClip, faPen, faWindowClose, faSun, faWind, faLocation, faLocationPin, faMapLocationDot, faBuilding, faHome, faTemperature, faTemperatureHigh, faTint, faCloud, faCompressAlt, faSmog, faBatteryFull } from '@fortawesome/free-solid-svg-icons';
+import { faFilter ,faMoon,faClock, faCalendarAlt, faCalendarWeek, faLightbulb, faCalendar, faCalendarTimes, faAdd, faMinus, faGear, faTemperature0, faPowerOff, faArrowRight, faArrowLeft, faInfo, faCircleInfo, faInfoCircle, faPlusSquare, faClose, faCheck, faTrashAlt, faPlusCircle, faPlus, faEdit, faPenClip, faPen, faWindowClose, faSun, faWind, faLocation, faLocationPin, faMapLocationDot, faBuilding, faHome, faTemperature, faTemperatureHigh, faTint, faCloud, faCompressAlt, faSmog, faBatteryFull } from '@fortawesome/free-solid-svg-icons';
 import Spinner2 from "./Spinner2"
 import ReactWeather, { useOpenWeather } from 'react-open-weather';
 import GoogleMapReact from 'google-map-react';
@@ -181,6 +181,7 @@ class Home extends React.Component {
             data5_sensor_7d: [],
             data5_sensor_30d: [],
             data5_sensor_365d: [],
+            data5_sensor_custom: [],
             sensor_location: [],
             loading: "text-center",
             modalIsOpen: false,
@@ -318,7 +319,8 @@ class Home extends React.Component {
             this.temperature_per_hour_7d();
             this.temperature_per_hour_30d();
             this.temperature_per_hour_365d();
-            this.temperature_per_hour_sensor();
+            this.temperature_per_hour_custom();
+           /* this.temperature_per_hour_sensor();
             this.temperature_per_hour_sensor_48h();
             this.temperature_per_hour_sensor_7d();
             this.temperature_per_hour_sensor_30d();
@@ -328,13 +330,21 @@ class Home extends React.Component {
             this.pm_per_hour();
             this.pm_per_hour_sensor();
             this.pressure_per_hour();
-            this.pressure_per_hour_sensor();
+            this.pressure_per_hour_sensor();*/
 
             this.get_boxes();
 
             this.get_location();
             ;
-        }, 100);
+            const endDate = new Date();
+            const startDate = new Date(endDate.getTime() - 18 * 60 * 60 * 1000);
+
+            const startDateString = startDate.toISOString().slice(0, -8);
+            const endDateString = endDate.toISOString().slice(0, -8);
+            console.log("startDateString", startDateString)
+            $("#date_from").val(startDateString);
+            $("#date_to").val(endDateString);
+        }, 1000);
         setInterval(() => {
             //this.sensors();
             //this.sensors_type();
@@ -345,6 +355,7 @@ class Home extends React.Component {
             this.temperature_per_hour_7d();
             this.temperature_per_hour_30d();
             this.temperature_per_hour_365d();
+            this.temperature_per_hour_custom();
             this.temperature_per_hour_sensor();
             this.humidity_per_hour();
             this.humidity_per_hour_sensor();
@@ -358,7 +369,15 @@ class Home extends React.Component {
             this.pressure_per_hour_sensor();
             this.sensors_detail()
         }, 30000);
-
+       
+        /*const startDateInput = $("#date_from");
+        const endDateInput = $("#date_to");
+        startDateInput.addEventListener("change", function () {
+            if (startDateInput.value > endDateInput.value) {
+                endDateInput.value = startDateInput.value;
+                //$.notify("","danger")
+            }
+        });*/
         //this.xxxx()
     }
 
@@ -1369,6 +1388,140 @@ class Home extends React.Component {
                     this.setState({
 
                         data5_48h: data5,
+                        loading4: "d-none"
+                    }
+                    );
+                    ////console.log(result);
+                    //this.renderRows();
+                    //this.renderRows();
+
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
+    set_range() {
+        this.temperature_per_hour_custom();
+        $(".date_pic").removeClass("date_pic_selected");
+
+        $(".custom_date").addClass("date_pic_selected");
+    }
+
+    temperature_per_hour_custom() {
+        const cookies = new Cookies();
+        //cookies.set('token', result.token, { path: '/' });
+        ////console.log("cookies=" + cookies.get('token'));
+        return fetch('http://' + global.config.vals.root.ip + ':3002/temperature_per_hour_custom', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: cookies.get('token'), "from": $("#date_from").val(), "to": $("#date_to").val() })
+        })
+            .then(data => data.json())
+            .then(
+                (result) => {
+                    /*this.setState({
+                      isLoaded: true,
+                      items: result.items
+                    });*/
+                    // Temperature (℃) per 10 minutes
+                    ////console.log(result.result);
+                    var data5 = [];
+                    var i = 0;
+
+                    for (var key in result.result) {
+                        for (var key2 in result.result[key]) {
+                            ////console.log(key)
+                            ////console.log(result.result[key])
+                            ////console.log(result.result[key][key2])
+                            if (result.result[key][key2]["av_max"] != "null") {
+                                data5[i] = {};
+                                data5[i].year = result.result[key][key2]["range_title"];
+                                data5[i].value = parseFloat(result.result[key][key2]["av_max"]);
+                                data5[i].category = "Max " + result.result[key][key2]["measure_name"] + " per 10 minutes";
+                                data5[i].category2 = "Max";
+                                data5[i].category3 = result.result[key][key2]["cl_id"];
+                                data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
+                            } else {
+                                data5[i] = {};
+                                data5[i].year = key;
+                                data5[i].value = key;
+                                data5[i].category = "1x";
+                            }
+                            i++
+                        }
+
+                    }
+
+
+
+
+                    for (var key in result.result) {
+                        for (var key2 in result.result[key]) {
+                            ////console.log(key)
+                            ////console.log(result.result[key])
+                            ////console.log(result.result[key][key2])
+                            if (result.result[key][key2]["av"] != "null") {
+                                data5[i] = {};
+                                data5[i].year = result.result[key][key2]["range_title"];
+                                data5[i].value = parseFloat(result.result[key][key2]["av"]);
+                                data5[i].category = "Average " + result.result[key][key2]["measure_name"] + " per 10 minutes";
+                                data5[i].category2 = "Average";
+                                data5[i].category3 = result.result[key][key2]["cl_id"];
+                                data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
+                            } else {
+                                data5[i] = {};
+                                data5[i].year = key;
+                                data5[i].value = key;
+                                data5[i].category = "0x";
+                            }
+                            i++
+                        }
+
+                    }
+
+                    for (var key in result.result) {
+                        for (var key2 in result.result[key]) {
+                            ////console.log(key)
+                            ////console.log(result.result[key])
+                            ////console.log(result.result[key][key2])
+                            if (result.result[key][key2]["av_min"] != "null") {
+                                data5[i] = {};
+                                data5[i].year = result.result[key][key2]["range_title"];
+                                data5[i].value = parseFloat(result.result[key][key2]["av_min"]);
+                                data5[i].category = "Min " + result.result[key][key2]["measure_name"] + " per 10 minutes";
+                                data5[i].category2 = "Min";
+                                data5[i].category3 = result.result[key][key2]["cl_id"];
+                                data5[i].measure_name = result.result[key][key2]["measure_name"];
+                                data5[i].measure_kind = result.result[key][key2]["measure_kind"];
+                            } else {
+                                data5[i] = {};
+                                data5[i].year = key;
+                                data5[i].value = key;
+                                data5[i].category = "2x";
+                            }
+                            i++
+                        }
+
+                    }
+
+                    
+
+                    ////console.log("data5",data5)
+                    this.setState({
+
+                        data5_custom: data5,
                         loading4: "d-none"
                     }
                     );
@@ -5205,8 +5358,9 @@ class Home extends React.Component {
                     if (context1.state.boxes_new[key].type.parametr == 0) {
                         if (context1.state.boxes_new[key].type.chart == 1) {
                             if (context1.state.location_list.includes(context1.state.boxes_new[key].title_short) || context1.state.user_type === 3) {
+                                if(key === 0)
                                 return (
-                                    <div className={container} style={{ "background-color": context1.state.color }}>
+                                    <div className={container} style={{ "background-color": context1.state.color,"margin-top":"10px" }}>
 
                                         <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "2px solid #eee", "padding": "5px", "letter-spacing": "2px" }}>
                                             {context1.state.boxes_new[key].title_short}
@@ -5225,7 +5379,29 @@ class Home extends React.Component {
 
                                     </div>
 
-                                )
+                                    )
+                                else
+                                    return (
+                                        <div className={container} style={{ "background-color": context1.state.color }}>
+
+                                            <div className="pb-2 mb-4" style={{ "font-weight": "bold", color: "rgb(130, 97, 16)", width: "100%", display: "inline-block", "border-bottom": "2px solid #eee", "padding": "5px", "letter-spacing": "2px" }}>
+                                                {context1.state.boxes_new[key].title_short}
+                                                &nbsp;<select id={"id_" + context1.state.boxes_new[key].title_short} style={{ "border-radius": "10px", "border": "0px solid rgb(130, 97, 16)", "width": "200px", "background-color": "rgb(255, 191, 31)", "padding": "5px" }} onClick={(event) => context1.set_measure_type(context1.state.boxes_new[key].title_short)}>
+                                                    {context1.render_measure_types()}
+                                                </select> Over Time
+                                            </div>
+                                            <div style={{ "text-align": "right", "position": "relative", "top": "-70px", "right": "-10px" }} className="remove-part d-none p-1 pt-1 pr-1">
+                                                <FontAwesomeIcon onClick={(event) => context1.openModal2(key2, context1.state.boxes_new[key].column, 1)} style={{ "color": "#ffbf1f", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faEdit} className="arrow pl-2" />
+                                                <FontAwesomeIcon onClick={(event) => context1.removeModal2(key2, context1.state.boxes_new[key].column)} style={{ "color": "red", "opacity": "0.7", "cursor": "pointer", "width": "25px", "height": "25px" }} icon={faWindowClose} className="arrow pl-2" />
+                                            </div>
+                                            <div className={context1.state.loading4} style={{ "text-align": "center" }}>
+                                                <Spinner2 customText="Loading" />
+                                            </div>
+                                            {context1.renderChart(x5_new, context1.state.boxes_new[key].title_short, key)}
+
+                                        </div>
+
+                                    )
                             }
                         } else if (context1.state.boxes_new[key].type.chart == 0) {
                             return (
@@ -5681,7 +5857,7 @@ class Home extends React.Component {
                 tickCount: 1,
             },*/
         ////console.log(this.state.data5);
-        for (var i = 0; i <= 4; i++) {
+        for (var i = 0; i <= 5; i++) {
             if ($("#" + title_short + "_t" + i).hasClass("date_pic_selected")) {
                 if (i == 0)
                     data_tmp = this.state.data5_12h;
@@ -5693,6 +5869,8 @@ class Home extends React.Component {
                     data_tmp = this.state.data5_30d;
                 else if (i == 4)
                     data_tmp = this.state.data5_365d;
+                else if (i == 5)
+                    data_tmp = this.state.data5_custom;
             }
         }
         var data_filter = [];
@@ -5824,7 +6002,7 @@ class Home extends React.Component {
         if (data_tmp.length > 0)
             return (
                 <div style={{ "text-align": "left" }}>
-                    <div id={title_short + "_t0"} className="date_pic date_pic_selected m-2" onClick={(event) => this.set_data_for_chart(0, title_short)}>
+                    <div id={title_short + "_t0"} className="date_pic m-2 date_pic_selected" onClick={(event) => this.set_data_for_chart(0, title_short)}>
                         <FontAwesomeIcon icon={faClock} /> 12 hours
                     </div>
                     <div id={title_short + "_t1"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(1, title_short)} >
@@ -5839,13 +6017,16 @@ class Home extends React.Component {
                     <div id={title_short + "_t4"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(4, title_short)}>
                         <FontAwesomeIcon icon={faCalendarTimes} /> year
                     </div>
+                    <div id={title_short + "_t5"} className="custom_date date_pic m-2" onClick={(event) => this.set_data_for_chart(5, title_short)}>
+                        <FontAwesomeIcon icon={faCalendarTimes} /> custom
+                    </div>
                     <div style={{ "text-align": "left", "position": "relative", "top": "38px", "float": "left", "left": "5px", "font-weight": "bold", "color": this.state.color, "z-index": "30", "display":"inline-block" }}>{x}</div>
                     <Area {...config44} />
                 </div>
             );
         else {
             return (< div  className='mt-5' ><div style={{ "text-align": "left" }}>
-                <div id={title_short + "_t0"} className="date_pic date_pic_selected m-2" onClick={(event) => this.set_data_for_chart(0, title_short)}>
+                <div id={title_short + "_t0"} className="date_pic date_pic_selected  m-2" onClick={(event) => this.set_data_for_chart(0, title_short)}>
                     <FontAwesomeIcon icon={faClock} /> 12 hours
                 </div>
                 <div id={title_short + "_t1"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(1, title_short)} >
@@ -5860,6 +6041,9 @@ class Home extends React.Component {
                 <div id={title_short + "_t4"} className="date_pic m-2" onClick={(event) => this.set_data_for_chart(4, title_short)}>
                     <FontAwesomeIcon icon={faCalendarTimes} /> year
                 </div>
+                <div id={title_short + "_t5"} className="custom_date date_pic m-2" onClick={(event) => this.set_data_for_chart(5, title_short)}>
+                    <FontAwesomeIcon icon={faCalendarTimes} /> custom
+                </div>
                 <div className="newline"></div>
                 <div style={{ "text-align": "center", "font-weight": "bold", "font-size": "25px", "letter-spacing": "4px" }}>
                     No Data
@@ -5870,7 +6054,7 @@ class Home extends React.Component {
 
     set_data_for_chart(type, title_short) {
         console.log(title_short)
-        for (var i = 0; i <= 4; i++) {
+        for (var i = 0; i <= 5; i++) {
             $("#" + title_short + "_t" + i).removeClass("date_pic_selected");
         }
        
@@ -5928,6 +6112,18 @@ class Home extends React.Component {
 
                 data5_sensor: this.state.data5_sensor_365d,
                 data5: this.state.data5_365d
+
+            }
+            );
+            $("#" + title_short + "_t" + type).addClass("date_pic_selected");
+            //set_data_for_chart(type, title_short)
+        }
+        else if (type == 5) {
+
+            this.setState({
+
+                data5_sensor: this.state.data5_sensor_custom,
+                data5: this.state.data5_custom
 
             }
             );
@@ -6984,7 +7180,13 @@ class Home extends React.Component {
         }
     }
 
-
+    setFilter() {
+        if ($("#filter_div").hasClass("d-none")) {
+            $("#filter_div").removeClass("d-none")
+        } else {
+            $("#filter_div").addClass("d-none")
+        }
+    }
 
     render() {
 
@@ -7239,10 +7441,35 @@ class Home extends React.Component {
                             </div>
 
                             <div id="newRows" >
-                                <div style={{ "text-align": "left", "position": "relative", "left": "15px", "top": "15px" }}>
+                                <div style={{ "text-align": "left", "position": "relative", "left": "15px", "top": "15px", "display": "inline-block" }}>
                                     <FontAwesomeIcon icon={faMoon} style={{ "font-size": "30px", "cursor": "pointer" }} id="dark_mode" className="d-none" onClick={(event) => this.setDark(0)} />
                                     <FontAwesomeIcon icon={faSun} style={{ "font-size": "30px", "cursor": "pointer" }} id="sun_mode" onClick={(event) => this.setDark(1)} />
                                     &nbsp;&nbsp;<span style={{ "coloe": "gray", "font-weight": "bold" }}>Dark/Light mode</span>
+                                </div>
+                                <div style={{ "text-align": "left", "position": "relative", "left": "15px", "top": "15px", "display": "inline-block" }}>
+                                    <FontAwesomeIcon icon={faFilter} style={{ "font-size": "30px", "cursor": "pointer" }} id="dark_mode" onClick={(event) => this.setFilter()} />
+                                    &nbsp;&nbsp;<span style={{ "coloe": "gray", "font-weight": "bold" }}>Filter</span>
+                                </div>
+                                <div className="d-none" id= "filter_div">
+                                    <div class="date1">
+                                    <div>
+                                        <div className="date-title">
+                                            From
+                                        </div>
+                                        <div className="new-line"></div>
+                                        <input type="datetime-local" className="datetime-local" id="date_from"/>
+                                    </div>
+                                </div>
+                                <div className="date1">
+                                    <div className="date-title">
+                                        To
+                                    </div>
+                                    <div className="new-line"></div>
+                                    <input type="datetime-local" className="datetime-local" id="date_to"/>
+                                    </div>
+                                    <div className="mt-4">
+                                        <input type="button" className="main_header_button" value="APPLY" onClick={(event) => this.set_range()} />
+                                    </div>
                                 </div>
                                 {this.listBoxesNew()}
                             </div>
@@ -7501,10 +7728,38 @@ class Home extends React.Component {
                             </div>
 
                             <div id="newRows" >
-                                <div style={{"text-align":"left","position":"relative","left":"15px","top":"15px"}}>
-                                    <FontAwesomeIcon icon={faMoon} style={{"font-size":"30px","cursor":"pointer"}} id="dark_mode" className="d-none" onClick={(event) => this.setDark(0)} />
-                                    <FontAwesomeIcon icon={faSun} style={{ "font-size": "30px", "cursor": "pointer" }} id="sun_mode" onClick={(event) => this.setDark(1)} />
-                                    &nbsp;&nbsp;<span style={{"coloe":"gray","font-weight":"bold"} }>Dark/Light mode</span>
+                                <div style={{"text-align":"left"} }>
+                                    <div style={{ "text-align": "left", "position": "relative", "left": "15px", "top": "15px", "display": "inline-block" }}>
+                                        <FontAwesomeIcon icon={faMoon} style={{"font-size":"30px","cursor":"pointer"}} id="dark_mode" className="d-none" onClick={(event) => this.setDark(0)} />
+                                        <FontAwesomeIcon icon={faSun} style={{ "font-size": "30px", "cursor": "pointer" }} id="sun_mode" onClick={(event) => this.setDark(1)} />
+                                        &nbsp;&nbsp;<span style={{"coloe":"gray","font-weight":"bold"} }>Dark/Light mode</span>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <div style={{ "text-align": "left", "position": "relative", "left": "15px", "top": "15px", "display": "inline-block" }}>
+                                        <FontAwesomeIcon icon={faFilter} style={{ "font-size": "30px", "cursor": "pointer" }} id="dark_mode"  onClick={(event) => this.setFilter()} />
+                                        &nbsp;&nbsp;<span style={{ "coloe": "gray", "font-weight": "bold" }}>Filter Date</span>
+                                    </div>
+                                </div>
+                                <div id="filter_div" className= "container_c0_filter d-none">
+                                    <div class="date1">
+                                        <div>
+                                            <div className="date-title">
+                                                From
+                                            </div>
+                                            <div className="new-line"></div>
+                                            <input type="datetime-local" className="datetime-local" id="date_from" />
+                                        </div>
+                                    </div>
+                                    <div className="date1">
+                                        <div className="date-title">
+                                            To
+                                        </div>
+                                        <div className="new-line"></div>
+                                        <input type="datetime-local" className="datetime-local" id="date_to" />
+                                    </div>
+                                    <div className="mt-4">
+                                        <input type="button" className="main_header_button" value="APPLY" onClick={(event) => this.set_range()} />
+                                    </div>
                                 </div>
                                 {this.listBoxesNew()}
                             </div>
