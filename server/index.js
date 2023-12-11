@@ -13,6 +13,7 @@ var gt_battery = require('./models/get_battery');
 var gt_ph = require('./models/get_temperature_per_hour');
 var gt_ph_12h = require('./models/get_temperature_per_hour_12h');
 var gt_ph_48h = require('./models/get_temperature_per_hour_48h');
+var gt_ph_custom = require('./models/get_temperature_per_hour_custom');
 var gt_ph_7d = require('./models/get_temperature_per_hour_7d');
 var gt_ph_30d = require('./models/get_temperature_per_hour_30d');
 var gt_ph_365d = require('./models/get_temperature_per_hour_365d');
@@ -1056,6 +1057,20 @@ app.post("/temperature_per_hour_48h", (req, res) => {
     //console.log(req.body);
 
     var result1 = gt_ph_48h.get_temperature_per_hour_48h(req.body, res);
+    //console.log("$$$$$temperature_per_hour");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});
+
+
+app.post("/temperature_per_hour_custom", (req, res) => {
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_hour");
+    //console.log(req.body);
+
+    var result1 = gt_ph_custom.get_temperature_per_hour_custom(req.body, res);
     //console.log("$$$$$temperature_per_hour");
     //console.log(result1);
     //console.log("$$$$$");
