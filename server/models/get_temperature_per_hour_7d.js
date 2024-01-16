@@ -116,7 +116,7 @@ async function get_temperature_per_hour_7d(token, res0) {
        ////console.log(sql)
         //[rows, fields] = await con.execute("SELECT AVG(measure_value) AS av,MAX(measure_value) AS av_max,MIN(measure_value) AS av_min,'" + h + " to " + h_2 + "' AS range_title,measure_name,cl_id FROM node_2204036" + num_t + " JOIN collectief_assignment ON collectief_assignment.sensor_id = node_2204036" + num_t +".sensor_serial  WHERE measure_kind = 'Temperature'" + " AND timestamp >= '" + x0 + "'" + " AND timestamp <= '" + x1 + "' GROUP BY cl_id,measure_name");
         //nph_kind = 'Temperature'" + " AND nph_name = 'Air temperature' AND 
-        [rows, fields] = await con.execute("SELECT max(nph_avg) AS av,max(nph_max) AS av_max,max(nph_min) AS av_min,nph_from2 AS range_title,nph_name AS measure_name,cl_id,nph_kind AS measure_kind FROM node_per_quarter JOIN collectief_assignment ON collectief_assignment.sensor_id = node_per_quarter.sensor_serial  WHERE ca_deleted=0 AND nph_from2 >= '" + x0 + "'" + " AND nph_from2 <= '" + x1 + "' GROUP BY cl_id,nph_kind,nph_name,nph_from2");
+        [rows, fields] = await con.execute("SELECT max(nph_avg) AS av,max(nph_max) AS av_max,max(nph_min) AS av_min,nph_from2 AS range_title,nph_name AS measure_name,cl_id,nph_kind AS measure_kind FROM node_per_hour JOIN collectief_assignment ON collectief_assignment.sensor_id = node_per_hour.sensor_serial  WHERE ca_deleted=0 AND nph_from2 >= '" + x0 + "'" + " AND nph_from2 <= '" + x1 + "' GROUP BY cl_id,nph_kind,nph_name,nph_from2");
 
         //console.log(con.sql);
         for (var key in rows) {

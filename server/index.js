@@ -8,7 +8,10 @@ var pro1 = require('./models/get_sensor_data');
 var pro2 = require('./models/get_location_data');
 var gmt = require('./models/get_measure_types');
 var gst = require('./models/get_sensors_type');
-var gt = require('./models/get_temperature');
+var gt = require('./models/get_temperature'); 
+var get_data_per_hour = require('./models/get_data_per_hour'); 
+var get_data_per_4hour = require('./models/get_data_per_4hour'); 
+var get_data_per_4day = require('./models/get_data_per_4day');
 var gt_battery = require('./models/get_battery');
 var gt_ph = require('./models/get_temperature_per_hour');
 var gt_ph_12h = require('./models/get_temperature_per_hour_12h');
@@ -95,6 +98,7 @@ var ksb_3 = require('./models/ksb_3');
 var export_csv = require('./models/export_csv');
 var get_info = require('./models/get_info');
 var check_get_from_qpe = require('./models/check_get_from_qpe');
+var init_commands = require('./models/init_commands');
 //del_re
 const PORT = process.env.PORT || 3002;
 
@@ -1206,6 +1210,7 @@ app.post("/temperature_per_hour_sensor_365d", (req, res) => {
 });
 
 app.get("/temperature_per_hour_quarter", (req, res) => {
+    
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
    //console.log("temperature_per_quarter");
     //console.log(req.body);
@@ -1217,6 +1222,50 @@ app.get("/temperature_per_hour_quarter", (req, res) => {
     //check_l.check_(req.body,res);
 
 });
+
+app.get("/temperature_per_hour", (req, res) => {
+    //get_data_per_hour
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_quarter");
+    //console.log(req.body);
+
+    var result1 = get_data_per_hour.get_data_per_hour(req.body, res);
+    //console.log("$$$$$temperature_per_quarter");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+});         
+
+
+app.get("/temperature_per_4hour", (req, res) => {
+    //get_data_per_hour
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_quarter");
+    //console.log(req.body);
+
+    var result1 = get_data_per_4hour.get_data_per_4hour(req.body, res);
+    //console.log("$$$$$temperature_per_quarter");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+}); 
+
+
+app.get("/temperature_per_4day", (req, res) => {
+    //get_data_per_hour
+    //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
+    //console.log("temperature_per_quarter");
+    //console.log(req.body);
+
+    var result1 = get_data_per_4day.get_data_per_4day(req.body, res);
+    //console.log("$$$$$temperature_per_quarter");
+    //console.log(result1);
+    //console.log("$$$$$");
+    //check_l.check_(req.body,res);
+
+}); 
 
 app.post("/pressure_per_hour", (req, res) => {
     //var result = check_u.login(res,req.body.username,req.body.password,req.socket.remoteAddress);
@@ -1345,5 +1394,6 @@ app.post("/get_locations", (req, res) => {
 });
 
 app.listen(PORT, () => {
+    init_commands.init_();
    //console.log(`Server listening on ${PORT}`);
 });

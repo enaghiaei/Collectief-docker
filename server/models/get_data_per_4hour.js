@@ -4,7 +4,7 @@ require('dotenv').config();
 var mysql = require('mysql2/promise');
 var config = require('../config/config.js');
 //exports.get_temperature_per_hour = function (token, res0) {
-async function get_temperature_per_quarter(token, res0) {
+async function get_data_per_4hour(token, res0) {
     var login_time = Math.floor(new Date().getTime() / 1000);
     var result1 = false;
     //var sqlite3 = require('sqlite3');
@@ -147,30 +147,37 @@ async function get_temperature_per_quarter(token, res0) {
             var m_1 = "";
             //var m_3 = "";
 
-            if (parseInt(m) >= 0 && parseInt(m) <= 10) {
-                m_0 = "50"
-                m_1 = "00"
-            }
-            else if (parseInt(m) >= 10 && parseInt(m) <= 20) {
+            if (parseInt(m) >= 0 && parseInt(m) <= 59) {
                 m_0 = "00"
-                m_1 = "10"
-            }
-            else if (parseInt(m) >= 20 && parseInt(m) <= 30) {
-                m_0 = "10"
-                m_1 = "20"
-            }
-            else if (parseInt(m) >= 30 && parseInt(m) <= 40) {
-                m_0 = "20"
-                m_1 = "30"
+                m_1 = "59"
     }
-            else if (parseInt(m) >= 40 && parseInt(m) <= 50) {
-                m_0 = "30"
-                m_1 = "40"
+    var flag_for_before_date = 0;
+    if (h >= 0 && h < 4) {
+        flag_for_before_date = 1;
+        h = 20;
+        h_2 = 23;
     }
-            else if (parseInt(m) >= 50 && parseInt(m) <= 59) {
-                m_0 = "40"
-                m_1 = "50"
-            }
+    else if (h >= 4 && h < 8) {
+        h = 4;
+        h_2 = 7;
+    }
+    else if (h >= 8 && h < 12) {
+        h = 4;
+        h_2 = 7;
+    }
+    else if (h >= 12 && h < 16) {
+        h = 8;
+        h_2 = 11;
+    }
+    else if (h >= 16 && h < 20) {
+        h = 12;
+        h_2 = 15;
+    }
+    else if (h >= 20 && h < 24) {
+        h = 16;
+        h_2 = 19;
+    }
+            
 
             if (s < 10) {
                 s = "0" + s;
@@ -201,10 +208,15 @@ async function get_temperature_per_quarter(token, res0) {
 
             }
             // inja bayad begim age baraye 15 min or 30 min ghabli bood va status oon 0 bood age 1 bood ke yaeni khodesh tolid shode va vagheei nist pas 0 mishe
+        
             var x0 = today3 + "-" + today1 + "-" + today2 + " " + h + ":" + m_0 + ":" + "00";
-            var x1 = today3_2 + "-" + today1_2 + "-" + today2_2 + " " + h_2 + ":" + m_1 + ":" + "00";
+            var x1 = today3_2 + "-" + today1_2 + "-" + today2_2 + " " + h_2 + ":" + m_1 + ":" + "59";
             var x3 = today3_3 + "-" + today1_3 + "-" + today2_3 + " " + h_3 + ":" + m_3 + ":" + "00";
             var x4 = today43 + "-" + today41 + "-" + today42 + " " + h4 + ":" + m4 + ":" + "00";
+            if (flag_for_before_date == 1) {
+                var x0 = today43 + "-" + today41 + "-" + today42 + " " + h + ":" + m_0 + ":" + "00";
+                var x1 = today43 + "-" + today41 + "-" + today42 + " " + h_2 + ":" + m_1 + ":" + "59";
+            }
            //console.log("x0:", x0);
            //console.log("x1:", x1);
    //console.log("x1:", x3);
@@ -212,7 +224,7 @@ async function get_temperature_per_quarter(token, res0) {
         //console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
        // const sql = con.format("SELECT AVG(measure_value) AS av,MAX(measure_value) AS av_max,MIN(measure_value) AS av_min,'" + h + " to " + h_2 + "' AS range_title,measure_name,cl_id FROM node_2204036" + num_t + " JOIN collectief_assignment ON collectief_assignment.sensor_id = node_2204036" + num_t + ".sensor_serial  WHERE measure_kind = 'Temprature'" + " AND timestamp >= '" + x0 + "'" + " AND timestamp <= '" + x1 + "' GROUP BY cl_id,measure_name");
        ////console.log(sql)
-        [rows4,fields4] = await con.execute("select * FROM node_per_quarter  WHERE" + " nph_from2 = '" + x0 + "' AND nph_to2 = '" + x1 + "'");
+        [rows4,fields4] = await con.execute("select * FROM node_per_4hour  WHERE" + " nph_from2 = '" + x0 + "' AND nph_to2 = '" + x1 + "'");
     try {
         [rows5, fields5] = await con.execute("select * FROM sensors_list  WHERE" + " 1 = 1");
     } catch (error) {
@@ -224,7 +236,7 @@ async function get_temperature_per_quarter(token, res0) {
         console.log(error)
     }
     try {
-        [rows8, fields8] = await con.execute("SELECT * FROM node_per_quarter WHERE nph_to2 >= '" + x3 + "'");
+        [rows8, fields8] = await con.execute("SELECT * FROM node_per_4hour WHERE nph_to2 >= '" + x3 + "'");
     } catch (error) {
         console.log(error)
     }
@@ -235,7 +247,7 @@ async function get_temperature_per_quarter(token, res0) {
             for (var key5 in rows5) {
                //console.log("rows", rows5[key5])
                 for (var key6 in rows6) {
-                    [rows, fields] = await con.execute("SELECT sensor_serial,AVG(measure_value) AS av,MAX(measure_value) AS av_max,MIN(measure_value) AS av_min,'" + h + " to " + h_2 + "' AS range_title,measure_kind,measure_name FROM node_2204036" + num_t + "  WHERE " + " sensor_serial = '" + rows5[key5].sl_sensor + "' AND measure_kind = '" + rows6[key6].measure_kind + "' AND " + " measure_name = '" + rows6[key6].measure_name + "' AND " + " timestamp >= '" + x0 + "' AND timestamp <= '" + x1 + "' GROUP BY sensor_serial,measure_kind,measure_name");
+                    [rows, fields] = await con.execute("SELECT sensor_serial,AVG(measure_value) AS av,MAX(measure_value) AS av_max,MIN(measure_value) AS av_min,'" + h + " to " + h_2 + "' AS range_title,measure_kind,measure_name FROM node_2204036" + num_t + "  WHERE " + " sensor_serial = '" + rows5[key5].sl_sensor + "' AND measure_kind = '" + rows6[key6].measure_kind + "' AND " + " measure_name = '" + rows6[key6].measure_name + "' AND " + " timestamp >= '" + x0 + "'" + " AND " + " timestamp <= '" + x1 + "'" + " GROUP BY sensor_serial,measure_kind,measure_name");
                    ////console.log(con.sql);
                    //console.log("rows", rows)
                    //console.log("rows", rows6[key6])
@@ -260,7 +272,7 @@ async function get_temperature_per_quarter(token, res0) {
                             }
                             var vals = rows[key]["sensor_serial"] + "," + rows[key]["av_max"].toFixed(2) + "," + rows[key]["av_min"].toFixed(2) + "," + rows[key]["av"].toFixed(2) + ",'" + rows[key]["measure_kind"] + "','" + rows[key]["measure_name"] + "'" + ",'" + h + ":" + m_0 + "'" + ",'" + h_2 + ":" + m_1 + "'" + ",'" + x0 + "','" + x1 + "'";
                             try {
-                                [rows2] = await con.execute("INSERT INTO node_per_quarter (sensor_serial,nph_max,nph_min,nph_avg,nph_kind,nph_name,nph_from,nph_to,nph_from2,nph_to2) VALUES (" + vals + ")");
+                                [rows2] = await con.execute("INSERT INTO node_per_4hour (sensor_serial,nph_max,nph_min,nph_avg,nph_kind,nph_name,nph_from,nph_to,nph_from2,nph_to2) VALUES (" + vals + ")");
                             } catch (error) {
                                 console.log(error)
                             }
@@ -284,7 +296,7 @@ async function get_temperature_per_quarter(token, res0) {
                         }
                         var vals = rows5[key5]["sl_sensor"] + "," + nph_max + "," + nph_min + "," + nph_avg + ",'" + rows6[key6]["measure_kind"] + "','" + rows6[key6]["measure_name"] + "'" + ",'" + h + ":" + m_0 + "'" + ",'" + h_2 + ":" + m_1 + "'" + ",'" + x0 + "','" + x1 + "'," + nph_status;
                         try {
-                            [rows2] = await con.execute("INSERT INTO node_per_quarter (sensor_serial,nph_max,nph_min,nph_avg,nph_kind,nph_name,nph_from,nph_to,nph_from2,nph_to2,nph_status) VALUES (" + vals + ")");
+                            [rows2] = await con.execute("INSERT INTO node_per_4hour (sensor_serial,nph_max,nph_min,nph_avg,nph_kind,nph_name,nph_from,nph_to,nph_from2,nph_to2,nph_status) VALUES (" + vals + ")");
                         } catch (error) {
                             console.log(error)
                         }
@@ -328,5 +340,5 @@ async function get_temperature_per_quarter(token, res0) {
 };
 
 module.exports = {
-    get_temperature_per_quarter: get_temperature_per_quarter
+    get_data_per_4hour: get_data_per_4hour
 }
